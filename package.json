@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/yothinn/thamFlowAcc/issues"
   },
-  "homepage": "https://github.com/yothinn/thamFlowAcc#readme"
+  "homepage": "https://github.com/yothinn/thamFlowAcc#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^5.2.1",
+    "request": "^2.88.2"
+  }
 }
