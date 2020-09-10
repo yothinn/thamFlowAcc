@@ -3,6 +3,7 @@ const request = require("request");
 // Request FlowAccount url
 const FLOWACC_URL = {
     GETTOKEN: "https://openapi.flowaccount.com/v1/token",
+    TAXINVOICE_INLINE: "https://openapi.flowaccount.com/v1/tax-invoices/inline",
 }
 
 class FlowAccount {
@@ -61,6 +62,36 @@ class FlowAccount {
      */
     isAuthorize() {
          return (this._token !== null);
+    }
+
+    /**
+     * 
+     * @param {*} body 
+     */
+    createTaxInvoiceInline(body) {
+        let headers = {
+            "Content-Type": "application/json",
+            "Authorization": this._token,
+        }
+
+        return new Promise((resolve, reject) => {
+            request.post(
+              {
+                url: FLOWACC_URL.TAXINVOICE_INLINE,
+                headers: headers,
+                body: JSON.stringify(body),
+              },
+              (err, resp, body) => {
+                if (err) reject(err);
+                // console.log(body);
+                let b = JSON.parse(body);
+                // Error if status = false
+                if (!b.status)  reject("Can't create tax invoice inline");
+
+                resolve(b);
+              }
+            );
+        });
     }
 }
 

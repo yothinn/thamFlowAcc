@@ -82,7 +82,7 @@ class Page365 {
             headers: {  
                 cookie: this.session,
             }
-        }
+        };
 
         // console.log(this.hasSession());
         if (!this.hasSession())  throw 'it has not session for request';
@@ -114,6 +114,38 @@ class Page365 {
     }
 
     /**
+     * Get Bill by bill no (bill no)
+     * @param {*} billNo
+     * @returns bill json object
+     */
+    async getBillByBillNo(billNo) {
+        let options = {
+            method: "GET",
+            headers: {  
+                cookie: this.session,
+            }
+        };
+
+        // console.log(this.hasSession());
+        if (!this.hasSession())  throw 'it has not session for request';
+
+        let response;
+        let result;
+
+        try {
+            response = await fetch(
+                `https://page365.net/Thamturakit/orders.json?search=${billNo}`,
+                options
+            );
+            result = await response.json();
+            return result.orders;
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    /**
      * Get Order detail between starttime and endtime
      * @param {*} startTime : starttime in milliseconds
      * @param {*} endTime : endtime in milliseconds
@@ -133,6 +165,23 @@ class Page365 {
             }
 
             return orders;
+        }
+        catch(error) {
+            throw error;
+        }
+    }
+
+    async getOrderDetailByBillNo(billNo) {
+        try {
+            const bill = await this.getBillByBillNo(billNo);
+
+            // console.log(bill);
+
+            // Not bills
+            if (!bill || bill.length === 0)   return [];
+
+            const order = await this.getOrderDetail(bill[0].id);          
+            return order;
         }
         catch(error) {
             throw error;
