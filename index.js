@@ -79,7 +79,7 @@ const questions = [
             // TODO:
             console.log("Not implement TODO Later");
         }
-        console.log("************     END      ************");
+        console.log("************     END       ************");
     } 
     catch(error) {
         console.log(error);
