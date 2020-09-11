@@ -13,7 +13,9 @@ const questions = [
             "Ocha: ผัก พระราม๙", 
             "Ocha: ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
             "Ocha: ครัวชุมพรคาบาน่า",
-            "Ocha: Front ชุมพรคาบาน่า"
+            "Ocha: Front ชุมพรคาบาน่า",
+            "Loyverse: รถธรรมธุรกิจ",
+            "Loyverse: รถร่วมธรรมธุรกิจ1",
         ],
     },
     {
@@ -73,8 +75,11 @@ const questions = [
             await loadFromPage365(answers);
         } else if (from[0] === "Ocha") {
             await loadFromOcha(answers);
+        } else if (from[0] === "Loyverse") {
+            // TODO:
+            console.log("Not implement TODO Later");
         }
-        console.log("************ END ************");
+        console.log("************     END      ************");
     } 
     catch(error) {
         console.log(error);
