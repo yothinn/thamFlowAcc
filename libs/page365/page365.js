@@ -147,11 +147,11 @@ class Page365 {
 
     /**
      * Get Order detail between starttime and endtime
-     * @param {*} startTime : starttime in milliseconds
-     * @param {*} endTime : endtime in milliseconds
+     * @param {*} startTime : starttime
+     * @param {*} endTime : endtime 
      * @returns array fo order detail
      */
-    async getAllOrderDetail(startTime, endTime) {
+    async getOrderDetailByDate(startTime, endTime) {
         try {
             let orders = [];
             const bills = await this.getBills(startTime, endTime);

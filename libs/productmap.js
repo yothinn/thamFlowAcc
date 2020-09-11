@@ -46,6 +46,7 @@ class ProductMap {
             this._workbook = XLSX.readFile(fileName);
             this._worksheet = this._workbook.Sheets[sheetName];
             this._product = XLSX.utils.sheet_to_json(this._worksheet);
+
         } catch(error) {
             console.log(error);
             throw error;
@@ -58,13 +59,13 @@ class ProductMap {
      * @param {*} option : product option name 
      * @returns product mapping data of flow account
      */
-    findProduct(name, option = " ") {
+    findProduct(name, option = "") {
         if (!this._product)  return "";
 
         return this._product.find((value) => {
-            value.productOption = value.productOption || " ";
+            value.productOption = value.productOption || "";
             value.productName = value.productName.trim();
-            return (value.productName === name) && (value.productOption === option);
+            return (value.productName === name.trim()) && (value.productOption === option);
         });
     }
 

@@ -83,6 +83,7 @@ class FlowAccount {
               },
               (err, resp, body) => {
                 if (err) reject(err);
+
                 // console.log(body);
                 let b = JSON.parse(body);
                 // Error if status = false
