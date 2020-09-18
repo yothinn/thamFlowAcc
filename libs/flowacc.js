@@ -4,6 +4,8 @@ const request = require("request");
 const FLOWACC_URL = {
     GETTOKEN: "https://openapi.flowaccount.com/v1/token",
     TAXINVOICE_INLINE: "https://openapi.flowaccount.com/v1/tax-invoices/inline",
+    // CREATE_PRODUCT: "https://openapi.flowaccount.com/v1/products",           // Not use this because can't input account chart
+    CREATE_PRODUCT: "https://api-core.flowaccount.com/th/products",
 }
 
 class FlowAccount {
@@ -87,7 +89,38 @@ class FlowAccount {
                 // console.log(body);
                 let b = JSON.parse(body);
                 // Error if status = false
-                if (!b.status)  reject("Can't create tax invoice inline");
+                if (!b.status)  reject(`Can't create tax invoice inline : ${b.message}`);
+
+                resolve(b);
+              }
+            );
+        });
+    }
+
+    /**
+     * create flow account product
+     * @param {*} body : flow account format
+     */
+    createProduct(body) {
+        let headers = {
+            "Content-Type": "application/json",
+            "Authorization": this._token,
+        }
+
+        return new Promise((resolve, reject) => {
+            request.post(
+              {
+                url: FLOWACC_URL.CREATE_PRODUCT,
+                headers: headers,
+                body: JSON.stringify(body),
+              },
+              (err, resp, body) => {
+                if (err) reject(err);
+
+                // console.log(body);
+                let b = JSON.parse(body);
+                // Error if status = false
+                if (!b.status)  reject(`Can't create product : ${b.message}`);
 
                 resolve(b);
               }
