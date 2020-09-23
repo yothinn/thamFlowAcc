@@ -1,10 +1,7 @@
 const dotenv = require("dotenv").config();
-const csvtojson = require('csvtojson');
-//const FlowAccount = require('./libs/flowacc');
-//const LoyverseData = require("./libs/loyverse/loyverseData");
-//const ProductMap = require("./libs/productmap");
+// const csvtojson = require('csvtojson');
 const LoyverseToFlowAcc = require("./libs/loyverse/loyverseToFlowAcc");
-const glob = require("glob");
+// const glob = require("glob");
 
 const PRODUCTMAP_FILE = "product.xlsx";
 const PRODUCTMAP_LOYVERSE_SHEET = "loyverse";
