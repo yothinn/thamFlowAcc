@@ -303,7 +303,7 @@ class OchaToFlowAcc {
                 if (flowProduct.vatRate === 7) {
                     vatableAmount += itemTotal;
                     // (price * 7)/107 = ถอด vat 7%
-                    vatAmount += ((itemTotal * flowProduct.vatRate ) / (100 + flowProduct.vatRate)).toFixed(2);
+                    vatAmount += ((itemTotal * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
                 } else {
                     exemptAmount += itemTotal;
                 }
@@ -323,10 +323,10 @@ class OchaToFlowAcc {
                 });
             }
 
-            inv.subTotal = subtotal.toFixed(2);
-            inv.discountAmount = discountAmount.toFixed(2);
+            inv.subTotal = Math.round(subtotal * 100) / 100;
+            inv.discountAmount = Math.round(discountAmount * 100) / 100;
             inv.totalAfterDiscount = inv.subTotal - inv.discountAmount;
-            inv.vatAmount = vatAmount.toFixed(2);
+            inv.vatAmount = Math.round(vatAmount * 100) / 100;
             inv.exemptAmount = exemptAmount;
             inv.vatableAmount = vatableAmount;
             inv.grandTotal = inv.totalAfterDiscount;

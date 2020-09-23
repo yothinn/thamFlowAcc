@@ -247,7 +247,7 @@ class Page365ToFlowAcc {
                 if (flowProduct.vatRate === 7) {
                     vatableAmount += total;
                     // (price * 7)/107 = ถอด vat 7%
-                    vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate)).toFixed(2);
+                    vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
                 } else {
                     exemptAmount += total;
                 }
@@ -288,7 +288,7 @@ class Page365ToFlowAcc {
                 });
             }
         
-            inv.vatAmount = vatAmount.toFixed(2);
+            inv.vatAmount = (Math.round(vatAmount * 100) / 100);
             inv.exemptAmount = exemptAmount;
             inv.vatableAmount = vatableAmount;
 

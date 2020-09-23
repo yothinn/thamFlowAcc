@@ -87,6 +87,7 @@ class FlowAccount {
                 if (err) reject(err);
 
                 // console.log(body);
+                // resolve(body);
                 let b = JSON.parse(body);
                 // Error if status = false
                 if (!b.status)  reject(`Can't create tax invoice inline : ${b.message}`);

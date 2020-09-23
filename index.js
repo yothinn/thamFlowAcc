@@ -1,35 +1,59 @@
 const inquirer = require("inquirer");
 const p365 = require("./index_page365");
 const ocha = require("./index_ocha");
+const loy = require("./index_loyverse");
+const glob = require("glob");
+
+const PAGE365_NAME = "page365";
+const OCHA_NAME = "Ocha";
+const LOYVERSE_NAME = "Loyverse";
+
+const THAMDELIVERY_PATH = "./loyverse_input/thamdelivery";
+const THAMDELIVERY1_PATH = "./loyverse_input/thamdelivery1";
+
+const LOADFROM = {
+    page365: "page365",
+    ochaRice: "Ocha: ข้าวแปรรูป พระราม๙",
+    ochaVegetable: "Ocha: ผัก พระราม๙",
+    ochaSanpatong: "Ocha: ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
+    ochaRestChompon: "Ocha: ครัวชุมพรคาบาน่า",
+    ochaFrontChompon: "Ocha: Front ชุมพรคาบาน่า",
+    loyverseThamDelivery: "Loyverse: รถธรรมธุรกิจ",
+    loyverseThamDelivery1: "Loyverse: รถร่วมธรรมธุรกิจ1",
+}
+
+const LOADDATABY = {
+    date: "date",
+    billno: "billno",
+}
 
 const questions = [
     {
         type: "list",
         name: "loadFrom",
         message: "What do you want to load data from ?",
-        choices: [
-            "page365", 
-            "Ocha: ข้าวแปรรูป พระราม๙", 
-            "Ocha: ผัก พระราม๙", 
-            "Ocha: ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
-            "Ocha: ครัวชุมพรคาบาน่า",
-            "Ocha: Front ชุมพรคาบาน่า",
-            "Loyverse: รถธรรมธุรกิจ",
-            "Loyverse: รถร่วมธรรมธุรกิจ1",
-        ],
+        choices: function(answers) {
+            return Object.values(LOADFROM);
+        }
     },
     {
         type: "list",
         name: "loadType",
         message: "What do you want to load data by ?",
-        choices: ["date", "billno"],
+        choices: function(answers) {
+            return Object.values(LOADDATABY);
+        },
+        when: function(answers) {
+            let from = answers.loadFrom.split(":");
+            return (from[0] !== LOYVERSE_NAME);
+        }
     },
     {
         type: "input",
         name: "startDate",
         message: "start date(yyyy-mm-dd) : ",
         when: function(answers) {
-            return (answers.loadType === "date");
+            return (answers.loadType === LOADDATABY.date);
         },
     },
     {
@@ -37,7 +61,7 @@ const questions = [
         name: "endDate",
         message: "end date(yyyy-mm-dd) :",
         when: function(answers) {
-            return (answers.loadType === "date");
+            return (answers.loadType === LOADDATABY.date);
         },
     },
     {
@@ -45,7 +69,7 @@ const questions = [
         name: "startBill",
         message: "start bill no : ",
         when: function(answers) {
-            return (answers.loadType === "billno");
+            return (answers.loadType === LOADDATABY.billno);
         },
     },
     {
@@ -53,9 +77,33 @@ const questions = [
         name: "endBill",
         message: "end bill no : ",
         when: function(answers) {
-            return (answers.loadType === "billno");
+            return (answers.loadType === LOADDATABY.billno);
         },
-    }
+    },
+    {
+        type: "list",
+        name: "thamDeliveryFile",
+        message: function(answers) {
+            if (answers.loadFrom === LOADFROM.loyverseThamDelivery) {
+                return `Select file that you want to read (path:${THAMDELIVERY_PATH}) ?`;
+            } else {
+                return `Select file that you want to read (path:${THAMDELIVERY1_PATH}) ?`;
+            }
+            
+        },
+        choices: function(answers) {
+            if (answers.loadFrom === LOADFROM.loyverseThamDelivery) {
+                return glob.sync(`${THAMDELIVERY_PATH}/*.csv`);
+            } else {
+                return glob.sync(`${THAMDELIVERY1_PATH}/*.csv`);
+            }
+            
+        },
+        when: function(answers) {
+            let from = answers.loadFrom.split(":");
+            return from[0] === LOYVERSE_NAME;
+        }
+    },
 ];
 
 
@@ -66,18 +114,18 @@ const questions = [
         console.log("******     and create tax invoice flow account     ******");
 
         let answers = await inquirer.prompt(questions);
-        // console.log(answers);
+        console.log(answers);
         let from = answers.loadFrom.split(":");
         //console.log(from);
 
         console.log("************ Start loading ************");
-        if (from[0] === "page365") {
+        if (from[0] === LOADFROM.page365) {
             await loadFromPage365(answers);
-        } else if (from[0] === "Ocha") {
+        } else if (from[0] === OCHA_NAME) {
             await loadFromOcha(answers);
-        } else if (from[0] === "Loyverse") {
-            // TODO:
-            console.log("Not implement TODO Later");
+        } else if (from[0] === LOYVERSE_NAME) {
+            // console.log(from[1].trim());
+            await loadFromLoyverse(answers);
         }
         console.log("************     END       ************");
     } 
@@ -91,10 +139,12 @@ loadFromOcha = async(answers) => {
         let from = answers.loadFrom.split(":");
         from[1] = from[1].trim();
         // console.log(from);
-        if (answers.loadType === "date") {
+        if (answers.loadType === LOADDATABY.date) {
             await ocha.loadOchaByDates(from[1], answers.startDate, answers.endDate);
-        } else if (answers.loadType === "billno") {
+        } else if (answers.loadType === LOADDATABY.billno) {
             await ocha.loadOchaByBills(from[1], answers.startBill, answers.endBill);
+        } else {
+            throw `load data from this ${answers.loadType} not implement`;
         }
     } catch(error) {
         throw error;
@@ -104,12 +154,25 @@ loadFromOcha = async(answers) => {
 
 loadFromPage365 = async(answers) => {
     try {
-        if (answers.loadType === "date") {
+        if (answers.loadType === LOADDATABY.date) {
             await p365.loadPage365ByDates(answers.startDate, answers.endDate);
-        } else if (answers.loadType === "billno") {
+        } else if (answers.loadType === LOADDATABY.billno) {
             await p365.loadPage365ByBills(answers.startBill, answers.endBill);
+        } else {
+            throw `load data from this ${answers.loadType} not implement`;    
         }
     } catch(error) {
         throw error;
     }
 };
+
+loadFromLoyverse = async(answers) => {
+    try {
+        let from = answers.loadFrom.split(":");
+        from[1] = from[1].trim();
+        
+        await loy.loadLoyverseFromFile(from[1], answers.thamDeliveryFile);
+    } catch(error) {
+        throw error;
+    }
+}
