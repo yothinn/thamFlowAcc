@@ -4,6 +4,7 @@ const request = require("request");
 const FLOWACC_URL = {
     GETTOKEN: "https://openapi.flowaccount.com/v1/token",
     TAXINVOICE_INLINE: "https://openapi.flowaccount.com/v1/tax-invoices/inline",
+    TAXINVOICE: "https://api-core.flowaccount.com/th/tax-invoices",
     // PRODUCT: "https://openapi.flowaccount.com/v1/products",           // Not use this because can't input account chart
     PRODUCT: "https://api-core.flowaccount.com/th/products",
 
@@ -72,7 +73,7 @@ class FlowAccount {
     }
 
     /**
-     * 
+     * create tax invoice inline
      * @param {*} body 
      */
     createTaxInvoiceInline(body) {
@@ -105,6 +106,10 @@ class FlowAccount {
         } catch(error) {
             throw error;
         }
+    }
+
+    getTaxInvoiceBy() {
+
     }
 
     /**
@@ -142,6 +147,10 @@ class FlowAccount {
         }
     }
 
+    /**
+     * get product by product id
+     * @param {*} id 
+     */
     getProductById(id) {
         try {
             let headers = {
@@ -173,7 +182,7 @@ class FlowAccount {
     }
 
     /**
-     * 
+     * get product by product name
      * @param {string} name : name can exact or part of product name 
      */
     getProductByName(name) {
@@ -218,6 +227,10 @@ class FlowAccount {
         }
     }
 
+    /**
+     * get product by product code
+     * @param {*} code 
+     */
     getProductByCode(code) {
         try {
             let headers = {
@@ -259,6 +272,9 @@ class FlowAccount {
         }
     }
 
+    /**
+     * Ge all product
+     */
     async getAllProduct() {
         try {
             let pageSize = 100;
@@ -298,6 +314,11 @@ class FlowAccount {
         }
     }
 
+    /**
+     * get product per page
+     * @param {*} page 
+     * @param {*} size 
+     */
     getProductByPage(page = 1, size = 20) {
         try {
             let headers = {
