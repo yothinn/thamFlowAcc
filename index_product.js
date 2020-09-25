@@ -66,7 +66,8 @@ const questions = [
 
         // console.log(list);
         // Read each product and send to create flow account
-        list.forEach(async (item, index) => {
+        for (let [index, item] of list.entries()) {
+        // list.forEach(async (item, index) => {
             try {
                 const bodyProduct = {
                     "type": item.type,
@@ -93,7 +94,8 @@ const questions = [
             } catch (error) {
                 console.log(`!!! Can't create product: ${res.message}, index: ${index+2}, name: ${item.name}`);
             }
-        });
+        //});
+        }
             
     } catch(error) {
         console.log(error);

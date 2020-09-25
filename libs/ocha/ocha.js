@@ -26,7 +26,9 @@ class Ocha {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
             await page.goto('https://manager.ocha.in.th/login', { waitUntil: 'networkidle2' });
-    
+
+            // await page.screenshot({ path: "./example.png" });
+            
             const tabs = await page.$$(".tab");
     
             await tabs[1].click();
