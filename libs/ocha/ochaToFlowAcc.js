@@ -180,7 +180,7 @@ class OchaToFlowAcc {
             let inv = this.toTaxInvoiceInline(this._shopName, order);
             if (inv) {
                 // send to flow account
-                console.log(inv);
+                // console.log(inv);
                 let res = await this._flowAcc.createTaxInvoiceInline(inv);
                 if (res.status) {
                     console.log(`Success create OCHA ref ${refNo} : , FLOW no : ${res.data.documentSerial}`);
@@ -321,6 +321,18 @@ class OchaToFlowAcc {
                     discountAmount: 0,
                     vatRate: flowProduct.vatRate,
                 });
+            }
+
+            // !! MARK IMPORTANT :
+            // กรณีมีส่วนลด ปัญหาจะเอาส่วนลดไปลดที่สินค้าประเภท VAT หรือ ไม่ VAT
+            // ถ้ามีประเภทเดียว ก็เอาไปลดประเภทนั้น
+            // แต่ถ้ามี 2 ประเภท ก็จะเอาไปลดประเภท ที่มีค่ามากกว่า
+            if (discountAmount > 0) {
+                if (exemptAmount > vatableAmount) {
+                    exemptAmount = exemptAmount - discountAmount;
+                } else {
+                    vatAmount = vatAmount - discountAmount;
+                }
             }
 
             inv.subTotal = Math.round(subtotal * 100) / 100;
