@@ -64,7 +64,12 @@ class ProductMap {
 
         return this._product.find((value) => {
             value.productOption = value.productOption || "";
+            value.productOption = value.productOption.trim();
             value.productName = value.productName.trim();
+
+            // if (value.productName === name.trim()) {
+            //     console.log(value.productName)
+            // }
             return (value.productName === name.trim()) && (value.productOption === option);
         });
     }

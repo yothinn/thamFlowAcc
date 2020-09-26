@@ -14,15 +14,15 @@ const SHOP = [
     },
     {
         shopName: "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
-        productSheetName: "ocha_rest_chomphon",
+        productSheetName: "ocha_rice_sanpatong",
     },
     {
         shopName: "ครัวชุมพรคาบาน่า",
-        productSheetName: "ocha_front_chomphon",
+        productSheetName: "ocha_rest_chomphon",
     },
     {
         shopName: "Front ชุมพรคาบาน่า",
-        productSheetName: "ocha_rice_sanpatong",
+        productSheetName: "ocha_front_chomphon",
     },
 ];
 

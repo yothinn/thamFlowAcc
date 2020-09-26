@@ -4,6 +4,7 @@ const csvtojson = require('csvtojson');
 const LoyverseData = require("./loyverseData");
 
 const SALESNAME = "loyverse";
+const VATRATE = 7;
 
 class LoyverseToFlowAcc {
     _shopName = null;

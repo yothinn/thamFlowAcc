@@ -5,6 +5,7 @@ const page365Tools = require("./page365Tools");
 
 const SALESNAME = "page365";
 const PRODUCTNAME_DELIVERY = "ค่าขนส่ง";
+const VATRATE = 7;
 
 /**
  * convert data from Page365 to flowaccount
@@ -248,7 +249,8 @@ class Page365ToFlowAcc {
                 if (flowProduct.vatRate === 7) {
                     vatableAmount += total;
                     // (price * 7)/107 = ถอด vat 7%
-                    vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
+                    // Move to calculate after discount
+                    // vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
                 } else {
                     exemptAmount += total;
                 }
@@ -297,10 +299,14 @@ class Page365ToFlowAcc {
                 if (exemptAmount > vatableAmount) {
                     exemptAmount = exemptAmount - discount;
                 } else {
-                    vatAmount = vatAmount - discount;
+                    vatableAmount = vatableAmount - discount;
                 }
             }
         
+            if (vatableAmount > 0) {
+                vatAmount = ((vatableAmount * VATRATE) / (100 + VATRATE));
+            }
+            
             inv.vatAmount = (Math.round(vatAmount * 100) / 100);
             inv.exemptAmount = exemptAmount;
             inv.vatableAmount = vatableAmount;

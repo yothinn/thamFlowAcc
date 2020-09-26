@@ -3,6 +3,7 @@ const FlowAccount = require("../flowacc");
 const Ocha = require("./ocha");
 
 const SALESNAME = "ocha";
+const VATRATE = 7;
 
 
 // FIX : ราคาจะต้องรวมภาษีแล้วเท่านั้น
@@ -303,7 +304,8 @@ class OchaToFlowAcc {
                 if (flowProduct.vatRate === 7) {
                     vatableAmount += itemTotal;
                     // (price * 7)/107 = ถอด vat 7%
-                    vatAmount += ((itemTotal * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
+                    // Move to calculate after discount
+                    // vatAmount += ((itemTotal * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
                 } else {
                     exemptAmount += itemTotal;
                 }
@@ -331,8 +333,12 @@ class OchaToFlowAcc {
                 if (exemptAmount > vatableAmount) {
                     exemptAmount = exemptAmount - discountAmount;
                 } else {
-                    vatAmount = vatAmount - discountAmount;
+                    vatableAmount = vatableAmount - discountAmount;
                 }
+            }
+
+            if (vatableAmount > 0) {
+                vatAmount = ((vatableAmount * VATRATE) / (100 + VATRATE));
             }
 
             inv.subTotal = Math.round(subtotal * 100) / 100;
