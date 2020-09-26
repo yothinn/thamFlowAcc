@@ -153,7 +153,7 @@ class LoyverseToFlowAcc {
                     unitName: flowProduct.flowUnitName,
                     pricePerUnit: Math.round((loyData.total / loyData.quantity) * 100) / 100,
                     total: loyData.total,
-                    discountAmount: loyData.discount,
+                    discountAmount: 0,
                     vatRate: flowProduct.vatRate,
                 });
 
@@ -163,14 +163,19 @@ class LoyverseToFlowAcc {
                 inv.totalAfterDiscount =  inv.subTotal - inv.discountAmount;
                 inv.grandTotal = inv.totalAfterDiscount;
 
+                // Future bug :
+                // TODO : กรณีมีส่วนลดในสินค้าที่มี VAT และ ไม่ VAT ทาง loyverse จะหารตามสัดส่วนเลย
+                // ซึ่งคำนวณผิดแน่นอน
                 if (flowProduct.vatRate === 7) {
-                    inv.vatableAmount = Math.round((inv.vatableAmount + loyData.total) * 100) / 100;
+                    let totalAfterDiscount = loyData.total - loyData.discount;
+                    inv.vatableAmount = Math.round((inv.vatableAmount + totalAfterDiscount) * 100) / 100;
                     // (price * 7)/107 = ถอด vat 7%
-                    let vat = (loyData.total * flowProduct.vatRate ) / (100 + flowProduct.vatRate);
+                    let vat = (totalAfterDiscount * flowProduct.vatRate ) / (100 + flowProduct.vatRate);
                     inv.vatAmount = Math.round((inv.vatAmount + vat) * 100) / 100;
                     // console.log(inv.vatAmount);
                 } else {
-                    inv.exemptAmount = Math.round((inv.exemptAmount + loyData.total) * 100) / 100;
+                    let totalAfterDiscount = loyData.total - loyData.discount;
+                    inv.exemptAmount = Math.round((inv.exemptAmount + totalAfterDiscount) * 100) / 100;
                 }
             }
             return invList;

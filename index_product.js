@@ -85,9 +85,12 @@ const questions = [
                     "sellChartOfAccountId": item.sellChartId,
                     "buyChartOfAccountId": item.buyChartId,
                 };
+
+                // console.log(bodyProduct);
                 
                 let res = await flowAcc.createProduct(bodyProduct);
                 // console.log(res);
+
                 if (res.status) {
                     console.log (`--- Success create product index: ${index+2} , name: ${item.name}`);
                 }
