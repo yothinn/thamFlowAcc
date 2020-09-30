@@ -7,7 +7,7 @@ const INDEX_NAME = {
     name: "รายการสินค้า",
     weight: "น้ำหนัก(kg)",
     quantity: "จำนวน(ตัว,ชิ้น)",
-    unitPrice: "ราคาค่อหน่วย",
+    unitPrice: "ราคาต่อหน่วย",
     // paymentNo: "เลขที่ใบเสร็จ",
     // paymentType: "ประเภทใบเสร็จ",
     // categoryName: "ประเภท",
@@ -35,6 +35,8 @@ class SeaFoodData {
             this._workbook = await XLSX.readFile(fileName);
             this._worksheet = this._workbook.Sheets[sheetName];
             this._trans = await XLSX.utils.sheet_to_json(this._worksheet);
+
+            // console.log(this._trans);
 
         } catch(error) {
             console.log(error);
@@ -70,6 +72,7 @@ class SeaFoodData {
     }
 
     getBillNo(row) {
+        // console.log(row);
         return this._trans[row-2][INDEX_NAME.billno];
     }
 

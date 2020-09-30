@@ -11,11 +11,14 @@ const flowAccCredentail = {
 
 (async() => {
     try {
-        let s2fa = new PurchasesSeaFoodToFlowAcc(flowAccCredentail);
+        let s2fa = new PurchasesSeaFoodToFlowAcc("แปรรูป (Food Processing)", flowAccCredentail);
 
-        // s2fa.init();
+        await s2fa.init();
 
-        s2fa.toPurchasesInline("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
+        // let purchasesList = await s2fa.toPurchases("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
+        let res = await s2fa.createPurchases("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
+
+        // console.log(res);
 
     } catch (error) {
         console.log(error);

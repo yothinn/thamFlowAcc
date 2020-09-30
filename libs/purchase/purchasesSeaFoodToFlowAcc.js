@@ -1,6 +1,8 @@
 const SeaFoodData = require("./seafoodData");
 const FlowAccount = require("../flowacc");
 
+const SALESNAME = "Seafood";
+
 
 class PurchasesSeaFoodToFlowAcc {
     _flowAccCredentail = null;
@@ -27,7 +29,7 @@ class PurchasesSeaFoodToFlowAcc {
         }
     }
 
-    async toPurchasesInline(fileName, sheetName, startRow, endRow) {
+    async toPurchases(fileName, sheetName, startRow, endRow) {
         try {
             let purchasesList = [];
             let purchases = null;
@@ -40,9 +42,9 @@ class PurchasesSeaFoodToFlowAcc {
             for (let i=startRow; i<=endRow; i++) {
 
                 // Find new invoice when current is null or change no        
-                if (!purchases || seaFoodData.getBillNo() !== purchases.reference) {
+                if (!purchases || seaFoodData.getBillNo(i) !== purchases.reference) {
                     purchases = await purchasesList.find((bill) => {
-                        return bill.reference === seaFoodData.getBillNo();
+                        return bill.reference === seaFoodData.getBillNo(i);
                     });
                 }
 
@@ -64,7 +66,7 @@ class PurchasesSeaFoodToFlowAcc {
                         creditType: 1,
                         creditDays: 0,
                         dueDate: seaFoodData.getDate(i),
-                        salesName: "",
+                        salesName: SALESNAME,
                         // projectName: "",
                         reference: seaFoodData.getBillNo(i),
                         // isVatInclusive: false,
@@ -85,23 +87,34 @@ class PurchasesSeaFoodToFlowAcc {
                         remarks: "",
                         internalNotes: "",
                         documentStructureType: "SimpleDocument",
+                        // discountType: 3,
+                        // useInlineDiscount: true,
+                        // useInlineVat: true,
+                        // exemptAmount: 0,
+                        // vatableAmount: 0,
                         items: [],
                         documentReference: "",
                     };
                     purchasesList.push(purchases);
                 }
 
+                let total = seaFoodData.getWeight(i) * seaFoodData.getUnitPrice(i); 
                 purchases.items.push({
-                    type: seaFooData.getProductType(i),
+                    type: seaFoodData.getProductType(i),
                     name: seaFoodData.getProductName(i),
                     description: seaFoodData.getProcessCode(i),
                     quantity: seaFoodData.getWeight(i),
                     unitName: seaFoodData.getUnitName(i),
                     pricePerUnit: seaFoodData.getUnitPrice(i),
-                    total: seaFoodData.getWeight(i) * seaFoodData.getUnitPrice(i),
+                    total: total,
                     // sellChartOfAccountCode: "string",
                     // buyChartOfAccountCode: "string"
                 });
+
+                // console.log(purchases.subTotal);
+                purchases.subTotal = Math.round((purchases.subTotal + total) * 100 ) / 100;
+                purchases.totalAfterDiscount = purchases.subTotal;
+                purchases.grandTotal = purchases.subTotal;
             }
 
             return purchasesList;
@@ -110,9 +123,9 @@ class PurchasesSeaFoodToFlowAcc {
         }
     }
 
-    async createPurchasesInline(fileName, sheetName, startRow, endRow) {
+    async createPurchases(fileName, sheetName, startRow, endRow) {
         try {
-            let purchasesList = this.toPurchasesInline(fileName, sheetName, startRow, endRow);
+            let purchasesList = await this.toPurchases(fileName, sheetName, startRow, endRow);
 
             for (let purchases of purchasesList) {
                 let res = await this._flowAcc.createPurchases(purchases);
