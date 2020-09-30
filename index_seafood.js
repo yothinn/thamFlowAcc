@@ -16,7 +16,7 @@ const flowAccCredentail = {
         await s2fa.init();
 
         // let purchasesList = await s2fa.toPurchases("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
-        let res = await s2fa.createPurchases("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
+        let res = await s2fa.createPurchases("./purchases_seafood/purchases_seafood.xlsx", "purchases", 2, 24);
 
         // console.log(res);
 
