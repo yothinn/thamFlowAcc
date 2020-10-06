@@ -1,6 +1,7 @@
 const dotenv = require("dotenv").config();
 const FlowAccount = require("./libs/flowacc");
 const ProductMap = require("./libs/productmap");
+const FoodStory = require("./libs//foodstory/foodstory");
 
 (async() => {
 
@@ -18,16 +19,23 @@ const ProductMap = require("./libs/productmap");
     //console.log(res.length);
     //console.log(res[1683]);
 
-    let productMap = new ProductMap();
-    productMap.readProduct("product.xlsx", "ocha_rest_chomphon");
+    // let productMap = new ProductMap();
+    // productMap.readProduct("product.xlsx", "ocha_rest_chomphon");
 
-    console.log(productMap._product[231]);
-    let product = productMap._product[231];
-    let name = "ใบเหลียงผัดไข่Stir-fried local vegetable with eggs";
-    console.log(product.productName === name);
-    console.log(product.productName.length);
-    console.log(name.length);
-    let res = productMap.findProduct("ใบเหลียงผัดไข่Stir-fried local vegetable with eggs", "ราคา");
-    console.log(res);
+    // console.log(productMap._product[231]);
+    // let product = productMap._product[231];
+    // let name = "ใบเหลียงผัดไข่Stir-fried local vegetable with eggs";
+    // console.log(product.productName === name);
+    // console.log(product.productName.length);
+    // console.log(name.length);
+    // let res = productMap.findProduct("ใบเหลียงผัดไข่Stir-fried local vegetable with eggs", "ราคา");
+    // console.log(res);
+
+    // --------------------------FoodStory part ----------------------
+    let fd = new FoodStory();
+    //await fd.connect(process.env.FOODSTORY_USERNAME, process.env.FOODSTORY_PASSWORD);
+
+    let res = await fd.getMenuPerPage(1, 24);
+    console.log(JSON.stringify(res));
 
 })();
