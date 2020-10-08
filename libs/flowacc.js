@@ -7,6 +7,8 @@ const FLOWACC_URL = {
     TAXINVOICE: "https://api-core.flowaccount.com/th/tax-invoices",
     // PRODUCT: "https://openapi.flowaccount.com/v1/products",           // Not use this because can't input account chart
     PRODUCT: "https://api-core.flowaccount.com/th/products",
+    PURCHASES_INLINE: "https://openapi.flowaccount.com/v1/purchases/inline",
+    PURCHASES: "https://openapi.flowaccount.com/v1/purchases/inline",
 
 }
 
@@ -381,6 +383,78 @@ class FlowAccount {
                     let b = JSON.parse(body);
                     // Error if status = false
                     if (!b.status)  reject(`Can't delete product : ${b.message}`);
+
+                    resolve(b);
+                }
+                );
+            });
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    /**
+     * create purchasese inline
+     * @param {*} body 
+     */
+    createPurchasesInline(body) {
+        try {
+            let headers = {
+                "Content-Type": "application/json",
+                "Authorization": this._token,
+            }
+
+            return new Promise((resolve, reject) => {
+                request.post(
+                {
+                    url: FLOWACC_URL.PURCHASES_INLINE,
+                    headers: headers,
+                    body: JSON.stringify(body),
+                },
+                (err, resp, body) => {
+                    if (err) reject(err);
+
+                    // console.log(body);
+                    // resolve(body);
+                    let b = JSON.parse(body);
+                    // Error if status = false
+                    if (!b.status)  reject(`Can't create purchases inline : ${b.message}`);
+
+                    resolve(b);
+                }
+                );
+            });
+        } catch(error) {
+            throw error;
+        }
+    }
+
+       /**
+     * create purchasese
+     * @param {*} body 
+     */
+    createPurchases(body) {
+        try {
+            let headers = {
+                "Content-Type": "application/json",
+                "Authorization": this._token,
+            }
+
+            return new Promise((resolve, reject) => {
+                request.post(
+                {
+                    url: FLOWACC_URL.PURCHASES,
+                    headers: headers,
+                    body: JSON.stringify(body),
+                },
+                (err, resp, body) => {
+                    if (err) reject(err);
+
+                    // console.log(body);
+                    // resolve(body);
+                    let b = JSON.parse(body);
+                    // Error if status = false
+                    if (!b.status)  reject(`Can't create purchases inline : ${b.message}`);
 
                     resolve(b);
                 }

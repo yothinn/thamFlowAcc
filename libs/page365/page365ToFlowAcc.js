@@ -5,6 +5,7 @@ const page365Tools = require("./page365Tools");
 
 const SALESNAME = "page365";
 const PRODUCTNAME_DELIVERY = "ค่าขนส่ง";
+const VATRATE = 7;
 
 /**
  * convert data from Page365 to flowaccount
@@ -133,6 +134,7 @@ class Page365ToFlowAcc {
         
             // load page365
             let order = await this._page365.getOrderDetailByBillNo(billNo); 
+            // console.log(order);
 
              // Check state if void not send to flowaccount
             if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
@@ -247,7 +249,8 @@ class Page365ToFlowAcc {
                 if (flowProduct.vatRate === 7) {
                     vatableAmount += total;
                     // (price * 7)/107 = ถอด vat 7%
-                    vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
+                    // Move to calculate after discount
+                    // vatAmount += ((total * flowProduct.vatRate ) / (100 + flowProduct.vatRate));
                 } else {
                     exemptAmount += total;
                 }
@@ -287,7 +290,23 @@ class Page365ToFlowAcc {
                     vatRate: flowProduct.vatRate,
                 });
             }
+
+            // !! MARK IMPORTANT :
+            // กรณีมีส่วนลด ปัญหาจะเอาส่วนลดไปลดที่สินค้าประเภท VAT หรือ ไม่ VAT
+            // ถ้ามีประเภทเดียว ก็เอาไปลดประเภทนั้น
+            // แต่ถ้ามี 2 ประเภท ก็จะเอาไปลดประเภท ที่มีค่ามากกว่า
+            if (discount > 0) {
+                if (exemptAmount > vatableAmount) {
+                    exemptAmount = exemptAmount - discount;
+                } else {
+                    vatableAmount = vatableAmount - discount;
+                }
+            }
         
+            if (vatableAmount > 0) {
+                vatAmount = ((vatableAmount * VATRATE) / (100 + VATRATE));
+            }
+            
             inv.vatAmount = (Math.round(vatAmount * 100) / 100);
             inv.exemptAmount = exemptAmount;
             inv.vatableAmount = vatableAmount;

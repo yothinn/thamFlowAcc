@@ -66,7 +66,10 @@ const questions = [
 
         // console.log(list);
         // Read each product and send to create flow account
+<<<<<<< HEAD
         // ใช้ For of แทน forEach เพราะ forEach เร็วไปทาง server รับข้อมูลและสร้าง product ไม่ทัน
+=======
+>>>>>>> 1e5fcddc37457d40d4ec582cda509a2e1792a8f6
         for (let [index, item] of list.entries()) {
         // list.forEach(async (item, index) => {
             try {
@@ -86,9 +89,12 @@ const questions = [
                     "sellChartOfAccountId": item.sellChartId,
                     "buyChartOfAccountId": item.buyChartId,
                 };
+
+                // console.log(bodyProduct);
                 
                 let res = await flowAcc.createProduct(bodyProduct);
                 // console.log(res);
+
                 if (res.status) {
                     console.log (`--- Success create product index: ${index+2} , name: ${item.name}`);
                 }
