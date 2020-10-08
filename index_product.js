@@ -66,7 +66,9 @@ const questions = [
 
         // console.log(list);
         // Read each product and send to create flow account
-        list.forEach(async (item, index) => {
+        // ใช้ For of แทน forEach เพราะ forEach เร็วไปทาง server รับข้อมูลและสร้าง product ไม่ทัน
+        for (let [index, item] of list.entries()) {
+        // list.forEach(async (item, index) => {
             try {
                 const bodyProduct = {
                     "type": item.type,
@@ -91,9 +93,10 @@ const questions = [
                     console.log (`--- Success create product index: ${index+2} , name: ${item.name}`);
                 }
             } catch (error) {
-                console.log(`!!! Can't create product: ${res.message}, index: ${index+2}, name: ${item.name}`);
+                console.log(`!!! ${error}, index: ${index+2}, name: ${item.name}`);
             }
-        });
+        //});
+        }
             
     } catch(error) {
         console.log(error);
