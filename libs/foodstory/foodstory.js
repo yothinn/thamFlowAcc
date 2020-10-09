@@ -1,10 +1,6 @@
 const puppeteer = require('puppeteer');
 const fetch = require("node-fetch");
-
-const FOODSTORY_BRANCHID = {
-    CHOMPON: 7171,
-    THAPHAE: 6969,
-};
+const foodStoryUrl = require("./foodstoryUrl");
 
 class FoodStory {
     _session = "";
@@ -68,19 +64,6 @@ class FoodStory {
     }
 
     /**
-     * Get menu url for request foodstory menu
-     * @param {*} branchId 
-     * @param {*} pageNo 
-     * @param {*} pageSize use 12, 24, 48
-     * @param {*} active : 1 is active , 0 is not active
-     */
-    getMenuUrl(branchId, pageNo, pageSize, active) {
-        return `https://fs-api.foodstory.co/v1/master/branch/${branchId}/menu?` +
-                `page=${pageNo}&pageSize=${pageSize}&cateActive=${active}&active=1&` +
-                "view_type=LIST_VIEW";
-    }
-
-    /**
      * Get menu data in each branch
      * @param {*} branchId 
      * @param {*} pageNo 
@@ -103,7 +86,7 @@ class FoodStory {
 
         try {
             response = await fetch(
-                this.getMenuUrl(branchId, pageNo, pageSize, active),
+                foodStoryUrl.getMenuUrl(branchId, pageNo, pageSize, active),
                 options
             );
             result = await response.json();
