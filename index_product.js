@@ -3,9 +3,10 @@ const inquirer = require("inquirer");
 const dotenv = require("dotenv").config();
 const XLSX = require('xlsx');
 const FlowAccount = require('./libs/flowacc');
+const thamInfo = require("./thamflowacc_info");
 
-const PRODUCT_FILE = "product.xlsx";
-const PRODUCT_SHEETNAME  = "allFlowProduct";
+// const PRODUCT_FILE = "product.xlsx";
+// const PRODUCT_SHEETNAME  = "allFlowProduct";
 
 const questions = [
     {
@@ -43,8 +44,8 @@ const questions = [
         let list;
 
         // Read product from file
-        const wb = await XLSX.readFile(PRODUCT_FILE);
-        const ws = await wb.Sheets[PRODUCT_SHEETNAME];
+        const wb = await XLSX.readFile(thamInfo.PRODUCTMAP.fileName);
+        const ws = await wb.Sheets[thamInfo.PRODUCTMAP.sheetName.allFlowProduct];
         const productList = await XLSX.utils.sheet_to_json(ws);
 
         // seperate product : create all 

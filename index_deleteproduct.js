@@ -2,9 +2,10 @@
 const dotenv = require("dotenv").config();
 const XLSX = require('xlsx');
 const FlowAccount = require('./libs/flowacc');
+const thamInfo = require("./thamflowacc_info");
 
-const PRODUCT_FILE = "product.xlsx";
-const PRODUCT_SHEETNAME  = "allFlowProduct";
+// const PRODUCT_FILE = "product.xlsx";
+// const PRODUCT_SHEETNAME  = "allFlowProduct";
 
 
 (async() => {
@@ -13,8 +14,8 @@ const PRODUCT_SHEETNAME  = "allFlowProduct";
         // *************** Delete flow account from file ******************
 
         // Read product from file
-        const wb = await XLSX.readFile(PRODUCT_FILE);
-        const ws = await wb.Sheets[PRODUCT_SHEETNAME];
+        const wb = await XLSX.readFile(thamInfo.PRODUCTMAP.fileName);
+        const ws = await wb.Sheets[thamInfo.PRODUCTMAP.sheetName.allFlowProduct];
         let productList = await XLSX.utils.sheet_to_json(ws);
 
         // Authorize flow account

@@ -1,17 +1,18 @@
 const PurchasesSeaFoodToFlowAcc = require("./libs/purchase/purchasesSeaFoodToFlowAcc");
+const thamInfo = require("./thamflowacc_info");
 
-const dotenv = require("dotenv").config();
+// const dotenv = require("dotenv").config();
 
-const flowAccCredentail = {
-    clientId: process.env.FA_CLIENT_ID,
-    clientSecret: process.env.FA_CLIENT_SECRET,
-    grantType: process.env.FA_GRANT_TYPE,
-    scope: process.env.FA_SCOPE
-};
+// const flowAccCredentail = {
+//     clientId: process.env.FA_CLIENT_ID,
+//     clientSecret: process.env.FA_CLIENT_SECRET,
+//     grantType: process.env.FA_GRANT_TYPE,
+//     scope: process.env.FA_SCOPE
+// };
 
 (async() => {
     try {
-        let s2fa = new PurchasesSeaFoodToFlowAcc("แปรรูป (Food Processing)", flowAccCredentail);
+        let s2fa = new PurchasesSeaFoodToFlowAcc("แปรรูป (Food Processing)", thamInfo.flowAccCredentail);
 
         await s2fa.init();
 
