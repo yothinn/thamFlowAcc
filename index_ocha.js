@@ -1,46 +1,48 @@
 const dotenv = require("dotenv").config();
 const OchaToFlowAcc = require("./libs/ocha/ochaToFlowAcc");
+const thamInfo = require("./thamflowacc_info");
 
-const PRODUCTMAP_FILE = "product.xlsx";
+// const PRODUCTMAP_FILE = "product.xlsx";
 
-const SHOP = [
-    {
-        shopName: "ข้าวแปรรูป พระราม๙",
-        productSheetName: "ocha_rice_rama9",
-    },
-    {   
-        shopName: "ผัก พระราม๙",
-        productSheetName: "ocha_vegetable_rama9",
-    },
-    {
-        shopName: "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
-        productSheetName: "ocha_rice_sanpatong",
-    },
-    {
-        shopName: "ครัวชุมพรคาบาน่า",
-        productSheetName: "ocha_rest_chomphon",
-    },
-    {
-        shopName: "Front ชุมพรคาบาน่า",
-        productSheetName: "ocha_front_chomphon",
-    },
-];
+const SHOP = thamInfo.ochaShop;
+// const SHOP = [
+//     {
+//         shopName: "ข้าวแปรรูป พระราม๙",
+//         productSheetName: "ocha_rice_rama9",
+//     },
+//     {   
+//         shopName: "ผัก พระราม๙",
+//         productSheetName: "ocha_vegetable_rama9",
+//     },
+//     {
+//         shopName: "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
+//         productSheetName: "ocha_rice_sanpatong",
+//     },
+//     {
+//         shopName: "ครัวชุมพรคาบาน่า",
+//         productSheetName: "ocha_rest_chomphon",
+//     },
+//     {
+//         shopName: "Front ชุมพรคาบาน่า",
+//         productSheetName: "ocha_front_chomphon",
+//     },
+// ];
 
-const flowAccCredentail = {
-    clientId: process.env.FA_CLIENT_ID,
-    clientSecret: process.env.FA_CLIENT_SECRET,
-    grantType: process.env.FA_GRANT_TYPE,
-    scope: process.env.FA_SCOPE
-}
+// const flowAccCredentail = {
+//     clientId: process.env.FA_CLIENT_ID,
+//     clientSecret: process.env.FA_CLIENT_SECRET,
+//     grantType: process.env.FA_GRANT_TYPE,
+//     scope: process.env.FA_SCOPE
+// }
 
-const ochaUser = {
-    mobileNo: process.env.OCHA_MOBILE,
-    username: process.env.OCHA_USERNAME,
-    password: process.env.OCHA_PASSWORD,
-}
+// const ochaUser = {
+//     mobileNo: process.env.OCHA_MOBILE,
+//     username: process.env.OCHA_USERNAME,
+//     password: process.env.OCHA_PASSWORD,
+// }
 
 const productFile = {
-    fileName: PRODUCTMAP_FILE,
+    fileName: thamInfo.PRODUCTMAP.fileName,
     sheetName: "",
 }
 
@@ -67,7 +69,7 @@ exports.loadOchaByDates = async(shopName, startDate, endDate) => {
 
         setProductFile(shopName);
         
-        let o2fa = new OchaToFlowAcc(ochaUser, flowAccCredentail);
+        let o2fa = new OchaToFlowAcc(thamInfo.ochaUser, thamInfo.flowAccCredentail);
         await o2fa.init();
         await o2fa.selectShopByName(shopName, productFile);
         let res = await o2fa.createTaxInvoiceInlineByDate(startTime, endTime);
@@ -91,7 +93,7 @@ exports.loadOchaByBills = async(shopName, startNo, endNo) => {
 
         setProductFile(shopName);
 
-        let o2fa = new OchaToFlowAcc(ochaUser, flowAccCredentail);
+        let o2fa = new OchaToFlowAcc(thamInfo.ochaUser, thamInfo.flowAccCredentail);
         await o2fa.init();
         await o2fa.selectShopByName(shopName, productFile);
 
