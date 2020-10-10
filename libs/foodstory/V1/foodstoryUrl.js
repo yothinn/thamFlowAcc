@@ -23,7 +23,7 @@ exports.getSetBranchUrl = function() {
 }
 
 /**
- * Get bill url
+ * Get bill url only success
  * @param {*} draw : ถ้า request หลายครั้ง draw ต้องนับเพิ่มไปเรื่อยๆ  และเริ่มนับใหม่ เมื่อหยุด request 
  * @param {*} startIndex : start index is 0
  * @param {*} pageSize : Default is 25
@@ -220,8 +220,12 @@ exports.getSaleByBillSuccessUrl = function(draw, startIndex, pageSize=25) {
             `_=${Date.now()}`;
 }
 
-exports.getBillDetailUrl = function(billId) {
-    return `https://owner.foodstory.co/sale/getItemData/${billId}?` +
+/**
+ * 
+ * @param {number} paymentId : payment id of bill
+ */
+exports.getBillDetailByPaymentUrl = function(paymentId) {
+    return `https://owner.foodstory.co/sale/getItemData/${paymentId}?` +
             "draw=1&" +
             "columns[0][data]=payment_item_id&" +
             "columns[0][name]=payment_item_id&" +

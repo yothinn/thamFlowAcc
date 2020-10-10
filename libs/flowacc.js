@@ -110,11 +110,7 @@ class FlowAccount {
         }
     }
 
-    getTaxInvoiceBy() {
-
-    }
-
-    /**
+s    /**
      * create flow account product
      * @param {*} body : flow account format
      */

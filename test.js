@@ -35,26 +35,52 @@ const XLSX = require("xlsx");
 
     // --------------------------FoodStory part ----------------------
     let fd = new FoodStory();
-    //await fd.connect(process.env.FOODSTORY_USERNAME, process.env.FOODSTORY_PASSWORD);
+    await fd.connect(process.env.FOODSTORY_USERNAME, process.env.FOODSTORY_PASSWORD);
 
-    // let menu = [];
-    // for (let i = 1; i<=2; i++) {
-    //     let res = await fd.getMenuPerPage(7171, i, 12, 1);
-    //     console.log(res.data.length);
-    //     menu = [...menu, ...res.data];
-    // }
+    // await new Promise(resolve => {
+    //     console.log("Wait 3000");
+    //     setTimeout(resolve, 10000);
+    // }); 
+    
+    // console.log("start load");
+    let res = await fd.sendSetDate("2020-10-08", "2020-10-08");
+    // res = await fd.sendSetBranch(6969);
 
-    //console.log(menu);
-    // console.log(menu.length);
-    // let wb = XLSX.utils.book_new();
-    // let ws = XLSX.utils.json_to_sheet(menu);
-    // XLSX.utils.book_append_sheet(wb, ws, "menu");
-
-    // await XLSX.writeFile(wb, "menu.xlsx");
-
-    // console.log(JSON.stringify(res));
-
-    // console.log(foodStoryUrl.getSaleByBillSuccessUrl(2, 25))
-    console.log(foodStoryUrl.getBillDetailUrl(1, 44112));
-
+    // await new Promise(resolve => {
+    //     console.log("Waiting");
+    //     setTimeout(resolve, 60000);
+    // })
+    // console.log("start load");
+    res = await fd.getBillByDate(6969, "2020-10-08", "2020-10-08");
+    // let res = await fd.getBillDetailByPayment(45409940);
+    // console.log(res);
 })();
+
+
+/**
+ * ?? Not Test yet
+ * @param {} branchId 
+ * @param {*} fileName 
+ */
+// exports.getFoodStoryMenuToXLSX = async function(branchId, fileName) {
+//     let fd = new FoodStory();
+    
+//     let menu = [];
+//     // change number 2 to last page
+
+//     for (let i = 1; i<=2; i++) {
+//         let res = await fd.getMenuPerPage(branchId, i, 12, 1);
+//         // console.log(res.data.length);
+//         menu = [...menu, ...res.data];
+//     }
+
+//     //console.log(menu);
+//     // console.log(menu.length);
+//     let wb = XLSX.utils.book_new();
+//     let ws = XLSX.utils.json_to_sheet(menu);
+//     XLSX.utils.book_append_sheet(wb, ws, "menu");
+
+//     await XLSX.writeFile(wb, fileName);
+
+//     // console.log(JSON.stringify(res));
+// }

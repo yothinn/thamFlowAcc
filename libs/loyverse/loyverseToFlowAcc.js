@@ -7,7 +7,7 @@ const SALESNAME = "loyverse";
 const VATRATE = 7;
 
 class LoyverseToFlowAcc {
-    _shopName = null;
+    _shopName = null; 
     _flowAccCredentail = null;
     _productFile = null;
     _productMap = null;
