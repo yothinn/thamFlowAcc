@@ -66,6 +66,11 @@ class LoyverseToFlowAcc {
      */
     async toTaxInvoiceInline(trans) {
         try {
+            // Not initial
+            if (!this._productMap) {
+                throw "!! Not initail";
+            }
+
             // Flow account invoice
             let invList = [];
             let inv = null;

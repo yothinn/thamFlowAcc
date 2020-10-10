@@ -14,8 +14,7 @@ exports.PRODUCTMAP = {
         ochaRestChomphon: "ocha_rest_chomphon",
         ochaSanpatong: "ocha_rice_sanpatong", 
     }
-}
-
+};
 
 exports.flowAccCredentail = {
     clientId: process.env.FA_CLIENT_ID,
