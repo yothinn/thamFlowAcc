@@ -9,7 +9,7 @@ const FLOWACC_URL = {
     PRODUCT: "https://api-core.flowaccount.com/th/products",
     PURCHASES_INLINE: "https://openapi.flowaccount.com/v1/purchases/inline",
     PURCHASES: "https://openapi.flowaccount.com/v1/purchases/inline",
-
+    BANKACC : "https://openapi.flowaccount.com/v1/bank-accounts",
 }
 
 class FlowAccount {
@@ -452,6 +452,37 @@ s    /**
                     let b = JSON.parse(body);
                     // Error if status = false
                     if (!b.status)  reject(`Can't create purchases inline : ${b.message}`);
+
+                    resolve(b);
+                }
+                );
+            });
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    async getAllBankAccount() {
+        try {
+            let headers = {
+                "Content-Type": "application/json",
+                "Authorization": this._token,
+            }
+
+            return new Promise((resolve, reject) => {
+                request.get(
+                {
+                    url: FLOWACC_URL.BANKACC,
+                    headers: headers,
+                },
+                (err, resp, body) => {
+                    if (err) reject(err);
+
+                    // console.log(body);
+                    // resolve(body);
+                    let b = JSON.parse(body);
+                    // Error if status = false
+                    if (!b.status)  reject(`Can't get bank account : ${b.message}`);
 
                     resolve(b);
                 }

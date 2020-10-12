@@ -196,7 +196,7 @@ class OchaToFlowAcc {
         }
     }
 
-        /**
+    /**
      * convert ocha order detail data to tax invoice inline of flowaccount data
      * @param {string} shopName
      * @param {json} orderDetail : ocha format 

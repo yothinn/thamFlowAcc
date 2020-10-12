@@ -14,19 +14,22 @@ const XLSX = require("xlsx");
         process.env.FA_SCOPE
     );
 
-    let productList = await fa.getAllProduct();
+    let bankacc = await fa.getAllBankAccount();
+
+    console.log(bankacc);
+    // let productList = await fa.getAllProduct();
     
-    for (item of productList) {
+    // for (item of productList) {
 
-        let res = await fa.deleteProductById(item.id);
+    //     let res = await fa.deleteProductById(item.id);
 
-        if (res.status) {
-            console.log (`--- delete product ${item.name}`);
-        }
-        else {
-            console.log (`!!! Can't delete product ${item.name}`);
-        }
-    }
+    //     if (res.status) {
+    //         console.log (`--- delete product ${item.name}`);
+    //     }
+    //     else {
+    //         console.log (`!!! Can't delete product ${item.name}`);
+    //     }
+    // }
     //console.log(res.length);
     //console.log(res[1683]);
 
