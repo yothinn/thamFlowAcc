@@ -1,23 +1,32 @@
 const dotenv = require("dotenv").config();
 const FlowAccount = require("./libs/flowacc");
 const ProductMap = require("./libs/productmap");
-const FoodStory = require("./libs//foodstory/foodstory");
-const foodStoryUrl = require("./libs/foodstory/foodstoryUrl");
 const XLSX = require("xlsx");
 
 (async() => {
 
-    // let fa = new FlowAccount();
+    let fa = new FlowAccount();
 
-    // await fa.authorize(
-    //     process.env.FA_CLIENT_ID,
-    //     process.env.FA_CLIENT_SECRET,
-    //     process.env.FA_GRANT_TYPE,
-    //     process.env.FA_SCOPE
-    // );
+    await fa.authorize(
+        process.env.FA_CLIENT_ID,
+        process.env.FA_CLIENT_SECRET,
+        process.env.FA_GRANT_TYPE,
+        process.env.FA_SCOPE
+    );
 
-    //let res = await fa.getAllProduct();
+    let productList = await fa.getAllProduct();
     
+    for (item of productList) {
+
+        let res = await fa.deleteProductById(item.id);
+
+        if (res.status) {
+            console.log (`--- delete product ${item.name}`);
+        }
+        else {
+            console.log (`!!! Can't delete product ${item.name}`);
+        }
+    }
     //console.log(res.length);
     //console.log(res[1683]);
 
@@ -33,27 +42,6 @@ const XLSX = require("xlsx");
     // let res = productMap.findProduct("ใบเหลียงผัดไข่Stir-fried local vegetable with eggs", "ราคา");
     // console.log(res);
 
-    // --------------------------FoodStory part ----------------------
-    let fd = new FoodStory();
-    await fd.connect(process.env.FOODSTORY_USERNAME, process.env.FOODSTORY_PASSWORD);
-
-    // await new Promise(resolve => {
-    //     console.log("Wait 3000");
-    //     setTimeout(resolve, 10000);
-    // }); 
-    
-    // console.log("start load");
-    let res = await fd.sendSetDate("2020-10-08", "2020-10-08");
-    // res = await fd.sendSetBranch(6969);
-
-    // await new Promise(resolve => {
-    //     console.log("Waiting");
-    //     setTimeout(resolve, 60000);
-    // })
-    // console.log("start load");
-    res = await fd.getBillByDate(6969, "2020-10-08", "2020-10-08");
-    // let res = await fd.getBillDetailByPayment(45409940);
-    // console.log(res);
 })();
 
 

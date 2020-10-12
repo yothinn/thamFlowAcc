@@ -276,6 +276,7 @@ s    /**
 
     /**
      * Ge all product
+     * @returns product list
      */
     async getAllProduct() {
         try {
