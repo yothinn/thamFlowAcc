@@ -1,5 +1,5 @@
-const ProductMap = require("../productmap");
-const FlowAccount = require("../flowacc");
+const ProductMap = require("../product/productmap");
+const FlowAccount = require("../flowacc/flowacc");
 const FoodStory = require("./foodstory");
 
 const SALESNAME = "foodstory";
@@ -66,11 +66,13 @@ class FoodStoryToFlowAcc {
             let fd = new FoodStory();
             let totalRow = await fd.readFile(fileName, sheetName);
 
-            console.log(totalRow);
+            // console.log(totalRow);
             if (totalRow <= 0) return [];
 
             for (let i = 0; i < totalRow; i++) {
-                
+               
+                if (!fd.getMenuName(i)) continue;
+
                 // Find new invoice when current is null or change no        
                 if (!inv || inv.reference !== fd.getPaymentId(i) ) {
                     inv = await invList.find((bill) => {
@@ -191,12 +193,14 @@ class FoodStoryToFlowAcc {
             }
 
             let invList = await this.toTaxInvoiceInline(fileName, sheetName);
+            // console.log(invList);
 
             // send to flow account
             for (let inv of invList) {
                 let res = await this._flowAcc.createTaxInvoiceInline(inv);
+                // console.log(res);
                 if (res.status) {
-                    console.log(`create invoice success ${inv.reference}`);
+                    console.log(`create invoice success ${inv.reference},  FLOW no : ${res.data.documentSerial}`);
                 } else {
                     throw `!! Can't create invoice ${inv.reference}, error: ${res.message}`;
                 }

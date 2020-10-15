@@ -1,5 +1,7 @@
 const PurchasesSeaFoodToFlowAcc = require("./libs/purchase/purchasesSeaFoodToFlowAcc");
-const thamInfo = require("./thamflowacc_info");
+const thamInfo = require("./libs/thamflowacc_info");
+
+const CONTACTNAME = "แปรรูป (Food Processing)";
 
 // const dotenv = require("dotenv").config();
 
@@ -12,12 +14,12 @@ const thamInfo = require("./thamflowacc_info");
 
 (async() => {
     try {
-        let s2fa = new PurchasesSeaFoodToFlowAcc("แปรรูป (Food Processing)", thamInfo.flowAccCredentail);
+        let s2fa = new PurchasesSeaFoodToFlowAcc(CONTACTNAME, thamInfo.flowAccCredentail);
 
         await s2fa.init();
 
         // let purchasesList = await s2fa.toPurchases("./purchases_seafood/purchases_seafood.xlsx", "seafood", 2, 5);
-        let res = await s2fa.createPurchases("./purchases_seafood/purchases_seafood.xlsx", "purchases", 2, 24);
+        let res = await s2fa.createPurchases("./fileinput/purchases_seafood/purchases_seafood.xlsx", "purchases", 2, 24);
 
         // console.log(res);
 

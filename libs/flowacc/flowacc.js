@@ -5,11 +5,13 @@ const FLOWACC_URL = {
     GETTOKEN: "https://openapi.flowaccount.com/v1/token",
     TAXINVOICE_INLINE: "https://openapi.flowaccount.com/v1/tax-invoices/inline",
     TAXINVOICE: "https://api-core.flowaccount.com/th/tax-invoices",
+    TAXINVOICE_INLINE_WITHPAYMENT: "https://openapi.flowaccount.com/v1/tax-invoices/inline/with-payment",
     // PRODUCT: "https://openapi.flowaccount.com/v1/products",           // Not use this because can't input account chart
     PRODUCT: "https://api-core.flowaccount.com/th/products",
     PURCHASES_INLINE: "https://openapi.flowaccount.com/v1/purchases/inline",
     PURCHASES: "https://openapi.flowaccount.com/v1/purchases/inline",
     BANKACC : "https://openapi.flowaccount.com/v1/bank-accounts",
+    RECEIPTS_INLINE_WITHPAYMENT: "https://openapi.flowaccount.com/v1/receipts/inline/with-payment",
 }
 
 class FlowAccount {
@@ -110,7 +112,44 @@ class FlowAccount {
         }
     }
 
-s    /**
+    /**
+     * create tax invoice inline with payment
+     * @param {*} body 
+     */
+    createTaxInvoiceInlineWithPayment(body) {
+        try {
+            let headers = {
+                "Content-Type": "application/json",
+                "Authorization": this._token,
+            }
+
+            return new Promise((resolve, reject) => {
+                request.post(
+                {
+                    url: FLOWACC_URL.TAXINVOICE_INLINE_WITHPAYMENT,
+                    headers: headers,
+                    body: JSON.stringify(body),
+                },
+                (err, resp, body) => {
+                    if (err) reject(err);
+
+                    // console.log(body);
+                    // resolve(body);
+                    let b = JSON.parse(body);
+                    // Error if status = false
+                    if (!b.status)  reject(`Can't create tax invoice inline with payment : ${b.message}`);
+
+                    resolve(b);
+                }
+                );
+            });
+        } catch(error) {
+            throw error;
+        }
+    }
+
+ 
+    /**
      * create flow account product
      * @param {*} body : flow account format
      */
@@ -462,7 +501,7 @@ s    /**
         }
     }
 
-    async getAllBankAccount() {
+    getAllBankAccount() {
         try {
             let headers = {
                 "Content-Type": "application/json",

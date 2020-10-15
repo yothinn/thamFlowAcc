@@ -19,6 +19,7 @@
   "homepage": "https://github.com/yothinn/thamFlowAcc#readme",
   "dependencies": {
     "canvas": "^2.6.1",
+    "commander": "^6.1.0",
     "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",

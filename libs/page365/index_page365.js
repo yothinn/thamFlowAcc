@@ -1,28 +1,10 @@
-const dotenv = require("dotenv").config();
-const Page365ToFlowAcc = require("./libs/page365/page365ToFlowAcc");
-const thamInfo = require("./thamflowacc_info");
-
-// TODO : move to config file
-// const PRODUCTMAP_FILE = "product.xlsx";
-// const PRODUCTMAP_PAGE365_SHEET = "page365";
-
-// const flowAccCredentail = {
-//     clientId: process.env.FA_CLIENT_ID,
-//     clientSecret: process.env.FA_CLIENT_SECRET,
-//     grantType: process.env.FA_GRANT_TYPE,
-//     scope: process.env.FA_SCOPE
-// }
-
-// const page365User = {
-//     username: process.env.PAGE365_USERNAME,
-//     password: process.env.PAGE365_PASSWORD,
-// }
+const Page365ToFlowAcc = require("./page365ToFlowAcc");
+const thamInfo = require("../thamflowacc_info");
 
 const productFile = {
     fileName: thamInfo.PRODUCTMAP.fileName,
     sheetName: thamInfo.PRODUCTMAP.sheetName.page365,
 }
-
 
 var loadPage365ByDates = exports.loadPage365ByDates = async (startDate, endDate) => {
     try {

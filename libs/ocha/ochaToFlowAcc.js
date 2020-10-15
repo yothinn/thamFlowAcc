@@ -1,5 +1,5 @@
-const ProductMap = require("../productmap");
-const FlowAccount = require("../flowacc");
+const ProductMap = require("../product/productmap");
+const FlowAccount = require("../flowacc/flowacc");
 const Ocha = require("./ocha");
 
 const SALESNAME = "ocha";

@@ -1,8 +1,5 @@
-const dotenv = require("dotenv").config();
-const OchaToFlowAcc = require("./libs/ocha/ochaToFlowAcc");
-const thamInfo = require("./thamflowacc_info");
-
-// const PRODUCTMAP_FILE = "product.xlsx";
+const OchaToFlowAcc = require("./ochaToFlowAcc");
+const thamInfo = require("../thamflowacc_info");
 
 const SHOP = thamInfo.ochaShop;
 // const SHOP = [

@@ -2,8 +2,8 @@
 const inquirer = require("inquirer");
 const dotenv = require("dotenv").config();
 const XLSX = require('xlsx');
-const FlowAccount = require('./libs/flowacc');
-const thamInfo = require("./thamflowacc_info");
+const FlowAccount = require('./libs/flowacc/flowacc');
+const thamInfo = require("./libs/thamflowacc_info");
 
 // const PRODUCT_FILE = "product.xlsx";
 // const PRODUCT_SHEETNAME  = "allFlowProduct";
@@ -53,6 +53,7 @@ const questions = [
             list = productList;
         } else {
             list = productList.slice(parseInt(answers.startRow)-2, parseInt(answers.endRow)-1);
+            // console.log(list);
         }
 
         // Authorize flow account

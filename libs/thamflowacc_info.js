@@ -1,7 +1,7 @@
 const dotenv = require("dotenv").config();
 
 exports.PRODUCTMAP = {
-    fileName: "product.xlsx",
+    fileName: "./libs/product/product.xlsx",
     sheetName: {
         allFlowProduct: "allFlowProduct",
         foodStoryChomphon: "foodstory_chomphon",
@@ -56,3 +56,16 @@ exports.ochaShop = [
         productSheetName: this.PRODUCTMAP.sheetName.ochaFrontChomphon,
     },
 ];
+
+exports.FOODSTORY_BRANCHNAME = { 
+    chomphon: "ยักษ์กะโจน@ชุมพร คาบาน่า",
+    thaphae: "ยักษ์กะโจน@ท่าแพ",
+};
+
+
+exports.FILEINPUT_PATH = {
+    loyverseThamDelivery: "./fileInput/loyverse/thamdelivery",
+    loyverseThamDelivery1: "./fileInput/loyverse/thamdelivery1",
+    foodstoryChomphon: "./fileInput/foodstory/chomphon",
+    foodstoryThaphae: "./fileInput/foodstory/thaphae",
+};

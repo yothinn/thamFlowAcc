@@ -1,5 +1,6 @@
-const ProductMap = require("../productmap");
-const FlowAccount = require("../flowacc");
+const ProductMap = require("../product/productmap");
+const FlowAccount = require("../flowacc/flowacc");
+const flowBankAcc = require("../flowacc/flowbankaccount");
 const Page365 = require("./page365");
 const page365Tools = require("./page365Tools");
 
@@ -15,6 +16,7 @@ class Page365ToFlowAcc {
     _flowAccCredentail = null;
     _productFile = null;
     _productMap = null;
+    // _flowBankAcc = null;
 
     _flowAcc = null;
     _page365 = null;
@@ -58,6 +60,11 @@ class Page365ToFlowAcc {
                 this._flowAccCredentail.grantType,
                 this._flowAccCredentail.scope
             );
+
+            // this._flowBankAcc = await this._flowAcc.getAllBankAccount();
+            // if (!this._flowBankAcc) {
+            //     throw "Get flow bank account error";
+            // }
 
             // login page365
             this._page365 = new Page365();
@@ -158,6 +165,50 @@ class Page365ToFlowAcc {
         } catch(error) {
             throw error;
         }
+    }
+
+    async createTaxInvoiceInlineWithPaymentByBill(billNo) {
+        try {
+            // Not initial
+            if (!this._page365 || !this._flowAcc) {
+                throw "!! Page365ToFlowAcc not initail";
+            }
+        
+            // load page365
+            let order = await this._page365.getOrderDetailByBillNo(billNo); 
+            console.log(order);
+
+             // Check state if void not send to flowaccount
+            if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
+                // console.log(`Not Create Order :${ord.no} stage: ${ord.stage}`);
+                throw `!! No create order bill no :${order.no} stage: ${order.stage}`;
+            }
+
+            if (!order.paid_date) {
+                throw `!! Can't create tax invoice with payment bill no : ${order.no} stage: ${order.stage}`;
+            }
+            // create tax invoice inline body
+            let inv = this.toTaxInvoiceInlineWithPayment(order);
+            // console.log(inv);
+            if (inv) {
+                // send to flow account
+                // let res = await this._flowAcc.createTaxInvoiceInline(inv);
+                //inv.reference = res.data.documentSerial;
+
+                let res = await this._flowAcc.createTaxInvoiceInlineWithPayment(inv);
+
+                // console.log(res);
+                if (res.status) {
+                    console.log(`Success create PAGE365 no ${order.no} : , FLOW no : ${res.data.documentSerial}`);
+                    return res;
+                } else {
+                    // console.log(res);
+                    throw `!! Can't create invoice inline from flow account, PAGE365 BILLNO: ${order.no} error: ${res.message}`;
+                }
+            } 
+        } catch(error) {
+            throw error;
+        }     
     }
 
     /**
@@ -317,6 +368,67 @@ class Page365ToFlowAcc {
         }
     }
 
+    /**
+     * convert page365 order detail data to tax invoice inline with payment of flowaccount data
+     * @param {string} contactName
+     * @param {json} orderDetail : page365 format 
+     * @returns flowaccount data
+     */
+    toTaxInvoiceInlineWithPayment(orderDetail) {
+        if (!this._productMap) {
+            throw "!! You must first initial before call this";
+        }
+
+        try {
+            let inv = this.toTaxInvoiceInline(orderDetail);
+
+            inv.documentPaymentStructureType = "InlineDocumentWithPaymentReceivingTransfer";
+            inv.paymentMethod = 5;
+            inv.paymentDate = orderDetail.paid_date;
+            inv.collected = orderDetail.paid_amount;
+            [inv.transferBankAccountId, inv.bankAccountId] = this.toFlowBankAcc(orderDetail);
+
+            // Not use filed
+            //paymentDeductionType
+            //paymentDeductionAmount
+            //withheldPercentage
+            //withheldAmount 
+            //paymentRemarks
+            //remainingCollectedType
+            //remainingCollected
+            
+            return inv;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    toFlowBankAcc(orderDetail) {
+        let fBankAcc = flowBankAcc.FLOW_BANKACC;
+        let pageNo = orderDetail.bank.bank_no.trim();
+        let bankId;
+        let bankAccountId;
+        switch (pageNo) {
+            case page365Tools.PAGE365_BANKACC_NO.KBANK_2309:
+                bankId = fBankAcc.accno_2309.bankId;
+                bankAccountId = fBankAcc.accno_2309.bankAccountId;
+                break;
+            case page365Tools.PAGE365_BANKACC_NO.BBL_9919:
+            case page365Tools.PAGE365_BANKACC_NO.promtpay:
+                bankId = fBankAcc.accno_9919.bankId,
+                bankAccountId = fBankAcc.accno_9919.bankAccountId;
+            case page365Tools.PAGE365_BANKACC_NO.riceInAdv:
+                bankId = fBankAcc.accno_riceInAdv.bankId;
+                bankAccountId = fBankAcc.accno_riceInAdv.bankAccountId;
+                break;
+            default:
+                bankId = -1;
+                bankAccountId = -1;
+                break;
+        }
+        return [bankId, bankAccountId];
+    }
+    
     /**
      * convert page365 date to flow account date
      * Page365 date : date format : yyyy-mm-ddTHH:MM:SS.sss+07.00
