@@ -97,7 +97,18 @@ class FlowAccount {
                 (err, resp, body) => {
                     if (err) reject(err);
 
+                    body = body.replace(/\\n/g, "\\n")  
+                                .replace(/\\'/g, "\\'")
+                                .replace(/\\"/g, '\\"')
+                                .replace(/\\&/g, "\\&")
+                                .replace(/\\r/g, "\\r")
+                                .replace(/\\t/g, "\\t")
+                                .replace(/\\b/g, "\\b")
+                                .replace(/\\f/g, "\\f");
+                    // remove non-printable and other non-valid JSON chars
+                    body = body.replace(/[\u0000-\u0019]+/g,""); 
                     // console.log(body);
+                    // console.log(body.status)
                     // resolve(body);
                     let b = JSON.parse(body);
                     // Error if status = false

@@ -95,7 +95,7 @@ class Page365 {
             // 1 page มี 100 ใบ  ร้องขอจนกว่าจำนวนบิลจะเท่ากับ 0
             do {
                 response = await fetch(
-                    `https://page365.net/Thamturakit/orders.json?from=${startTime}&to=${endTime}&page=${pageNo}`,
+                    `https://page365.net/Thamturakit/orders.json?from=${startTime}&to=${endTime}&page=${pageNo}&sort=created_at_asc`,
                     options
                 );
                 result = await response.json();

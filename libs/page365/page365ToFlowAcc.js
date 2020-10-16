@@ -447,7 +447,7 @@ class Page365ToFlowAcc {
      */
     cleanString(txt) {
         if (txt) {
-            return txt.trim().replace("/\u200b/g", "");
+            return txt.trim().replace("/(\u200b|\r\n|\n|\t)/g", "");
         }
         return txt;
     }

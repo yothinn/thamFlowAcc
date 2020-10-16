@@ -70,7 +70,7 @@ class ProductMap {
             // if (value.productName === name.trim()) {
             //     console.log(value.productName)
             // }
-            return (value.productName === name.trim()) && (value.productOption === option);
+            return (value.productName === name.trim()) && (value.productOption === option.trim());
         });
     }
 

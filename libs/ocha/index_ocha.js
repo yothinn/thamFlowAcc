@@ -64,6 +64,9 @@ exports.loadOchaByDates = async(shopName, startDate, endDate) => {
         let startTime = start / 1000;
         let endTime = end / 1000;
 
+        // console.log(startTime);
+        // console.log(endTime);
+        // return;
         setProductFile(shopName);
         
         let o2fa = new OchaToFlowAcc(thamInfo.ochaUser, thamInfo.flowAccCredentail);

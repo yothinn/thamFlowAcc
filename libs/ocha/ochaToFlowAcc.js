@@ -80,7 +80,7 @@ class OchaToFlowAcc {
     async selectShopByName(shopName, productFile) {
         try {
             // Find shop name
-            this._shopName = shopName
+            this._shopName = shopName;
             let shop = await this._ocha.getOchaShopIdByName(shopName);
             this._shopId = shop.shop_id;
             // console.log(this._shopId);
@@ -115,11 +115,15 @@ class OchaToFlowAcc {
 
             // load ocha
             let orders = await this._ocha.getDailyOrdersByShop(this._shopId, startTime, endTime);
-
-            for (let order of orders) {
+            let order;
+            let orderLen = orders.length;
+            // console.log(orderLen);
+            // console.log(orders[orderLen-1]);
+            for (let i = orderLen - 1; i >=0; i--) {
+            //for (let order of orders) {
                 try {
-
-                    let refNo = order.payments.receipt_number_v2;
+                    order = orders[i];
+                    let refNo = order.payments[0].receipt_number_v2;
 
                     // Check state if void not send to flowaccount
                     if (order.order.status !== 0)  {

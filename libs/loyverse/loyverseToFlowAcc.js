@@ -75,7 +75,12 @@ class LoyverseToFlowAcc {
             let invList = [];
             let inv = null;
 
-            for (let row of trans) {
+            let row;
+            let len = trans.length;
+            for (let i = len-1; i >=0; i--) {
+            //for (let row of trans) {
+                row = trans[i];
+            
                 // Create loyverse data
                 let loyData = new LoyverseData(row);
 
@@ -209,7 +214,7 @@ class LoyverseToFlowAcc {
             for (let inv of invList) {
                 let res = await this._flowAcc.createTaxInvoiceInline(inv);
                 if (res.status) {
-                    console.log(`create invoice success ${inv.reference}`);
+                    console.log(`create invoice success :${inv.reference}, FLOW no : ${res.data.documentSerial}`);
                 } else {
                     throw `!! Can't create invoice ${inv.reference}, error: ${res.message}`;
                 }

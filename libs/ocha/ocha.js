@@ -101,9 +101,15 @@ class Ocha {
             }
 
             let shopList = await this.getOchaShopList();
+            
             if (shopList.error_code === 0) {
                 return shopList.shops.find((value) => {
-                    return value.profile.shop_name === shopName; 
+                    let name = value.profile.shop_name.trim();
+                    name = name.replace(/\u200b/g, ""); 
+
+                    //console.log(`+${name}+ : +${shopName}+`);
+                    //console.log(name === shopName);
+                    return name === shopName; 
                 })
             } else {
                 throw `Ocha error : ${shopList.reason}`;
@@ -292,8 +298,9 @@ class Ocha {
             if (!json1.pagination) {
                 return orders;
             } 
-            
-            const promise = json1.pagination.page_begins.map(async (pbg, idx) => {
+
+            for (let pbg of json1.pagination.page_begins) {
+            //const promise = json1.pagination.page_begins.map(async (pbg, idx) => {
                 // 3.2. อ่านข้อมูล Orders แต่ละเพจ
                 body.pagination.page_begin = pbg;
                 const options = {
@@ -309,16 +316,18 @@ class Ocha {
                 // console.log(json.orders.length);
     
                 // 3.3. Map ข้อมูล Orders ตามโครงสร้างของเรา
-                const promiseOrd = json.orders.map(async (od, idx) => {
-                    if (od.order.status === 0) {
-                        orders.push(od);
-                    }
-                });
-                await Promise.all(promiseOrd);
-            });
+                orders = [...orders, ...json.orders];
+                // const promiseOrd = json.orders.map(async (od, idx) => {
+                //     if (od.order.status === 0) {
+                //         orders.push(od);
+                //     }
+                // });
+                // await Promise.all(promiseOrd);
+            //});
+            }
     
             // 3.4.  รอ loop อ่านข้อมูลจนครบตามสัญญา (promise)
-            await Promise.all(promise);
+            // await Promise.all(promise);
             // console.log(JSON.stringify(orders));
             return orders;
         } catch (error) {

@@ -8,19 +8,19 @@ const thamInfo = require("./libs/thamflowacc_info");
 const { program } = require("commander");
 const product = require("./createproduct");
 
-program.version("0.0.1");
+// program.version("0.0.1");
 
-program
-    .option("-c, --create", 'create product from product file');
+// program
+//     .option("-c, --create", 'create product from product file');
 
 
-program.parse(process.argv);
+// program.parse(process.argv);
 
-if (program.create) {
-    console.log("create product");
-    console.log(program.opts());
-    product.createProduct();
-}
+// if (program.create) {
+//     console.log("create product");
+//     console.log(program.opts());
+//     product.createProduct();
+// }
 
 // (async() => {
 
