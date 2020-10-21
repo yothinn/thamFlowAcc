@@ -1,16 +1,39 @@
-const SeaFoodData = require("./seafoodData");
-const FlowAccount = require("../flowacc");
+const VegetableData = require("./vegetableData");
+const ProductMap = require("../../product/productmap");
+const FlowAccount = require("../../flowacc/flowacc");
 
-const SALESNAME = "Seafood";
 
+const PAYMENTTYPE_CASH = "เงินสด";
+const SALESNAME = "Vegetable";
 
-class PurchasesSeaFoodToFlowAcc {
+class VegetableToFlowAcc {
     _flowAccCredentail = null;
-    _contactName;
+    _productFile = null;
+    _productMap = null;
 
-    constructor(contactName, flowAccCredentail) {
+    _flowAcc = null;
+    _vegData = null;
+    _ggSheetCred = null;
+
+    /**
+     * 
+     * @param {json} flowAccCredentails 
+     * {
+     *  clientId: client id,
+     *  clientSecret: client secret,
+     *  grantType: grant type,
+     *  scope: scope
+     * } 
+     * @param {*} productFile : product map from page365 to flow
+     * {
+     *  fileName: product filename,
+     *  sheetName: product sheetname
+     * } 
+     */
+    constructor(flowAccCredentail, ggSheetCred, productFile) {
         this._flowAccCredentail = flowAccCredentail;
-        this._contactName = contactName;
+        this._productFile = productFile;
+        this._ggSheetCred = ggSheetCred;
     }
 
     async init() {
@@ -24,27 +47,47 @@ class PurchasesSeaFoodToFlowAcc {
                 this._flowAccCredentail.scope
             );
 
+            // load product map
+            this._productMap = new ProductMap();
+            await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
+
         } catch(error) {
             throw error;
         }
     }
 
-    async toPurchases(fileName, sheetName, startRow, endRow) {
+    /**
+     * 
+     * @param {*} workbookId 
+     * @param {*} worksheetId 
+     * @param {*} startRow  : row index from google sheet
+     * @param {*} endRow : row index from google sheet
+     */
+    async toPurchases(workbookId, worksheetId, startRow, endRow) {
         try {
+
+            // Initail and read google worksheet
+            let vegData = new VegetableData();
+            await vegData.authorize(this._ggSheetCred, workbookId);
+
+            await vegData.readSheet(worksheetId);
+
             let purchasesList = [];
             let purchases = null;
-
-            let seaFoodData = new SeaFoodData();
-            await seaFoodData.readTransaction(fileName, sheetName);
-
-            // console.log(seaFoodData._trans);
-
+            
             for (let i=startRow; i<=endRow; i++) {
 
+                // Read only product that payment type is cash
+                if (vegData.getPaymentType(i) !== PAYMENTTYPE_CASH ) {
+                    continue;
+                }
+
                 // Find new invoice when current is null or change no        
-                if (!purchases || seaFoodData.getBillNo(i) !== purchases.reference) {
+                if (!purchases || (vegData.getSupplier(i) !== purchases.contactName) ||
+                    (vegData.getDate !== purchases.publishedOn)) {
                     purchases = await purchasesList.find((bill) => {
-                        return bill.reference === seaFoodData.getBillNo(i);
+                        return (bill.contactName === vegData.getSupplier(i)) &&
+                                (bill.publishedOn === vegData.getDate(i));
                     });
                 }
 
@@ -60,15 +103,15 @@ class PurchasesSeaFoodToFlowAcc {
                         // contactEmail: "",
                         // contactNumber: "",
                         // contactZipCode: "",
-                        contactName: this._contactName,
+                        contactName: vegData.getSupplier(i),
                         contactGroup: 1,
-                        publishedOn: seaFoodData.getDate(i),
+                        publishedOn: vegData.getDate(i),
                         creditType: 1,
                         creditDays: 0,
-                        dueDate: seaFoodData.getDate(i),
+                        dueDate: vegData.getDate(i),
                         salesName: SALESNAME,
                         // projectName: "",
-                        reference: seaFoodData.getBillNo(i),
+                        reference: i,                           // reference is row in google sheet
                         // isVatInclusive: false,
                         // useReceiptDeduction: false,
                         subTotal: 0,
@@ -98,14 +141,21 @@ class PurchasesSeaFoodToFlowAcc {
                     purchasesList.push(purchases);
                 }
 
-                let total = seaFoodData.getWeight(i) * seaFoodData.getUnitPrice(i); 
+                let flowProduct = this._productMap.findProduct(vegData.getProductName(i), "");
+
+                // Can't find product map !! terminate script
+                if (!flowProduct) {
+                    throw `Can't flow account product map name : ${vegData.getProductName(i)}`;
+                }
+
+                let total = vegData.getTotal(i);
                 purchases.items.push({
-                    type: seaFoodData.getProductType(i),
-                    name: seaFoodData.getProductName(i),
-                    description: seaFoodData.getProcessCode(i),
-                    quantity: seaFoodData.getWeight(i),
-                    unitName: seaFoodData.getUnitName(i),
-                    pricePerUnit: seaFoodData.getUnitPrice(i),
+                    type: flowProduct.flowProductType,
+                    name: flowProduct.flowProductName,
+                    description: "",
+                    quantity: vegData.getQuantity(i),
+                    unitName: flowProduct.flowUnitName,
+                    pricePerUnit: vegData.getUnitPrice(i),
                     total: total,
                     // sellChartOfAccountCode: "string",
                     // buyChartOfAccountCode: "string"
@@ -123,10 +173,11 @@ class PurchasesSeaFoodToFlowAcc {
         }
     }
 
-    async createPurchases(fileName, sheetName, startRow, endRow) {
+    async createPurchasesByIndex(workbookId, worksheetId, startRow, endRow) {
         try {
-            let purchasesList = await this.toPurchases(fileName, sheetName, startRow, endRow);
+            let purchasesList = await this.toPurchases(workbookId, worksheetId, startRow, endRow);
 
+            // console.log(purchasesList);
             for (let purchases of purchasesList) {
                 let res = await this._flowAcc.createPurchases(purchases);
                 if (res.status) {
@@ -135,11 +186,24 @@ class PurchasesSeaFoodToFlowAcc {
                     throw `!! Can't create purchases ${purchases.reference}, error : ${res.message}`;
                 }
             }
-
         } catch(error) {
             throw error;
         }
     }
+
+    // /**
+    //  * 
+    //  * @param {*} ggSheet
+    //  * {
+    //  *  ggSheetCred : crendentail google format
+    //  *  workbookId:
+    //  *  worksheetId:
+    //  * } 
+    //  * @param {*} dateStr : format : yyyy-mm-dd 
+    //  */
+    // async createPurchasesByDate(ggSheet, dateStr) {
+ 
+    // }
 }
 
-module.exports = PurchasesSeaFoodToFlowAcc;
+module.exports = VegetableToFlowAcc;

@@ -13,6 +13,7 @@ exports.PRODUCTMAP = {
         ochaFrontChomphon: "ocha_front_chomphon",
         ochaRestChomphon: "ocha_rest_chomphon",
         ochaSanpatong: "ocha_rice_sanpatong", 
+        purchasesVegetable: "purchases_vegetable",
     }
 };
 
@@ -68,4 +69,13 @@ exports.FILEINPUT_PATH = {
     loyverseThamDelivery1: "./fileInput/loyverse/thamdelivery1",
     foodstoryChomphon: "./fileInput/foodstory/chomphon",
     foodstoryThaphae: "./fileInput/foodstory/thaphae",
+    purchasesSeafood: "./fileInput/purchases/seafood"
 };
+
+
+exports.GGSHEET_CRED = require("./thamturakit-data-center-credential.json");
+
+exports.VEGETABLE_GGSHEET_DATA = {
+    workbookId: "1qcraNqiQpqNa5SlTVvwYhOrflh9gRLzS-jj7d5zlwi4",
+    worksheetId: 233438306,
+}

@@ -1,1 +1,2195 @@
-{"status":true,"message":"","code":0,"data":[{"productType":5,"buyChartOfAccounts":[{"id":47210273,"code":"51111.01","name":"ซื้อสินค้า","category":5,"isControlAccount":false,"isDefalut":true}],"sellChartOfAccounts":[{"id":47210255,"code":"41110","name":"รายได้จากการขายสินค้า","category":4,"isControlAccount":false,"isDefalut":true},{"id":52899634,"code":"41110.00.01","name":"รายได้ขายสินค้า สำนักงานใหญ่","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899635,"code":"41110.01.01","name":"รายได้ขายสินค้า สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899636,"code":"41110.01.02","name":"รายได้ผักผลไม้ สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899637,"code":"41110.01.03","name":"รายได้ขายอาหาร สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899638,"code":"41110.01.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899639,"code":"41110.02.01","name":"รายได้ขายสินค้า ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900075,"code":"41110.02.02","name":"รายได้ผักผลไม้ ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900077,"code":"41110.02.03","name":"รายได้ขายอาหาร ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900513,"code":"41110.02.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900514,"code":"41110.03.01","name":"รายได้ขายสินค้า ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900515,"code":"41110.03.02","name":"รายได้ขายผักผลไม้ ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900516,"code":"41110.03.03","name":"รายได้ขายอาหาร ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900517,"code":"41110.04.01","name":"รายได้ขายสินค้า ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900953,"code":"41110.04.02","name":"รายได้ขายผักผลไม้ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900954,"code":"41110.04.03","name":"รายได้ขายอาหาร ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900955,"code":"41110.04.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900956,"code":"41110.04.05","name":"รายได้จากรถธรรมธุรกิจ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false}]},{"productType":1,"buyChartOfAccounts":null,"sellChartOfAccounts":[{"id":47210256,"code":"41210","name":"รายได้จากการให้บริการ","category":4,"isControlAccount":false,"isDefalut":true},{"id":52900957,"code":"41210.01.06","name":"รายได้ฝึกอบรม สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900959,"code":"41210.01.07","name":"รายได้ห้องพัก สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900960,"code":"41210.02.06","name":"รายได้ฝึกอบรม ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900961,"code":"41210.02.07","name":"รายได้ห้องพัก ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900962,"code":"41210.02.08","name":"รายได้ไดฟ์วิ่ง ชุมพร","category":4,"isControlAccount":false,"isDefalut":false}]},{"productType":3,"buyChartOfAccounts":[{"id":47210269,"code":"50000","name":"ค่าใช้จ่าย","children":[{"id":47210270,"code":"51000","name":"ต้นทุนขายสุทธิ","children":[{"id":47210271,"code":"51100","name":"ต้นทุนขายสินค้าเพื่อขาย","children":[{"id":53172265,"code":"51100.00.01","name":"ต้นทุนขายสินค้า สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172266,"code":"51100.01.01","name":"ต้นทุนขายสินค้า สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172267,"code":"51100.01.02","name":"ต้นทุนขายอาหารสดผักผลไม้ สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172268,"code":"51100.01.03","name":"ต้นทุนขายอาหาร สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172270,"code":"51100.01.04","name":"ต้นทุนร้านกาแฟ/เบเกอรี่ สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172271,"code":"51100.02.01","name":"ต้นทุนขายสินค้า ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172272,"code":"51100.02.02","name":"ต้นทุนขายอาหารสดผักผลไม้ ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172273,"code":"51100.02.03","name":"ต้นทุนขายอาหาร ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172274,"code":"51100.02.04","name":"ต้นทุนร้านกาแฟ/เบเกอรี่ ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172275,"code":"51100.03.01","name":"ต้นทุนขายสินค้า ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172276,"code":"51100.03.02","name":"ต้นทุนขายอาหารสดผักผลไม้ ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172277,"code":"51100.03.03","name":"ต้นทุนขายอาหาร ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172278,"code":"51100.04.01","name":"ต้นทุนขายสินค้า ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172279,"code":"51100.04.02","name":"ต้นทุนขายอาหารสดผักผลไม้ ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172280,"code":"51100.04.03","name":"ต้นทุนขายอาหาร ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172281,"code":"51100.04.04","name":"ต้นทุนร้านกาแฟ/เบเกอรี่ ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172282,"code":"51100.04.05","name":"ต้นทุนรถธรรมธุรกิจ ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210272,"code":"51110","name":"ส่วนเปลี่ยนแปลงของสินค้าสำเร็จรูป","children":[{"id":47210377,"code":"51111","name":"ซื้อสินค้า","children":[{"id":47210273,"code":"51111.01","name":"ซื้อสินค้า","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210418,"code":"51113","name":"ส่งคืน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210419,"code":"51114","name":"ส่วนลดรับ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210274,"code":"51118","name":"ต้นทุนขายสินค้าสำเร็จรูป","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210275,"code":"51119","name":"ส่วนเปลี่ยนแปลงสินค้าสำเร็จรูป (ต้น-ปลาย)","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210276,"code":"51120","name":"วัตถุดิบและวัสดุสิ้นเปลืองใช้ไป","children":[{"id":47210277,"code":"51121","name":"ซื้อวัตถุดิบและวัสดุ","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210278,"code":"51129","name":"ส่วนเปลี่ยนแปลงวัตถุดิบและวัสดุ (ต้น-ปลาย)","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210279,"code":"51130","name":"ต้นทุนการผลิต/ต้นทุนคิดเข้างาน","children":[{"id":47210280,"code":"51131","name":"ต้นทุนการผลิต - คน","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210281,"code":"51132","name":"ต้นทุนการผลิต - พลังงาน","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210282,"code":"51133","name":"ต้นทุนการผลิต - แพคเกจ","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210283,"code":"51134","name":"ต้นทุนการผลิต - ค่าสึกหรอและค่าเสื่อมราคา","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210284,"code":"51135","name":"ต้นทุนการผลิต - ค่าสิทธิ์/ลิขสิทธิ์","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210285,"code":"51139","name":"ส่วนเปลี่ยนแปลงของระหว่างทำ (ต้น-ปลาย)","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210378,"code":"51200","name":"ต้นทุนการให้บริการ","children":[{"id":47210286,"code":"51210","name":"ต้นทุนการให้บริการ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172283,"code":"51210.01.06","name":"ต้นทุนอบรม สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172719,"code":"51210.01.07","name":"ต้นทุนห้องพัก สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172720,"code":"51210.02.06","name":"ต้นทุนอบรม ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172721,"code":"51210.02.07","name":"ต้นทุนห้องพัก ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53172722,"code":"51210.02.08","name":"ต้นทุนไดฟ์วิ่ง ชุมพร","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210287,"code":"52000","name":"ค่าใช้จ่ายในการขาย","children":[{"id":47210288,"code":"52010","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ","children":[{"id":53173595,"code":"52010.00.00","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53173596,"code":"52010.01.00","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53173597,"code":"52010.02.00","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53173598,"code":"52010.03.00","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53173599,"code":"52010.04.00","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210455,"code":"52011","name":"ค่าใช้จ่ายเดินทางและยานพาหนะ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210454,"code":"52019","name":"ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก อื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210289,"code":"52020","name":"เบี้ยเลี้ยงเดินทาง","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210290,"code":"52030","name":"ค่าขนส่งและลอจิสติกส์","children":[{"id":53174035,"code":"52030.00.00","name":"ค่าขนส่งและลอจิสติกส์ สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174036,"code":"52030.01.00","name":"ค่าขนส่งและลอจิสติกส์ สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174472,"code":"52030.02.00","name":"ค่าขนส่งและลอจิสติกส์ ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174473,"code":"52030.03.00","name":"ค่าขนส่งและลอจิสติกส์ ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174474,"code":"52030.04.00","name":"ค่าขนส่งและลอจิสติกส์ ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210291,"code":"52031","name":"ค่าขนส่ง","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210292,"code":"52032","name":"ค่าประกันภัยสินค้า","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210293,"code":"52040","name":"ค่ารับรองลูกค้า","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210294,"code":"52050","name":"ค่านายหน้าและส่วนแบ่งการขาย","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210295,"code":"52060","name":"ค่าส่งเสริมการขายและอีเวนท์","children":[{"id":53174910,"code":"52060.00.00","name":"ค่าส่งเสริมกายขายและอีเวนท์ สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174911,"code":"52060.01.00","name":"ค่าส่งเสริมกายขายและอีเวนท์ สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174912,"code":"52060.02.00","name":"ค่าส่งเสริมกายขายและอีเวนท์ ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174913,"code":"52060.03.00","name":"ค่าส่งเสริมกายขายและอีเวนท์ ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53174914,"code":"52060.04.00","name":"ค่าส่งเสริมกายขายและอีเวนท์ ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210296,"code":"52061","name":"ค่าส่งเสริมการขาย","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210297,"code":"52062","name":"ค่าสินค้าตัวอย่าง","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210420,"code":"52070","name":"ค่าติดต่อสื่อสาร/ลูกค้าสัมพันธ์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210421,"code":"52990","name":"ค่าใช้จ่ายในการขายอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210298,"code":"53000","name":"ค่าใช้จ่ายในการบริหาร","children":[{"id":47210299,"code":"53010","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน","children":[{"id":53175351,"code":"53010.00.00","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175352,"code":"53010.01.00","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175353,"code":"53010.02.00","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175355,"code":"53010.03.00","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175356,"code":"53010.04.00","name":"ค่าใช้จ่ายเกี่ยวกับพนักงาน ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210300,"code":"53011","name":"เงินเดือนและค่าจ้างแรงงาน","children":[{"id":47210301,"code":"53011.01","name":"เงินเดือน ค่าแรง ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210422,"code":"53011.02","name":"ค่าล่วงเวลา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210302,"code":"53011.03","name":"โบนัส","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210303,"code":"53011.04","name":"เงินเพิ่มพิเศษ/ประโยชน์ส่วนเพิ่ม","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210304,"code":"53011.05","name":"คอมมิชชั่นพนักงาน","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210305,"code":"53012","name":"เงินประกันสังคม/กองทุนสำรองฯ","children":[{"id":47210306,"code":"53012.01","name":"เงินสมทบประกันสังคม","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210307,"code":"53012.02","name":"กองทุนเงินทดแทน","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210308,"code":"53013","name":"เงินสวัสดิการพนักงาน","children":[{"id":47210310,"code":"53013.01","name":"ค่าเบี้ยเลี้ยง/ค่าครองชีพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210309,"code":"53013.02","name":"ค่ารักษาพยาบาลและยา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210423,"code":"53013.03","name":"ค่าที่พักอาศัยพนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210311,"code":"53013.04","name":"ค่าแบบฟอร์มพนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210312,"code":"53013.05","name":"ค่าอบรมและสัมมนา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210313,"code":"53013.06","name":"ค่าเบี้ยประกันพนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210314,"code":"53013.07","name":"ค่าอาหารและเครื่องดื่มพนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210315,"code":"53013.08","name":"ค่าจัดเลี้ยงและสันทนาการ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210316,"code":"53013.99","name":"สวัสดิการอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210317,"code":"53014","name":"ค่าใช้จ่ายและค่าตอบแทนกรรมการ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210431,"code":"53019","name":"ค่าใช้จ่ายผลประโยชน์พนักงานหลังออกจากงาน","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210318,"code":"53020","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด","children":[{"id":53175792,"code":"53020.00.00","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175793,"code":"53020.01.00","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175794,"code":"53020.02.00","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53175795,"code":"53020.03.00","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53176231,"code":"53020.04.00","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาด ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210319,"code":"53021","name":"ค่าโฆษณาสื่อ/สิ่งพิมพ์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210320,"code":"53022","name":"ค่าใช้จ่ายการตลาดออนไลน์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210321,"code":"53023","name":"ค่าจ้างด้านโฆษณาและการตลาด","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210322,"code":"53024","name":"ค่าบริการโฮสติ้ง เว็บไซต์ และเซิร์ฟเวอร์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210323,"code":"53029","name":"ค่าใช้จ่ายด้านโฆษณาและการตลาดอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210324,"code":"53030","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน","children":[{"id":53176232,"code":"53030.00.00","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53176233,"code":"53030.01.00","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53176234,"code":"53030.02.00","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53176235,"code":"53030.03.00","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53176236,"code":"53030.04.00","name":"ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210325,"code":"53031","name":"ค่าสาธาณูปโภค","children":[{"id":47210424,"code":"53031.01","name":"ค่าไฟฟ้า","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210425,"code":"53031.02","name":"ค่าน้ำประปา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210426,"code":"53031.03","name":"ค่าโทรศัพท์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210481,"code":"53031.04","name":"ค่าอินเทอร์เน็ต","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210427,"code":"53031.99","name":"ค่าสาธารณูปโภคอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210326,"code":"53032","name":"ค่าใช้จ่ายสำนักงาน","children":[{"id":47210327,"code":"53032.01","name":"ค่าไปรษณีย์และเมสเซนเจอร์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210329,"code":"53032.02","name":"ค่าเช่าสำนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210332,"code":"53032.03","name":"ค่าเครื่องเขียนแบบพิมพ์/วัสดุสิ้นเปลืองใช้ไป","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210328,"code":"53032.04","name":"ค่าบริการและส่วนกลางสำนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210330,"code":"53032.05","name":"ค่ารักษาความปลอดภัย","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210331,"code":"53032.06","name":"ค่ารักษาความสะอาด","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210333,"code":"53032.07","name":"ค่าวารสารและสมาชิก","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210334,"code":"53032.99","name":"ค่าใช้จ่ายสำนักงานอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210335,"code":"53040","name":"ค่าเบี้ยประกัน","children":[{"id":47210476,"code":"53041","name":"ค่าเบี้ยประกันภัย-สินค้าและอาคาร","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210475,"code":"53042","name":"ค่าเบี้ยประกันภัย-ยานพาหนะ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210474,"code":"53043","name":"ค่าเบี้ยประกันภัย-พนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210477,"code":"53049","name":"ค่าเบี้ยประกันภัยอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210336,"code":"53050","name":"ค่าเช่า","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210337,"code":"53060","name":"ค่าซ่อมแซมและบำรุงรักษา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210338,"code":"53070","name":"ค่าใช้จ่ายในการวิจัยและพัฒนา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210339,"code":"53080","name":"ค่าแห่งกู๊ดวิลล์/ลิขสิทธิ์/สิทธิอย่างอื่น","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210345,"code":"53100","name":"ค่าบริการด้านวิชาชีพ","children":[{"id":47210346,"code":"53101","name":"ค่าทำบัญชี","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210347,"code":"53102","name":"ค่าสอบบัญชี","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210348,"code":"53103","name":"ค่าบริการด้านกฎหมาย","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210349,"code":"53110","name":"ค่าบริการทั่วไป","children":[{"id":47210350,"code":"53111","name":"ค่าบริการให้คำแนะนำและปรึกษา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210351,"code":"53112","name":"ค่าบริหารจัดการ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210352,"code":"53113","name":"ค่าโปรแกรมและแอปพลิเคชัน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210353,"code":"53114","name":"ค่าจ้างฟรีแลนซ์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210354,"code":"53115","name":"ค่าจ้างรับเหมา","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210355,"code":"53116","name":"ค่าจ้างตามสัญญาจ้างทำของ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210356,"code":"53119","name":"ค่าบริการอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210357,"code":"53210","name":"ค่าธรรมเนียมต่างๆ","children":[{"id":47210358,"code":"53211","name":"ค่าธรรมเนียมธนาคาร","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210359,"code":"53212","name":"ค่าธรรมเนียมบัตรเครดิต","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210478,"code":"53219","name":"ค่าธรรมเนียมอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210340,"code":"53700","name":"ค่าภาษี","children":[{"id":47210341,"code":"53731","name":"ค่าภาษีโรงเรือนและบำรุงท้องที่","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210342,"code":"53732","name":"ค่าภาษีป้าย","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210430,"code":"53733","name":"ค่าภาษียานพาหนะ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210343,"code":"53738","name":"ค่าใช้จ่ายภาษีเงินได้รอการตัดบัญชี","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210344,"code":"53739","name":"ค่าภาษีอื่นๆ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210369,"code":"54000","name":"ต้นทุนทางการเงิน","children":[{"id":47210370,"code":"54100","name":"ดอกเบี้ยจ่าย","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210371,"code":"54200","name":"ดอกเบี้ยจากสัญญาเช่าการเงิน","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210372,"code":"54300","name":"ค่าธรรมเนียมเงินกู้","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210451,"code":"55000","name":"ภาษีเงินได้นิติบุคคล","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210373,"code":"57000","name":"ค่าใช้จ่ายจากการดำเนินงานที่ยกเลิก","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210432,"code":"58000","name":"ค่าเสื่อมราคา ด้อยค่า และการตีราคา","children":[{"id":47210433,"code":"58200","name":"การด้อยค่า/การตีราคา เงินลงทุน","children":[{"id":47210461,"code":"58220","name":"ขาดทุนจากการด้อยค่า - เงินลงทุน","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210462,"code":"58230","name":"มูลค่ายุติธรรม - เงินลงทุน","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210434,"code":"58300","name":"การด้อยค่า ลูกหนี้การค้าและลูกหนี้อื่น","children":[{"id":47210435,"code":"58310","name":"หนี้สงสัยจะสูญ ลูกหนี้การค้าและลูกหนี้อื่น","children":[{"id":47210436,"code":"58311","name":"หนี้สงสัยจะสูญ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210437,"code":"58312","name":"หนี้สูญ","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210438,"code":"58400","name":"การด้อยค่า/การตีราคา เงินให้กู้ยืม","children":[{"id":47210463,"code":"58420","name":"ขาดทุนจากการด้อยค่า - เงินให้กู้ยืม","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210439,"code":"58500","name":"การด้อยค่า/การตีราคา สินค้าคงเหลือ","children":[{"id":47210467,"code":"58520","name":"ขาดทุนจากสินค้าเสื่อมสภาพ/ล้าสมัย","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210464,"code":"58530","name":"ขาดทุนจากการตีราคาสินค้าคงเหลือลดลง","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210440,"code":"58600","name":"ค่าเสื่อมราคา/การด้อยค่า/การตีราคา ที่ดินอาคารอุปกรณ์","children":[{"id":47210444,"code":"58610","name":"ค่าเสื่อมราคา","children":[{"id":47210446,"code":"58611","name":"ค่าเสื่อมราคา อุปกรณ์สำนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210447,"code":"58612","name":"ค่าเสื่อมราคา คอมพิวเตอร์","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210448,"code":"58613","name":"ค่าเสื่อมราคา เครื่องตกแต่งสำนักงาน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210449,"code":"58614","name":"ค่าเสื่อมราคา ยานพาหนะ","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210456,"code":"58615","name":"ค่าเสื่อมราคา สินทรัพย์ตามสัญญาเช่า","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210457,"code":"58616","name":"ค่าเสื่อมราคา เครื่องจักรและอุปกรณ์","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210458,"code":"58617","name":"ค่าเสื่อมราคา อาคาร","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210459,"code":"58620","name":"ขาดทุนจากการด้อยค่า - ที่ดิน อาคาร อุปกรณ์","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210460,"code":"58630","name":"มูลค่ายุติธรรม - ที่ดิน อาคาร อุปกรณ์","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210441,"code":"58700","name":"ค่าเสื่อมราคา/การด้อยค่า/การตีราคา สินทรัพย์ไม่มีตัวตน","children":[{"id":47210445,"code":"58710","name":"ค่าตัดจำหน่าย","children":[{"id":47210450,"code":"58711","name":"ค่าตัดจำหน่าย ซอฟต์แวร์คอมพิวเตอร์","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210472,"code":"58720","name":"ขาดทุนจากการด้อยค่า - สินทรัพย์ไม่มีตัวตน","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210442,"code":"58970","name":"ค่าเสื่อมราคา/การด้อยค่า/การตีราคา อสังหาริมทรัพย์เพื่อการลงทุน","category":5,"isControlAccount":true,"isDefalut":false},{"id":47210443,"code":"58990","name":"ค่าเสื่อมราคา/การด้อยค่า/การตีราคา สินทรัพย์ชีวภาพ","category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false},{"id":47210360,"code":"59000","name":"ค่าใช้จ่ายอื่น","children":[{"id":47210479,"code":"59880","name":"กำไร/ขาดทุนจากอัตราแลกเปลี่ยนที่ยังไม่รับรู้","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210361,"code":"59900","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด","children":[{"id":53358800,"code":"59900.00.00","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด สำนักงานใหญ่","category":5,"isControlAccount":false,"isDefalut":false},{"id":53358801,"code":"59900.01.00","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด สันป่าตอง","category":5,"isControlAccount":false,"isDefalut":false},{"id":53358802,"code":"59900.02.00","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ชุมพร","category":5,"isControlAccount":false,"isDefalut":false},{"id":53358803,"code":"59900.03.00","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ท่าแพ","category":5,"isControlAccount":false,"isDefalut":false},{"id":53358804,"code":"59900.04.00","name":"ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ฐธ๙","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210362,"code":"59910","name":"ค่าใช้จ่ายเบ็ดเตล็ด","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210452,"code":"59970","name":"ค่าบริจาคการกุศล","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210363,"code":"59990","name":"รายจ่ายอื่นๆ","children":[{"id":47210364,"code":"59991","name":"รายจ่ายต้องห้าม","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210365,"code":"59992","name":"ภาษีซื้อขอคืนไม่ได้/ต้องห้าม","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210366,"code":"59993","name":"ภาษีซื้อไม่ขอคืน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210367,"code":"59994","name":"เครดิตภาษีซื้อไม่ขอคืน","category":5,"isControlAccount":false,"isDefalut":false},{"id":47210368,"code":"59995","name":"เบี้ยปรับเงินเพิ่ม","category":5,"isControlAccount":false,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"category":5,"isControlAccount":true,"isDefalut":false}],"sellChartOfAccounts":[{"id":47210255,"code":"41110","name":"รายได้จากการขายสินค้า","category":4,"isControlAccount":false,"isDefalut":true},{"id":52899634,"code":"41110.00.01","name":"รายได้ขายสินค้า สำนักงานใหญ่","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899635,"code":"41110.01.01","name":"รายได้ขายสินค้า สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899636,"code":"41110.01.02","name":"รายได้ผักผลไม้ สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899637,"code":"41110.01.03","name":"รายได้ขายอาหาร สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899638,"code":"41110.01.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ สันป่าตอง","category":4,"isControlAccount":false,"isDefalut":false},{"id":52899639,"code":"41110.02.01","name":"รายได้ขายสินค้า ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900075,"code":"41110.02.02","name":"รายได้ผักผลไม้ ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900077,"code":"41110.02.03","name":"รายได้ขายอาหาร ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900513,"code":"41110.02.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ ชุมพร","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900514,"code":"41110.03.01","name":"รายได้ขายสินค้า ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900515,"code":"41110.03.02","name":"รายได้ขายผักผลไม้ ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900516,"code":"41110.03.03","name":"รายได้ขายอาหาร ท่าแพ","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900517,"code":"41110.04.01","name":"รายได้ขายสินค้า ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900953,"code":"41110.04.02","name":"รายได้ขายผักผลไม้ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900954,"code":"41110.04.03","name":"รายได้ขายอาหาร ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900955,"code":"41110.04.04","name":"รายได้ร้านกาแฟ/เบเกอรี่ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":52900956,"code":"41110.04.05","name":"รายได้จากรถธรรมธุรกิจ ฐธ๙","category":4,"isControlAccount":false,"isDefalut":false},{"id":47210267,"code":"49990","name":"รายได้อื่นๆ","category":4,"isControlAccount":false,"isDefalut":false}]}]}
+{
+    "status": true,
+    "message": "",
+    "code": 0,
+    "data": [
+        {
+            "productType": 5,
+            "buyChartOfAccounts": [
+                {
+                    "id": 47210273,
+                    "code": "51111.01",
+                    "name": "ซื้อสินค้า",
+                    "category": 5,
+                    "isControlAccount": false,
+                    "isDefalut": true
+                }
+            ],
+            "sellChartOfAccounts": [
+                {
+                    "id": 47210255,
+                    "code": "41110",
+                    "name": "รายได้จากการขายสินค้า",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": true
+                },
+                {
+                    "id": 52899634,
+                    "code": "41110.00.01",
+                    "name": "รายได้ขายสินค้า สำนักงานใหญ่",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899635,
+                    "code": "41110.01.01",
+                    "name": "รายได้ขายสินค้า สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899636,
+                    "code": "41110.01.02",
+                    "name": "รายได้ผักผลไม้ สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899637,
+                    "code": "41110.01.03",
+                    "name": "รายได้ขายอาหาร สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899638,
+                    "code": "41110.01.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899639,
+                    "code": "41110.02.01",
+                    "name": "รายได้ขายสินค้า ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900075,
+                    "code": "41110.02.02",
+                    "name": "รายได้ผักผลไม้ ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900077,
+                    "code": "41110.02.03",
+                    "name": "รายได้ขายอาหาร ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900513,
+                    "code": "41110.02.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900514,
+                    "code": "41110.03.01",
+                    "name": "รายได้ขายสินค้า ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900515,
+                    "code": "41110.03.02",
+                    "name": "รายได้ขายผักผลไม้ ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900516,
+                    "code": "41110.03.03",
+                    "name": "รายได้ขายอาหาร ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900517,
+                    "code": "41110.04.01",
+                    "name": "รายได้ขายสินค้า ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900953,
+                    "code": "41110.04.02",
+                    "name": "รายได้ขายผักผลไม้ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900954,
+                    "code": "41110.04.03",
+                    "name": "รายได้ขายอาหาร ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900955,
+                    "code": "41110.04.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900956,
+                    "code": "41110.04.05",
+                    "name": "รายได้จากรถธรรมธุรกิจ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                }
+            ]
+        },
+        {
+            "productType": 1,
+            "buyChartOfAccounts": null,
+            "sellChartOfAccounts": [
+                {
+                    "id": 47210256,
+                    "code": "41210",
+                    "name": "รายได้จากการให้บริการ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": true
+                },
+                {
+                    "id": 52900957,
+                    "code": "41210.01.06",
+                    "name": "รายได้ฝึกอบรม สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900959,
+                    "code": "41210.01.07",
+                    "name": "รายได้ห้องพัก สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900960,
+                    "code": "41210.02.06",
+                    "name": "รายได้ฝึกอบรม ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900961,
+                    "code": "41210.02.07",
+                    "name": "รายได้ห้องพัก ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900962,
+                    "code": "41210.02.08",
+                    "name": "รายได้ไดฟ์วิ่ง ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                }
+            ]
+        },
+        {
+            "productType": 3,
+            "buyChartOfAccounts": [
+                {
+                    "id": 47210269,
+                    "code": "50000",
+                    "name": "ค่าใช้จ่าย",
+                    "children": [
+                        {
+                            "id": 47210270,
+                            "code": "51000",
+                            "name": "ต้นทุนขายสุทธิ",
+                            "children": [
+                                {
+                                    "id": 47210271,
+                                    "code": "51100",
+                                    "name": "ต้นทุนขายสินค้าเพื่อขาย",
+                                    "children": [
+                                        {
+                                            "id": 53172265,
+                                            "code": "51100.00.01",
+                                            "name": "ต้นทุนขายสินค้า สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172266,
+                                            "code": "51100.01.01",
+                                            "name": "ต้นทุนขายสินค้า สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172267,
+                                            "code": "51100.01.02",
+                                            "name": "ต้นทุนขายอาหารสดผักผลไม้ สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172268,
+                                            "code": "51100.01.03",
+                                            "name": "ต้นทุนขายอาหาร สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172270,
+                                            "code": "51100.01.04",
+                                            "name": "ต้นทุนร้านกาแฟ/เบเกอรี่ สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172271,
+                                            "code": "51100.02.01",
+                                            "name": "ต้นทุนขายสินค้า ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172272,
+                                            "code": "51100.02.02",
+                                            "name": "ต้นทุนขายอาหารสดผักผลไม้ ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172273,
+                                            "code": "51100.02.03",
+                                            "name": "ต้นทุนขายอาหาร ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172274,
+                                            "code": "51100.02.04",
+                                            "name": "ต้นทุนร้านกาแฟ/เบเกอรี่ ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172275,
+                                            "code": "51100.03.01",
+                                            "name": "ต้นทุนขายสินค้า ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172276,
+                                            "code": "51100.03.02",
+                                            "name": "ต้นทุนขายอาหารสดผักผลไม้ ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172277,
+                                            "code": "51100.03.03",
+                                            "name": "ต้นทุนขายอาหาร ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172278,
+                                            "code": "51100.04.01",
+                                            "name": "ต้นทุนขายสินค้า ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172279,
+                                            "code": "51100.04.02",
+                                            "name": "ต้นทุนขายอาหารสดผักผลไม้ ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172280,
+                                            "code": "51100.04.03",
+                                            "name": "ต้นทุนขายอาหาร ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172281,
+                                            "code": "51100.04.04",
+                                            "name": "ต้นทุนร้านกาแฟ/เบเกอรี่ ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172282,
+                                            "code": "51100.04.05",
+                                            "name": "ต้นทุนรถธรรมธุรกิจ ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210272,
+                                            "code": "51110",
+                                            "name": "ส่วนเปลี่ยนแปลงของสินค้าสำเร็จรูป",
+                                            "children": [
+                                                {
+                                                    "id": 47210377,
+                                                    "code": "51111",
+                                                    "name": "ซื้อสินค้า",
+                                                    "children": [
+                                                        {
+                                                            "id": 47210273,
+                                                            "code": "51111.01",
+                                                            "name": "ซื้อสินค้า",
+                                                            "category": 5,
+                                                            "isControlAccount": false,
+                                                            "isDefalut": false
+                                                        }
+                                                    ],
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210418,
+                                                    "code": "51113",
+                                                    "name": "ส่งคืน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210419,
+                                                    "code": "51114",
+                                                    "name": "ส่วนลดรับ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210274,
+                                                    "code": "51118",
+                                                    "name": "ต้นทุนขายสินค้าสำเร็จรูป",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210275,
+                                                    "code": "51119",
+                                                    "name": "ส่วนเปลี่ยนแปลงสินค้าสำเร็จรูป (ต้น-ปลาย)",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210276,
+                                            "code": "51120",
+                                            "name": "วัตถุดิบและวัสดุสิ้นเปลืองใช้ไป",
+                                            "children": [
+                                                {
+                                                    "id": 47210277,
+                                                    "code": "51121",
+                                                    "name": "ซื้อวัตถุดิบและวัสดุ",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210278,
+                                                    "code": "51129",
+                                                    "name": "ส่วนเปลี่ยนแปลงวัตถุดิบและวัสดุ (ต้น-ปลาย)",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210279,
+                                            "code": "51130",
+                                            "name": "ต้นทุนการผลิต/ต้นทุนคิดเข้างาน",
+                                            "children": [
+                                                {
+                                                    "id": 47210280,
+                                                    "code": "51131",
+                                                    "name": "ต้นทุนการผลิต - คน",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210281,
+                                                    "code": "51132",
+                                                    "name": "ต้นทุนการผลิต - พลังงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210282,
+                                                    "code": "51133",
+                                                    "name": "ต้นทุนการผลิต - แพคเกจ",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210283,
+                                                    "code": "51134",
+                                                    "name": "ต้นทุนการผลิต - ค่าสึกหรอและค่าเสื่อมราคา",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210284,
+                                                    "code": "51135",
+                                                    "name": "ต้นทุนการผลิต - ค่าสิทธิ์/ลิขสิทธิ์",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210285,
+                                                    "code": "51139",
+                                                    "name": "ส่วนเปลี่ยนแปลงของระหว่างทำ (ต้น-ปลาย)",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210378,
+                                    "code": "51200",
+                                    "name": "ต้นทุนการให้บริการ",
+                                    "children": [
+                                        {
+                                            "id": 47210286,
+                                            "code": "51210",
+                                            "name": "ต้นทุนการให้บริการ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172283,
+                                            "code": "51210.01.06",
+                                            "name": "ต้นทุนอบรม สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172719,
+                                            "code": "51210.01.07",
+                                            "name": "ต้นทุนห้องพัก สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172720,
+                                            "code": "51210.02.06",
+                                            "name": "ต้นทุนอบรม ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172721,
+                                            "code": "51210.02.07",
+                                            "name": "ต้นทุนห้องพัก ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53172722,
+                                            "code": "51210.02.08",
+                                            "name": "ต้นทุนไดฟ์วิ่ง ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210287,
+                            "code": "52000",
+                            "name": "ค่าใช้จ่ายในการขาย",
+                            "children": [
+                                {
+                                    "id": 47210288,
+                                    "code": "52010",
+                                    "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ",
+                                    "children": [
+                                        {
+                                            "id": 53173595,
+                                            "code": "52010.00.00",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53173596,
+                                            "code": "52010.01.00",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53173597,
+                                            "code": "52010.02.00",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53173598,
+                                            "code": "52010.03.00",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53173599,
+                                            "code": "52010.04.00",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210455,
+                                            "code": "52011",
+                                            "name": "ค่าใช้จ่ายเดินทางและยานพาหนะ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210454,
+                                            "code": "52019",
+                                            "name": "ค่าพาหนะ/ค่าใช้จ่ายเดินทาง/ที่พัก อื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210289,
+                                    "code": "52020",
+                                    "name": "เบี้ยเลี้ยงเดินทาง",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210290,
+                                    "code": "52030",
+                                    "name": "ค่าขนส่งและลอจิสติกส์",
+                                    "children": [
+                                        {
+                                            "id": 53174035,
+                                            "code": "52030.00.00",
+                                            "name": "ค่าขนส่งและลอจิสติกส์ สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174036,
+                                            "code": "52030.01.00",
+                                            "name": "ค่าขนส่งและลอจิสติกส์ สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174472,
+                                            "code": "52030.02.00",
+                                            "name": "ค่าขนส่งและลอจิสติกส์ ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174473,
+                                            "code": "52030.03.00",
+                                            "name": "ค่าขนส่งและลอจิสติกส์ ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174474,
+                                            "code": "52030.04.00",
+                                            "name": "ค่าขนส่งและลอจิสติกส์ ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210291,
+                                            "code": "52031",
+                                            "name": "ค่าขนส่ง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210292,
+                                            "code": "52032",
+                                            "name": "ค่าประกันภัยสินค้า",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210293,
+                                    "code": "52040",
+                                    "name": "ค่ารับรองลูกค้า",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210294,
+                                    "code": "52050",
+                                    "name": "ค่านายหน้าและส่วนแบ่งการขาย",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210295,
+                                    "code": "52060",
+                                    "name": "ค่าส่งเสริมการขายและอีเวนท์",
+                                    "children": [
+                                        {
+                                            "id": 53174910,
+                                            "code": "52060.00.00",
+                                            "name": "ค่าส่งเสริมกายขายและอีเวนท์ สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174911,
+                                            "code": "52060.01.00",
+                                            "name": "ค่าส่งเสริมกายขายและอีเวนท์ สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174912,
+                                            "code": "52060.02.00",
+                                            "name": "ค่าส่งเสริมกายขายและอีเวนท์ ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174913,
+                                            "code": "52060.03.00",
+                                            "name": "ค่าส่งเสริมกายขายและอีเวนท์ ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53174914,
+                                            "code": "52060.04.00",
+                                            "name": "ค่าส่งเสริมกายขายและอีเวนท์ ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210296,
+                                            "code": "52061",
+                                            "name": "ค่าส่งเสริมการขาย",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210297,
+                                            "code": "52062",
+                                            "name": "ค่าสินค้าตัวอย่าง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210420,
+                                    "code": "52070",
+                                    "name": "ค่าติดต่อสื่อสาร/ลูกค้าสัมพันธ์",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210421,
+                                    "code": "52990",
+                                    "name": "ค่าใช้จ่ายในการขายอื่นๆ",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210298,
+                            "code": "53000",
+                            "name": "ค่าใช้จ่ายในการบริหาร",
+                            "children": [
+                                {
+                                    "id": 47210299,
+                                    "code": "53010",
+                                    "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน",
+                                    "children": [
+                                        {
+                                            "id": 53175351,
+                                            "code": "53010.00.00",
+                                            "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175352,
+                                            "code": "53010.01.00",
+                                            "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175353,
+                                            "code": "53010.02.00",
+                                            "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175355,
+                                            "code": "53010.03.00",
+                                            "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175356,
+                                            "code": "53010.04.00",
+                                            "name": "ค่าใช้จ่ายเกี่ยวกับพนักงาน ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210300,
+                                            "code": "53011",
+                                            "name": "เงินเดือนและค่าจ้างแรงงาน",
+                                            "children": [
+                                                {
+                                                    "id": 47210301,
+                                                    "code": "53011.01",
+                                                    "name": "เงินเดือน ค่าแรง ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210422,
+                                                    "code": "53011.02",
+                                                    "name": "ค่าล่วงเวลา",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210302,
+                                                    "code": "53011.03",
+                                                    "name": "โบนัส",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210303,
+                                                    "code": "53011.04",
+                                                    "name": "เงินเพิ่มพิเศษ/ประโยชน์ส่วนเพิ่ม",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210304,
+                                                    "code": "53011.05",
+                                                    "name": "คอมมิชชั่นพนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210305,
+                                            "code": "53012",
+                                            "name": "เงินประกันสังคม/กองทุนสำรองฯ",
+                                            "children": [
+                                                {
+                                                    "id": 47210306,
+                                                    "code": "53012.01",
+                                                    "name": "เงินสมทบประกันสังคม",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210307,
+                                                    "code": "53012.02",
+                                                    "name": "กองทุนเงินทดแทน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210308,
+                                            "code": "53013",
+                                            "name": "เงินสวัสดิการพนักงาน",
+                                            "children": [
+                                                {
+                                                    "id": 47210310,
+                                                    "code": "53013.01",
+                                                    "name": "ค่าเบี้ยเลี้ยง/ค่าครองชีพ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210309,
+                                                    "code": "53013.02",
+                                                    "name": "ค่ารักษาพยาบาลและยา",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210423,
+                                                    "code": "53013.03",
+                                                    "name": "ค่าที่พักอาศัยพนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210311,
+                                                    "code": "53013.04",
+                                                    "name": "ค่าแบบฟอร์มพนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210312,
+                                                    "code": "53013.05",
+                                                    "name": "ค่าอบรมและสัมมนา",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210313,
+                                                    "code": "53013.06",
+                                                    "name": "ค่าเบี้ยประกันพนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210314,
+                                                    "code": "53013.07",
+                                                    "name": "ค่าอาหารและเครื่องดื่มพนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210315,
+                                                    "code": "53013.08",
+                                                    "name": "ค่าจัดเลี้ยงและสันทนาการ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210316,
+                                                    "code": "53013.99",
+                                                    "name": "สวัสดิการอื่นๆ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210317,
+                                            "code": "53014",
+                                            "name": "ค่าใช้จ่ายและค่าตอบแทนกรรมการ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210431,
+                                            "code": "53019",
+                                            "name": "ค่าใช้จ่ายผลประโยชน์พนักงานหลังออกจากงาน",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210318,
+                                    "code": "53020",
+                                    "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด",
+                                    "children": [
+                                        {
+                                            "id": 53175792,
+                                            "code": "53020.00.00",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175793,
+                                            "code": "53020.01.00",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175794,
+                                            "code": "53020.02.00",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53175795,
+                                            "code": "53020.03.00",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53176231,
+                                            "code": "53020.04.00",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาด ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210319,
+                                            "code": "53021",
+                                            "name": "ค่าโฆษณาสื่อ/สิ่งพิมพ์",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210320,
+                                            "code": "53022",
+                                            "name": "ค่าใช้จ่ายการตลาดออนไลน์",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210321,
+                                            "code": "53023",
+                                            "name": "ค่าจ้างด้านโฆษณาและการตลาด",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210322,
+                                            "code": "53024",
+                                            "name": "ค่าบริการโฮสติ้ง เว็บไซต์ และเซิร์ฟเวอร์",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210323,
+                                            "code": "53029",
+                                            "name": "ค่าใช้จ่ายด้านโฆษณาและการตลาดอื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210324,
+                                    "code": "53030",
+                                    "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน",
+                                    "children": [
+                                        {
+                                            "id": 53176232,
+                                            "code": "53030.00.00",
+                                            "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53176233,
+                                            "code": "53030.01.00",
+                                            "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53176234,
+                                            "code": "53030.02.00",
+                                            "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53176235,
+                                            "code": "53030.03.00",
+                                            "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53176236,
+                                            "code": "53030.04.00",
+                                            "name": "ค่าสาธารณูปโภคและค่าใช้จ่ายสำนักงาน ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210325,
+                                            "code": "53031",
+                                            "name": "ค่าสาธาณูปโภค",
+                                            "children": [
+                                                {
+                                                    "id": 47210424,
+                                                    "code": "53031.01",
+                                                    "name": "ค่าไฟฟ้า",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210425,
+                                                    "code": "53031.02",
+                                                    "name": "ค่าน้ำประปา",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210426,
+                                                    "code": "53031.03",
+                                                    "name": "ค่าโทรศัพท์",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210481,
+                                                    "code": "53031.04",
+                                                    "name": "ค่าอินเทอร์เน็ต",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210427,
+                                                    "code": "53031.99",
+                                                    "name": "ค่าสาธารณูปโภคอื่นๆ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210326,
+                                            "code": "53032",
+                                            "name": "ค่าใช้จ่ายสำนักงาน",
+                                            "children": [
+                                                {
+                                                    "id": 47210327,
+                                                    "code": "53032.01",
+                                                    "name": "ค่าไปรษณีย์และเมสเซนเจอร์",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210329,
+                                                    "code": "53032.02",
+                                                    "name": "ค่าเช่าสำนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210332,
+                                                    "code": "53032.03",
+                                                    "name": "ค่าเครื่องเขียนแบบพิมพ์/วัสดุสิ้นเปลืองใช้ไป",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210328,
+                                                    "code": "53032.04",
+                                                    "name": "ค่าบริการและส่วนกลางสำนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210330,
+                                                    "code": "53032.05",
+                                                    "name": "ค่ารักษาความปลอดภัย",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210331,
+                                                    "code": "53032.06",
+                                                    "name": "ค่ารักษาความสะอาด",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210333,
+                                                    "code": "53032.07",
+                                                    "name": "ค่าวารสารและสมาชิก",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210334,
+                                                    "code": "53032.99",
+                                                    "name": "ค่าใช้จ่ายสำนักงานอื่นๆ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210335,
+                                    "code": "53040",
+                                    "name": "ค่าเบี้ยประกัน",
+                                    "children": [
+                                        {
+                                            "id": 47210476,
+                                            "code": "53041",
+                                            "name": "ค่าเบี้ยประกันภัย-สินค้าและอาคาร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210475,
+                                            "code": "53042",
+                                            "name": "ค่าเบี้ยประกันภัย-ยานพาหนะ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210474,
+                                            "code": "53043",
+                                            "name": "ค่าเบี้ยประกันภัย-พนักงาน",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210477,
+                                            "code": "53049",
+                                            "name": "ค่าเบี้ยประกันภัยอื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210336,
+                                    "code": "53050",
+                                    "name": "ค่าเช่า",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210337,
+                                    "code": "53060",
+                                    "name": "ค่าซ่อมแซมและบำรุงรักษา",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210338,
+                                    "code": "53070",
+                                    "name": "ค่าใช้จ่ายในการวิจัยและพัฒนา",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210339,
+                                    "code": "53080",
+                                    "name": "ค่าแห่งกู๊ดวิลล์/ลิขสิทธิ์/สิทธิอย่างอื่น",
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210345,
+                                    "code": "53100",
+                                    "name": "ค่าบริการด้านวิชาชีพ",
+                                    "children": [
+                                        {
+                                            "id": 47210346,
+                                            "code": "53101",
+                                            "name": "ค่าทำบัญชี",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210347,
+                                            "code": "53102",
+                                            "name": "ค่าสอบบัญชี",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210348,
+                                            "code": "53103",
+                                            "name": "ค่าบริการด้านกฎหมาย",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210349,
+                                    "code": "53110",
+                                    "name": "ค่าบริการทั่วไป",
+                                    "children": [
+                                        {
+                                            "id": 47210350,
+                                            "code": "53111",
+                                            "name": "ค่าบริการให้คำแนะนำและปรึกษา",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210351,
+                                            "code": "53112",
+                                            "name": "ค่าบริหารจัดการ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210352,
+                                            "code": "53113",
+                                            "name": "ค่าโปรแกรมและแอปพลิเคชัน",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210353,
+                                            "code": "53114",
+                                            "name": "ค่าจ้างฟรีแลนซ์",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210354,
+                                            "code": "53115",
+                                            "name": "ค่าจ้างรับเหมา",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210355,
+                                            "code": "53116",
+                                            "name": "ค่าจ้างตามสัญญาจ้างทำของ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210356,
+                                            "code": "53119",
+                                            "name": "ค่าบริการอื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210357,
+                                    "code": "53210",
+                                    "name": "ค่าธรรมเนียมต่างๆ",
+                                    "children": [
+                                        {
+                                            "id": 47210358,
+                                            "code": "53211",
+                                            "name": "ค่าธรรมเนียมธนาคาร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210359,
+                                            "code": "53212",
+                                            "name": "ค่าธรรมเนียมบัตรเครดิต",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210478,
+                                            "code": "53219",
+                                            "name": "ค่าธรรมเนียมอื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210340,
+                                    "code": "53700",
+                                    "name": "ค่าภาษี",
+                                    "children": [
+                                        {
+                                            "id": 47210341,
+                                            "code": "53731",
+                                            "name": "ค่าภาษีโรงเรือนและบำรุงท้องที่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210342,
+                                            "code": "53732",
+                                            "name": "ค่าภาษีป้าย",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210430,
+                                            "code": "53733",
+                                            "name": "ค่าภาษียานพาหนะ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210343,
+                                            "code": "53738",
+                                            "name": "ค่าใช้จ่ายภาษีเงินได้รอการตัดบัญชี",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210344,
+                                            "code": "53739",
+                                            "name": "ค่าภาษีอื่นๆ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210369,
+                            "code": "54000",
+                            "name": "ต้นทุนทางการเงิน",
+                            "children": [
+                                {
+                                    "id": 47210370,
+                                    "code": "54100",
+                                    "name": "ดอกเบี้ยจ่าย",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210371,
+                                    "code": "54200",
+                                    "name": "ดอกเบี้ยจากสัญญาเช่าการเงิน",
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210372,
+                                    "code": "54300",
+                                    "name": "ค่าธรรมเนียมเงินกู้",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210451,
+                            "code": "55000",
+                            "name": "ภาษีเงินได้นิติบุคคล",
+                            "category": 5,
+                            "isControlAccount": false,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210373,
+                            "code": "57000",
+                            "name": "ค่าใช้จ่ายจากการดำเนินงานที่ยกเลิก",
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210432,
+                            "code": "58000",
+                            "name": "ค่าเสื่อมราคา ด้อยค่า และการตีราคา",
+                            "children": [
+                                {
+                                    "id": 47210433,
+                                    "code": "58200",
+                                    "name": "การด้อยค่า/การตีราคา เงินลงทุน",
+                                    "children": [
+                                        {
+                                            "id": 47210461,
+                                            "code": "58220",
+                                            "name": "ขาดทุนจากการด้อยค่า - เงินลงทุน",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210462,
+                                            "code": "58230",
+                                            "name": "มูลค่ายุติธรรม - เงินลงทุน",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210434,
+                                    "code": "58300",
+                                    "name": "การด้อยค่า ลูกหนี้การค้าและลูกหนี้อื่น",
+                                    "children": [
+                                        {
+                                            "id": 47210435,
+                                            "code": "58310",
+                                            "name": "หนี้สงสัยจะสูญ ลูกหนี้การค้าและลูกหนี้อื่น",
+                                            "children": [
+                                                {
+                                                    "id": 47210436,
+                                                    "code": "58311",
+                                                    "name": "หนี้สงสัยจะสูญ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210437,
+                                                    "code": "58312",
+                                                    "name": "หนี้สูญ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210438,
+                                    "code": "58400",
+                                    "name": "การด้อยค่า/การตีราคา เงินให้กู้ยืม",
+                                    "children": [
+                                        {
+                                            "id": 47210463,
+                                            "code": "58420",
+                                            "name": "ขาดทุนจากการด้อยค่า - เงินให้กู้ยืม",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210439,
+                                    "code": "58500",
+                                    "name": "การด้อยค่า/การตีราคา สินค้าคงเหลือ",
+                                    "children": [
+                                        {
+                                            "id": 47210467,
+                                            "code": "58520",
+                                            "name": "ขาดทุนจากสินค้าเสื่อมสภาพ/ล้าสมัย",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210464,
+                                            "code": "58530",
+                                            "name": "ขาดทุนจากการตีราคาสินค้าคงเหลือลดลง",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210440,
+                                    "code": "58600",
+                                    "name": "ค่าเสื่อมราคา/การด้อยค่า/การตีราคา ที่ดินอาคารอุปกรณ์",
+                                    "children": [
+                                        {
+                                            "id": 47210444,
+                                            "code": "58610",
+                                            "name": "ค่าเสื่อมราคา",
+                                            "children": [
+                                                {
+                                                    "id": 47210446,
+                                                    "code": "58611",
+                                                    "name": "ค่าเสื่อมราคา อุปกรณ์สำนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210447,
+                                                    "code": "58612",
+                                                    "name": "ค่าเสื่อมราคา คอมพิวเตอร์",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210448,
+                                                    "code": "58613",
+                                                    "name": "ค่าเสื่อมราคา เครื่องตกแต่งสำนักงาน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210449,
+                                                    "code": "58614",
+                                                    "name": "ค่าเสื่อมราคา ยานพาหนะ",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210456,
+                                                    "code": "58615",
+                                                    "name": "ค่าเสื่อมราคา สินทรัพย์ตามสัญญาเช่า",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210457,
+                                                    "code": "58616",
+                                                    "name": "ค่าเสื่อมราคา เครื่องจักรและอุปกรณ์",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210458,
+                                                    "code": "58617",
+                                                    "name": "ค่าเสื่อมราคา อาคาร",
+                                                    "category": 5,
+                                                    "isControlAccount": true,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210459,
+                                            "code": "58620",
+                                            "name": "ขาดทุนจากการด้อยค่า - ที่ดิน อาคาร อุปกรณ์",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210460,
+                                            "code": "58630",
+                                            "name": "มูลค่ายุติธรรม - ที่ดิน อาคาร อุปกรณ์",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210441,
+                                    "code": "58700",
+                                    "name": "ค่าเสื่อมราคา/การด้อยค่า/การตีราคา สินทรัพย์ไม่มีตัวตน",
+                                    "children": [
+                                        {
+                                            "id": 47210445,
+                                            "code": "58710",
+                                            "name": "ค่าตัดจำหน่าย",
+                                            "children": [
+                                                {
+                                                    "id": 47210450,
+                                                    "code": "58711",
+                                                    "name": "ค่าตัดจำหน่าย ซอฟต์แวร์คอมพิวเตอร์",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210472,
+                                            "code": "58720",
+                                            "name": "ขาดทุนจากการด้อยค่า - สินทรัพย์ไม่มีตัวตน",
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210442,
+                                    "code": "58970",
+                                    "name": "ค่าเสื่อมราคา/การด้อยค่า/การตีราคา อสังหาริมทรัพย์เพื่อการลงทุน",
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210443,
+                                    "code": "58990",
+                                    "name": "ค่าเสื่อมราคา/การด้อยค่า/การตีราคา สินทรัพย์ชีวภาพ",
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        },
+                        {
+                            "id": 47210360,
+                            "code": "59000",
+                            "name": "ค่าใช้จ่ายอื่น",
+                            "children": [
+                                {
+                                    "id": 47210479,
+                                    "code": "59880",
+                                    "name": "กำไร/ขาดทุนจากอัตราแลกเปลี่ยนที่ยังไม่รับรู้",
+                                    "category": 5,
+                                    "isControlAccount": false,
+                                    "isDefalut": false
+                                },
+                                {
+                                    "id": 47210361,
+                                    "code": "59900",
+                                    "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด",
+                                    "children": [
+                                        {
+                                            "id": 53358800,
+                                            "code": "59900.00.00",
+                                            "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด สำนักงานใหญ่",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53358801,
+                                            "code": "59900.01.00",
+                                            "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด สันป่าตอง",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53358802,
+                                            "code": "59900.02.00",
+                                            "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ชุมพร",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53358803,
+                                            "code": "59900.03.00",
+                                            "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ท่าแพ",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 53358804,
+                                            "code": "59900.04.00",
+                                            "name": "ค่าใช้จ่ายอื่นและเบ็ดเตล็ด ฐธ๙",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210362,
+                                            "code": "59910",
+                                            "name": "ค่าใช้จ่ายเบ็ดเตล็ด",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210452,
+                                            "code": "59970",
+                                            "name": "ค่าบริจาคการกุศล",
+                                            "category": 5,
+                                            "isControlAccount": false,
+                                            "isDefalut": false
+                                        },
+                                        {
+                                            "id": 47210363,
+                                            "code": "59990",
+                                            "name": "รายจ่ายอื่นๆ",
+                                            "children": [
+                                                {
+                                                    "id": 47210364,
+                                                    "code": "59991",
+                                                    "name": "รายจ่ายต้องห้าม",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210365,
+                                                    "code": "59992",
+                                                    "name": "ภาษีซื้อขอคืนไม่ได้/ต้องห้าม",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210366,
+                                                    "code": "59993",
+                                                    "name": "ภาษีซื้อไม่ขอคืน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210367,
+                                                    "code": "59994",
+                                                    "name": "เครดิตภาษีซื้อไม่ขอคืน",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                },
+                                                {
+                                                    "id": 47210368,
+                                                    "code": "59995",
+                                                    "name": "เบี้ยปรับเงินเพิ่ม",
+                                                    "category": 5,
+                                                    "isControlAccount": false,
+                                                    "isDefalut": false
+                                                }
+                                            ],
+                                            "category": 5,
+                                            "isControlAccount": true,
+                                            "isDefalut": false
+                                        }
+                                    ],
+                                    "category": 5,
+                                    "isControlAccount": true,
+                                    "isDefalut": false
+                                }
+                            ],
+                            "category": 5,
+                            "isControlAccount": true,
+                            "isDefalut": false
+                        }
+                    ],
+                    "category": 5,
+                    "isControlAccount": true,
+                    "isDefalut": false
+                }
+            ],
+            "sellChartOfAccounts": [
+                {
+                    "id": 47210255,
+                    "code": "41110",
+                    "name": "รายได้จากการขายสินค้า",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": true
+                },
+                {
+                    "id": 52899634,
+                    "code": "41110.00.01",
+                    "name": "รายได้ขายสินค้า สำนักงานใหญ่",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899635,
+                    "code": "41110.01.01",
+                    "name": "รายได้ขายสินค้า สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899636,
+                    "code": "41110.01.02",
+                    "name": "รายได้ผักผลไม้ สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899637,
+                    "code": "41110.01.03",
+                    "name": "รายได้ขายอาหาร สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899638,
+                    "code": "41110.01.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ สันป่าตอง",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52899639,
+                    "code": "41110.02.01",
+                    "name": "รายได้ขายสินค้า ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900075,
+                    "code": "41110.02.02",
+                    "name": "รายได้ผักผลไม้ ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900077,
+                    "code": "41110.02.03",
+                    "name": "รายได้ขายอาหาร ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900513,
+                    "code": "41110.02.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ ชุมพร",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900514,
+                    "code": "41110.03.01",
+                    "name": "รายได้ขายสินค้า ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900515,
+                    "code": "41110.03.02",
+                    "name": "รายได้ขายผักผลไม้ ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900516,
+                    "code": "41110.03.03",
+                    "name": "รายได้ขายอาหาร ท่าแพ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900517,
+                    "code": "41110.04.01",
+                    "name": "รายได้ขายสินค้า ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900953,
+                    "code": "41110.04.02",
+                    "name": "รายได้ขายผักผลไม้ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900954,
+                    "code": "41110.04.03",
+                    "name": "รายได้ขายอาหาร ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900955,
+                    "code": "41110.04.04",
+                    "name": "รายได้ร้านกาแฟ/เบเกอรี่ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 52900956,
+                    "code": "41110.04.05",
+                    "name": "รายได้จากรถธรรมธุรกิจ ฐธ๙",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                },
+                {
+                    "id": 47210267,
+                    "code": "49990",
+                    "name": "รายได้อื่นๆ",
+                    "category": 4,
+                    "isControlAccount": false,
+                    "isDefalut": false
+                }
+            ]
+        }
+    ]
+}

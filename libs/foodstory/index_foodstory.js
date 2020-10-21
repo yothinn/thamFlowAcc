@@ -78,7 +78,7 @@ exports.loadFoodStoryFromFile = async(branchName, fileName) => {
         let f2fa = new FoodStoryToFlowAcc(branchName, thamInfo.flowAccCredentail, pFile);
         await f2fa.init();
 
-        await f2fa.createTaxInvoiceInlineByFile(fileName, FOODSTORY_DEFAULTSHEET);
+        await f2fa.createTaxInvoiceInlineByFile(fileName, this.FOODSTORY_DEFAULTSHEET);
 
     } catch(error) {
         throw error;
