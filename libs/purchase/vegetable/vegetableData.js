@@ -9,6 +9,7 @@ const VEGETABLE_INDEXNAME = {
     unitPrice: "ราคารับซื้อ",
     total: "รวมเงิน",
     paymentType: "การจ่ายเงิน",
+    remark: "หมายเหตุ"
 }
 
 class VegetableData {
@@ -96,7 +97,10 @@ class VegetableData {
             throw 'You have to call readSheet function first';
         }
 
-        return parseFloat(this._rows[rowIndex-2][VEGETABLE_INDEXNAME.quantity]);
+        let str = this._rows[rowIndex-2][VEGETABLE_INDEXNAME.quantity];
+        let num = parseFloat(str.replace(/[,]/g, ""));
+
+        return num;
     }
 
     getUnitPrice(rowIndex) {
@@ -104,7 +108,10 @@ class VegetableData {
             throw 'You have to call readSheet function first';
         }
 
-        return parseFloat(this._rows[rowIndex-2][VEGETABLE_INDEXNAME.unitPrice]);
+        let str = this._rows[rowIndex-2][VEGETABLE_INDEXNAME.unitPrice];
+        let num = parseFloat(str.replace(/[,]/g, ""));
+
+        return num;
     }
 
     getTotal(rowIndex) {
@@ -112,7 +119,10 @@ class VegetableData {
             throw 'You have to call readSheet function first';
         }
 
-        return parseFloat(this._rows[rowIndex-2][VEGETABLE_INDEXNAME.total]);
+        let str = this._rows[rowIndex-2][VEGETABLE_INDEXNAME.total];
+        let num = parseFloat(str.replace(/[,]/g, ""));
+
+        return num;
     }
 
     getPaymentType(rowIndex) {
@@ -121,6 +131,14 @@ class VegetableData {
         }
 
         return this._rows[rowIndex-2][VEGETABLE_INDEXNAME.paymentType];
+    }
+
+    getRemark(rowIndex) {
+        if (!this._rows) {
+            throw 'You have to call readSheet function first';
+        }
+
+        return this._rows[rowIndex-2][VEGETABLE_INDEXNAME.remark];
     }
 
     /**

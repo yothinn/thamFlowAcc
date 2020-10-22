@@ -147,12 +147,15 @@ class VegetableToFlowAcc {
                 if (!flowProduct) {
                     throw `Can't flow account product map name : ${vegData.getProductName(i)}`;
                 }
-
+                // console.log(vegData.getQuantity(i));
+                // console.log(vegData.getUnitPrice(i));
+                // console.log(vegData.getTotal(i));
+                
                 let total = vegData.getTotal(i);
                 purchases.items.push({
                     type: flowProduct.flowProductType,
                     name: flowProduct.flowProductName,
-                    description: "",
+                    description: vegData.getRemark(i),
                     quantity: vegData.getQuantity(i),
                     unitName: flowProduct.flowUnitName,
                     pricePerUnit: vegData.getUnitPrice(i),
