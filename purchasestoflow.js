@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const glob = require("glob");
 const VegetableToFlowAcc = require("./libs/purchase/vegetable/vegetableToFlowAcc");
 const thamInfo = require("./libs/thamflowacc_Info");
+const SeaFoodToFlowAcc = require("./libs/purchase/seafood/seafoodToFlowAcc");
 
 const LOADFROM = {
     seafood: "seafood",
@@ -15,6 +16,27 @@ const questions = [
         message: "What do you want to load data from ?",
         choices: function(answers) {
             return Object.values(LOADFROM);
+        }
+    },
+    {
+        type: "list",
+        name: "fileLoad",
+        message: `Select file that you want to read ?(path:${thamInfo.FILEINPUT_PATH.purchasesSeafood})`,
+        choices: function(answers) {
+            let path = `${thamInfo.FILEINPUT_PATH.purchasesSeafood}/*.xlsx`;
+            return glob.sync(path);
+        },
+        when: function(answers) {
+            return (answers.loadFrom === LOADFROM.seafood);
+        }
+    },
+    {
+        type: "input",
+        name: "sheetName",
+        message: "Sheetname : ",
+        default: "purchases",
+        when: function(answers) {
+            return (answers.loadFrom === LOADFROM.seafood);
         }
     },
     {
@@ -56,6 +78,23 @@ module.exports = async () => {
 
 loadFromSeaFood = async(answers) => {
     console.log("!!!Oop: Not implement");
+
+    const productFile = {
+        fileName: thamInfo.PRODUCTMAP.fileName,
+        sheetName: thamInfo.PRODUCTMAP.sheetName.purchasesSeafood,
+    };
+
+    const CONTACTNAME = "ซื้ออาหารทะเล";
+
+    try {
+        const s2fa= new SeaFoodToFlowAcc(CONTACTNAME, thamInfo.flowAccCredentail, productFile);
+
+        await s2fa.init();
+        s2fa.createPurchasesByIndex(answers.fileLoad, answers.sheetName, answers.startRow, answers.endRow);
+
+    } catch(error) {
+        throw error;
+    }
 };
 
 

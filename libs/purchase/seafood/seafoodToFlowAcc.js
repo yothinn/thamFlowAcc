@@ -1,5 +1,5 @@
 const SeaFoodData = require("./seafoodData");
-const FlowAccount = require("../flowacc");
+const FlowAccount = require("../../flowacc/flowacc");
 
 const SALESNAME = "Seafood";
 
@@ -7,10 +7,14 @@ const SALESNAME = "Seafood";
 class SeaFoodToFlowAcc {
     _flowAccCredentail = null;
     _contactName;
+    _productFile = null;
+    _productMap = null;
 
-    constructor(contactName, flowAccCredentail) {
+
+    constructor(contactName, flowAccCredentail, productFile) {
         this._flowAccCredentail = flowAccCredentail;
         this._contactName = contactName;
+        this._productFile = productFile;
     }
 
     async init() {
@@ -23,6 +27,10 @@ class SeaFoodToFlowAcc {
                 this._flowAccCredentail.grantType,
                 this._flowAccCredentail.scope
             );
+
+            // load product map
+            this._productMap = new ProductMap();
+            await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
 
         } catch(error) {
             throw error;
@@ -41,10 +49,12 @@ class SeaFoodToFlowAcc {
 
             for (let i=startRow; i<=endRow; i++) {
 
-                // Find new invoice when current is null or change no        
-                if (!purchases || seaFoodData.getBillNo(i) !== purchases.reference) {
+                // Find new invoice when current is null or change supplier        
+                if (!purchases || (seaFoodData.getSupplier(i) !== purchases.projectName) ||
+                        (seaFoodData.getDate(i) !== purchases.publishedOn)) {
                     purchases = await purchasesList.find((bill) => {
-                        return bill.reference === seaFoodData.getBillNo(i);
+                        return (bill.projectName === seaFoodData.getSupplier(i)) &&
+                                (bill.publishedOn === seaFoodData.getDate(i));
                     });
                 }
 
@@ -67,8 +77,8 @@ class SeaFoodToFlowAcc {
                         creditDays: 0,
                         dueDate: seaFoodData.getDate(i),
                         salesName: SALESNAME,
-                        // projectName: "",
-                        reference: seaFoodData.getBillNo(i),
+                        projectName: seaFoodData.getSupplier(i),
+                        reference: "",
                         // isVatInclusive: false,
                         // useReceiptDeduction: false,
                         subTotal: 0,
@@ -98,13 +108,20 @@ class SeaFoodToFlowAcc {
                     purchasesList.push(purchases);
                 }
 
+                let flowProduct = this._productMap.findProduct(seaFoodData.getProductName(i), "");
+
+                // Can't find product map !! terminate script
+                if (!flowProduct) {
+                    throw `Can't flow account product map name : ${seaFoodData.getProductName(i)}`;
+                }
+
                 let total = seaFoodData.getWeight(i) * seaFoodData.getUnitPrice(i); 
                 purchases.items.push({
-                    type: seaFoodData.getProductType(i),
-                    name: seaFoodData.getProductName(i),
-                    description: seaFoodData.getProcessCode(i),
+                    type: flowProduct.flowProductType,
+                    name: flowProduct.flowProductName,
+                    description: seaFoodData.getQuantity(i),
                     quantity: seaFoodData.getWeight(i),
-                    unitName: seaFoodData.getUnitName(i),
+                    unitName: flowProduct.flowUnitName,
                     pricePerUnit: seaFoodData.getUnitPrice(i),
                     total: total,
                     // sellChartOfAccountCode: "string",
@@ -123,7 +140,7 @@ class SeaFoodToFlowAcc {
         }
     }
 
-    async createPurchases(fileName, sheetName, startRow, endRow) {
+    async createPurchasesByIndex(fileName, sheetName, startRow, endRow) {
         try {
             let purchasesList = await this.toPurchases(fileName, sheetName, startRow, endRow);
 

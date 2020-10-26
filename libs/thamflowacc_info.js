@@ -14,6 +14,7 @@ exports.PRODUCTMAP = {
         ochaRestChomphon: "ocha_rest_chomphon",
         ochaSanpatong: "ocha_rice_sanpatong", 
         purchasesVegetable: "purchases_vegetable",
+        purchasesSeafood: "purchases_seafood",
     }
 };
 

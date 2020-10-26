@@ -8,6 +8,8 @@ const INDEX_NAME = {
     weight: "น้ำหนัก(kg)",
     quantity: "จำนวน(ตัว,ชิ้น)",
     unitPrice: "ราคาต่อหน่วย",
+    total: "รวม",
+    supplier: "ผู้จำหน่าย",
     // paymentNo: "เลขที่ใบเสร็จ",
     // paymentType: "ประเภทใบเสร็จ",
     // categoryName: "ประเภท",
@@ -71,6 +73,10 @@ class SeaFoodData {
         return `${dateInfo.getFullYear()}-${dateInfo.getMonth()+1}-${dateInfo.getDate()}`;
     }
 
+    getSupplier(row) {
+        return this._trans[row-2][INDEX_NAME.supplier];
+    }
+
     getBillNo(row) {
         // console.log(row);
         return this._trans[row-2][INDEX_NAME.billno];
@@ -85,23 +91,31 @@ class SeaFoodData {
     }
 
     getWeight(row) {
-        return this._trans[row-2][INDEX_NAME.weight];
+        let str = this._trans[row-2][INDEX_NAME.weight];
+        let num =parseFloat(str.replace(/[,]/g, "")); 
+        return num;
     }
 
     getQuantity(row) {
-        return this._trans[row-2][INDEX_NAME.quantity];
+        let str = this._trans[row-2][INDEX_NAME.quantity];
+        let num =parseFloat(str.replace(/[,]/g, "")); 
+        return num;
     }
 
     getUnitPrice(row) {
-        return this._trans[row-2][INDEX_NAME.unitPrice];
-    }
-
-    getProductType(row) {
-        return this._trans[row-2].productType;
+        let str = this._trans[row-2][INDEX_NAME.unitPrice];
+        let num =parseFloat(str.replace(/[,]/g, "")); 
+        return num;
     }
 
     getUnitName(row) {
         return this._trans[row-2].unitName;
+    }
+
+    getTotal(row) {
+        let str = this._trans[row-2][INDEX_NAME.total];
+        let num =parseFloat(str.replace(/[,]/g, "")); 
+        return num;
     }
 }
 

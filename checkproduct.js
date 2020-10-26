@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const foodStory = require("./libs/foodstory/index_foodstory");
 const thamInfo = require("./libs/thamflowacc_info");
+const loyverse = require("./libs/loyverse/index_loyverse");
 const glob = require("glob");
 
 const LOYVERSE_NAME = "Loyverse";
@@ -88,7 +89,7 @@ module.exports = async() => {
 
         console.log("************ Start loading ************");
         if (from[0] === LOYVERSE_NAME) {
-            console.log("Not implement yet");
+            await loyverse.checkProduct(answers.fileLoad);
         } else if (from[0] === FOODSTORY_NAME) {
             await foodStory.checkProduct(from[1].trim(), answers.fileLoad, foodStory.FOODSTORY_DEFAULTSHEET);
         }
