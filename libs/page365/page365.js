@@ -147,8 +147,8 @@ class Page365 {
 
     /**
      * Get Order detail between starttime and endtime
-     * @param {*} startTime : starttime
-     * @param {*} endTime : endtime 
+     * @param {Date} startTime : starttime timestamp
+     * @param {Date} endTime : endtime timestamp
      * @returns array fo order detail
      */
     async getOrderDetailByDate(startTime, endTime) {
@@ -174,8 +174,6 @@ class Page365 {
     async getOrderDetailByBillNo(billNo) {
         try {
             const bill = await this.getBillByBillNo(billNo);
-
-            // console.log(bill);
 
             // Not bills
             if (!bill || bill.length === 0)   return [];

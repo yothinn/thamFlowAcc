@@ -25,6 +25,7 @@
     "glob": "^7.1.6",
     "google-spreadsheet": "^3.0.13",
     "inquirer": "^7.3.3",
+    "mssql": "^6.2.3",
     "node-fetch": "^2.6.1",
     "puppeteer": "^5.2.1",
     "request": "^2.88.2",
