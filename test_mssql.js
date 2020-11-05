@@ -3,6 +3,8 @@ const Page365 = require("./libs/page365/page365");
 const dotenv = require("dotenv").config();
 const page365Tools = require("./libs/page365/page365Tools");
 
+const CyberAccDatabase = require("./libs/cyberacc/cyberacc_database");
+
 // // Prefix that found in page365 customer name
 // const prefixReg = /(นาย|นางสาว|นส.|น.ส.|น.ส|นาง|ผู้บริจาค :|ของขวัญแด่...|คุณ|นาวาเอก|อาจารย์|อ.|รศ.ดร.|ร.อ.)/g;
 // const suffixReg = /[(].*[)]/g;
@@ -44,11 +46,31 @@ var pool;
 //        port: 1433,
     };
 
+
     try {
 
+        let cyberAccDb = new CyberAccDatabase();
 
-        const p365 = new Page365();
-        await p365.connect(process.env.PAGE365_USERNAME, process.env.PAGE365_PASSWORD);
+        await cyberAccDb.connect("sa", "yothinn", "DESKTOP-6LURV9I", "CyberAccDataSocial");
+
+        let accountCode = await cyberAccDb.getAccountIDByCustomerName("จอย", "ชายแสน");
+        console.log(accountCode);
+
+        let idCredit = await cyberAccDb.getNewIdGLCredit();
+        console.log(idCredit);
+        let glMainId = await cyberAccDb.getNewGLMainId("AR", "7", "2563");
+        console.log(glMainId);
+
+        let result = await cyberAccDb.insertToGLMain(glMainId, "12/7/2563", "Page365:8653");
+        result = await cyberAccDb.insertToGLCredit(glMainId, idCredit, accountCode, "ทดสอบเขียน", 12.35);
+        //console.log(result);
+
+        
+
+        cyberAccDb.close();
+
+        // const p365 = new Page365();
+        // await p365.connect(process.env.PAGE365_USERNAME, process.env.PAGE365_PASSWORD);
 
         // let startTime = new Date("2020-10-01");
         // startTime.setHours(0, 0, 0, 0);
@@ -66,18 +88,18 @@ var pool;
 
         // console.log(res);
 
-        let orderDetail = await p365.getOrderDetailByBillNo(8884);
-        // console.log(orderDetail);
-        let [firstName, lastName] = page365Tools.getCustomerName(orderDetail);
-        console.log(`firstName: ${firstName}, lastName: ${lastName}`);
+        // let orderDetail = await p365.getOrderDetailByBillNo(8884);
+        // // console.log(orderDetail);
+        // let [firstName, lastName] = page365Tools.getCustomerName(orderDetail);
+        // console.log(`firstName: ${firstName}, lastName: ${lastName}`);
 
-        pool = new sql.ConnectionPool(config);
+        // pool = new sql.ConnectionPool(config);
 
-        await pool.connect();
+        // await pool.connect();
 
-        let request = pool.request();
-        let result = await request.query(`select dbo.GetAccountIDByCustomerName('${firstName}', '${lastName}') as result`);
-        console.log(result.recordset[0].result);
+        // let request = pool.request();
+        // let result = await request.query(`select dbo.GetAccountIDByCustomerName('${firstName}', '${lastName}') as result`);
+        // console.log(result.recordset[0].result);
 
        // let pool = await sql.connect(config);
 

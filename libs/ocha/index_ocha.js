@@ -1,5 +1,5 @@
 const OchaToFlowAcc = require("./ochaToFlowAcc");
-const thamInfo = require("../thamflowacc_info");
+const thamInfo = require("../thaminfo");
 
 const SHOP = thamInfo.ochaShop;
 // const SHOP = [

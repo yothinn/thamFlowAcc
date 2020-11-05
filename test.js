@@ -4,7 +4,7 @@ const Page365ToFlowAcc = require("./libs/page365/page365ToFlowAcc");
 const Page365 = require("./libs/page365/page365");
 const ProductMap = require("./libs/product/productmap");
 const XLSX = require("xlsx");
-const thamInfo = require("./libs/thamflowacc_info");
+const thamInfo = require("./libs/thaminfo");
 const { program } = require("commander");
 const product = require("./createproduct");
 

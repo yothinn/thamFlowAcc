@@ -3,7 +3,7 @@ const glob = require("glob");
 const p365 = require("./libs/page365/index_page365");
 const ocha = require("./libs/ocha/index_ocha");
 const loy = require("./libs/loyverse/index_loyverse");
-const thamInfo = require("./libs/thamflowacc_info");
+const thamInfo = require("./libs/thaminfo");
 const foodstory = require("./libs/foodstory/index_foodstory");
 
 const PAGE365_NAME = "page365";

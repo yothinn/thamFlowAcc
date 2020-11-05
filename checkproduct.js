@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const foodStory = require("./libs/foodstory/index_foodstory");
-const thamInfo = require("./libs/thamflowacc_info");
+const thamInfo = require("./libs/thaminfo");
 const loyverse = require("./libs/loyverse/index_loyverse");
 const glob = require("glob");
 

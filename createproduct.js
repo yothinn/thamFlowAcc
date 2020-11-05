@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const dotenv = require("dotenv").config();
 const XLSX = require('xlsx');
 const FlowAccount = require('./libs/flowacc/flowacc');
-const thamInfo = require("./libs/thamflowacc_info");
+const thamInfo = require("./libs/thaminfo");
 
 // const PRODUCT_FILE = "product.xlsx";
 // const PRODUCT_SHEETNAME  = "allFlowProduct";

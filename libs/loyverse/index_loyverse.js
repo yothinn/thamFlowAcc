@@ -4,7 +4,7 @@ const LoyverseData = require("./loyverseData");
 const csvtojson = require('csvtojson');
 const ProductMap = require("../product/productmap");
 
-const thamInfo = require("../thamflowacc_info");
+const thamInfo = require("../thaminfo");
 
 const productFile = {
     fileName: thamInfo.PRODUCTMAP.fileName,

@@ -1,6 +1,6 @@
 const FoodStory = require("./foodstory");
 const ProductMap = require("../product/productmap");
-const thamInfo = require("../thamflowacc_info");
+const thamInfo = require("../thaminfo");
 // const foodStoryData = require("./foodstoryData");
 const FoodStoryToFlowAcc = require("./foodstoryToFlowAcc");
 

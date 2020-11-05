@@ -1,5 +1,5 @@
 const PurchasesSeaFoodToFlowAcc = require("./libs/purchase/seafood/SeaFoodToFlowAcc");
-const thamInfo = require("./libs/thamflowacc_info");
+const thamInfo = require("./libs/thaminfo");
 
 const CONTACTNAME = "แปรรูป (Food Processing)";
 
