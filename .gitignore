@@ -117,3 +117,4 @@ dist
 
 fileinput/*
 ./libs/thamturakit-data-center-credential.json
+example/*

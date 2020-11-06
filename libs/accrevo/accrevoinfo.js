@@ -2,8 +2,9 @@
 exports.JOURNAL_ACCOUNTID = {
     SALES: 1,                               // สมุดรายวันขาย
     RECEIPT: 2,                             // สมุดรายวันรับ
-    PURCHASE: 3,                            // สมุดรายวันซื้อ
-    PAY: 4,                                 // สมุดรายวันจ่าย
+    PURCHASE: 4,                            // สมุดรายวันซื้อ
+    PAYMENT: 3,                             // สมุดรายวันจ่าย
+    GENERAL: 5,                             // สมุดรายวันทั่วไป
 };
 
 exports.ACCREVO_URL = {

@@ -35,10 +35,52 @@ class CyberAccDatabase {
     async getAccountIDByCustomerName(firstName, lastName) {
         try {
             let request = this._pool.request();
-            let result = await request.query(`select dbo.GetAccountIDByCustomerName('${firstName}', '${lastName}') as result`);
+            request.input("firstName", sql.NVarChar, firstName);
+            request.input("lastName", sql.NVarChar, lastName);
+            let result = await request.query(
+                "SELECT accountID as result from accountM                                   \
+                where accountName like (N'%' + @firstName + '%') and                        \
+                accountName like (N'%' + @lastName + '%')"
+            );
             // console.log(result);
             // return null if can't find
             return result.recordset[0].result;
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    async getGLTableByDate(dateStr) {
+        try {
+            let request = this._pool.request();
+            request.input("dateStr", sql.NVarChar, dateStr);
+            let result = await request.query(
+                " SELECT ta.addDate, ta.glmainid, ta.accountcode, ta.decription,    \
+		                ta.debit, ta.credit, ac.AccountName                         \
+                    FROM dbo.GLTableAll ta                                          \
+                    INNER JOIN dbo.AccountM ac ON ta.accountcode = ac.AccountID     \
+                    where convert(date, addDate)=@dateStr"
+            );
+            // console.log(result.recordset);
+            return result.recordset;
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    async getGLTableByMainId(glMainId) {
+        try {
+            let request = this._pool.request();
+            request.input("glMainId", sql.NVarChar, glMainId);
+            let result = await request.query(
+                " SELECT ta.addDate, ta.glmainid, ta.accountcode, ta.decription,    \
+		                ta.debit, ta.credit, ac.AccountName                         \
+                    FROM dbo.GLTableAll ta                                          \
+                    INNER JOIN dbo.AccountM ac ON ta.accountcode = ac.AccountID     \
+                    where GLMainId=@glMainId"
+            );
+            // console.log(result.recordset);
+            return result.recordset;
         } catch(error) {
             throw error;
         }
@@ -158,8 +200,7 @@ class CyberAccDatabase {
             request.input("amount", sql.Float, amount);
             let result = await request.query(
                 " INSERT INTO GLCredit                                              \
-                    Values (@glMainId, @id, @accountCode, @desp, @amount, '')       \
-                "
+                    Values (@glMainId, @id, @accountCode, @desp, @amount, '')"
             )
             // console.log(result);
 
@@ -188,8 +229,7 @@ class CyberAccDatabase {
             request.input("amount", sql.Float, amount);
             let result = await request.query(
                 " INSERT INTO GLDebit                                              \
-                    Values (@glMainId, @id, @accountCode, @desp, @amount, '')      \
-                "
+                    Values (@glMainId, @id, @accountCode, @desp, @amount, '')"
             )
             // console.log(result);
 

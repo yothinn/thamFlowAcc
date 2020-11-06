@@ -8,6 +8,7 @@ const thamInfo = require("./libs/thaminfo");
 const { program } = require("commander");
 const product = require("./createproduct");
 
+
 // program.version("0.0.1");
 
 // program

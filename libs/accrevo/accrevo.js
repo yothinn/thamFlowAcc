@@ -1,4 +1,4 @@
-const { createBrowserFetcher } = require("puppeteer");
+const request = require("request");
 const accrevoInfo = require("./accrevoinfo");
 
 class AccRevo {
@@ -82,7 +82,7 @@ class AccRevo {
      * {
      *  file: use fs.createReadStream(pathFile)
      *  month : month doc
-     *  type: journal account type
+     *  type: use journal account type
      * } 
      * @param {*} docBody 
      * {
@@ -115,24 +115,79 @@ class AccRevo {
      * }
      */
     async uploadDoc(imgBody, docBody) {
-        tmpImgBody = imgBody;
-        tmpImgBody.code = this._componyInfo.company_code;
-        tmpImgBody.year = this._componyInfo.company_year;
-        tmpImgBody.img_type = 1;
+        try {
+            let headers = {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${this._token}`,
+            };
 
-        // Send to accrevo
+            // Add another field
+            imgBody.code = this._componyInfo.company_code;
+            imgBody.year = this._componyInfo.company_year;
+            imgBody.img_type = 1;
 
-        docRes = await new Promise((resolve, reject) => {
+            // console.log(imgBody);
+            // Send to accrevo
+            let docRes = await new Promise((resolve, reject) => {
+                request.post(
+                    {
+                        url: accrevoInfo.ACCREVO_URL.UPLOADTASK_IMG,
+                        headers: headers,
+                        formData: imgBody,
+                    },
+                    (err, resp, body) => {
+                        if (err) reject(err);
+                        try {
+                            let b = JSON.parse(body);
+                            if (b.error) {
+                                reject(b.error);
+                            } else {
+                                resolve(b);
+                            }
+                        } catch(error) {
+                            reject(error);
+                        }
+                        
+                    });
+            })
+            // console.log(docRes);
 
-        })
+            // Save document
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this._token}`,
+                "apiKey": this._apiKey,
+            };
 
-        tmpDocBody = docBody;
-        tmpDocBody.running_code = docRes.running_code;
+            docBody.running_code = docRes.running_code;
 
-        return new Promise((resolve, reject) => {
+            //console.log(docBody);
+            
+            return new Promise((resolve, reject) => {
+                request.post(
+                    {
+                        url: accrevoInfo.ACCREVO_URL.SEND_DOC,
+                        headers: headers,
+                        body: JSON.stringify(docBody),
+                    },
+                    (err, resp, body) => {
+                        if (err) reject(err);
 
-        });
-
+                        // console.log(body);
+                        resolve(body); 
+                        // let b = JSON.parse(body);
+                        // if (b.error) {
+                        //     reject(b.error);
+                        // } else {
+                        //     resolve(b);
+                        // }
+                    });
+            });
+        } catch(error) {
+            throw error;
+        }
 
     }
 }
+
+module.exports = AccRevo;
