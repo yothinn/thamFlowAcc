@@ -1,19 +1,15 @@
-const ProductMap = require("../product/productmap");
-const FlowAccount = require("../flowacc/flowacc");
-const csvtojson = require('csvtojson');
-const LoyverseData = require("./loyverseData");
+const ProductMap = require("../../../libs/product/productmap");
+const FlowAccount = require("../../../libs/flowacc/flowacc");
+const FoodStory = require("../../../libs/foodstory/foodstory");
 
-const SALESNAME = "loyverse";
-const VATRATE = 7;
-
-class LoyverseToFlowAcc {
-    _shopName = null; 
+const SALESNAME = "foodstory";
+class FoodStoryToFlowAcc {
     _flowAccCredentail = null;
     _productFile = null;
     _productMap = null;
-
-    _flowAcc = null;
-
+    _shopName;
+    _flowAcc;
+    
     /**
      * 
      * @param {string} shopName
@@ -32,14 +28,11 @@ class LoyverseToFlowAcc {
      * } 
      */
     constructor(shopName, flowAccCredentail, productFile) {
-        this._shopName = shopName;
         this._flowAccCredentail = flowAccCredentail;
+        this._shopName = shopName;
         this._productFile = productFile;
     }
 
-    /**
-     * initial flowaccount and product map
-     */
     async init() {
         try {
             // authorize flow account
@@ -59,12 +52,7 @@ class LoyverseToFlowAcc {
         }
     }
 
-    /**
-     * Convert all transaction loyverse to tax invoice
-     * @param {*} trans : transaction loyverse list
-     * @returns : tax invoice list of flow account
-     */
-    async toTaxInvoiceInline(trans) {
+    async toTaxInvoiceInline(fileName, sheetName) {
         try {
             // Not initial
             if (!this._productMap) {
@@ -75,22 +63,23 @@ class LoyverseToFlowAcc {
             let invList = [];
             let inv = null;
 
-            let row;
-            let len = trans.length;
-            for (let i = len-1; i >=0; i--) {
-            //for (let row of trans) {
-                row = trans[i];
-            
-                // Create loyverse data
-                let loyData = new LoyverseData(row);
+            let fd = new FoodStory();
+            let totalRow = await fd.readFile(fileName, sheetName);
+
+            // console.log(totalRow);
+            if (totalRow <= 0) return [];
+
+            for (let i = 0; i < totalRow; i++) {
+               
+                if (!fd.getMenuName(i)) continue;
 
                 // Find new invoice when current is null or change no        
-                if (!inv || inv.reference !== loyData.paymentNo ) {
+                if (!inv || inv.reference !== fd.getPaymentId(i) ) {
                     inv = await invList.find((bill) => {
-                        return bill.reference === loyData.paymentNo;
+                        return bill.reference === fd.getPaymentId(i);
                     });
                 }
-            
+                           
                 //console.log(inv);
                 // Can't find bill then create new
                 if (!inv) {
@@ -107,13 +96,13 @@ class LoyverseToFlowAcc {
                         // contactEmail: "",
                         // contactNumber: "",
                         contactGroup: 1,                                            // 1 = บุคคลธรรมดา
-                        publishedOn: loyData.l2fDate(),
+                        publishedOn: fd.getPaymentDate(i),
                         creditType: 1,                                              // 1 = เครดิต(วัน)
                         creditDays: 0,                                              // จำนวนวันเครดิต
-                        dueDate: loyData.l2fDate(),
+                        dueDate: fd.getPaymentDate(i),
                         salesName: SALESNAME,                    
                         // projectName:,
-                        reference: loyData.paymentNo,                               // loyverse payment no.
+                        reference: fd.getPaymentId(i),                              // payment id
                         isVatInclusive: true,
                         useReceiptDeduction: true,            
                         subTotal: 0.0, 
@@ -123,7 +112,7 @@ class LoyverseToFlowAcc {
                         isVat: true,                     
                         vatAmount: 0.0,                 
                         grandTotal: 0.0,
-                        remarks: "",
+                        remarks: fd.getRemark(i),
                         internalNotes: "",
                         documentStructureType: "InlineDocument",
                         discountType: 3,                                            // 3 ส่วนลดเป็นจำนวนเงิน
@@ -146,45 +135,47 @@ class LoyverseToFlowAcc {
                 
                     invList.push(inv);
                 }
-
-                let flowProduct = await this._productMap.findProduct(loyData.productName, "");
-
+               
+                let flowProduct = await this._productMap.findProduct(fd.getMenuName(i), "");
+               
                 // Can't find product map !! terminate script
                 if (!flowProduct) {
-                    throw `Can't flow account product map bill No : ${loyData.paymentNo}, name : ${loyData.productName}`;
+                    throw `Can't flow account product map payment Id : ${fd.getPaymentId(i)}, name : ${fd.getMenuName(i)}`;
                 }
-
+               
                 // Add new item to invoice
+                let total = fd.getUnitPrice(i) * fd.getQuantity(i);
+                let discount = fd.getDiscount(i); 
                 inv.items.push({
                     type: flowProduct.flowProductType,
                     name: flowProduct.flowProductName,
                     description: "",
-                    quantity: loyData.quantity,
+                    quantity: fd.getQuantity(i),
                     unitName: flowProduct.flowUnitName,
-                    pricePerUnit: Math.round((loyData.total / loyData.quantity) * 100) / 100,
-                    total: loyData.total,
+                    pricePerUnit: fd.getUnitPrice(i),
+                    total: total,
                     discountAmount: 0,
                     vatRate: flowProduct.vatRate,
                 });
-
+               
                 // Math.round( number * 100) / 100 is fix precision to 2 ex. 123.45678 = 123.46
-                inv.subTotal = Math.round((inv.subTotal + loyData.total) * 100) / 100;
-                inv.discountAmount = Math.round((inv.discountAmount + loyData.discount) * 100) / 100 ;
+                inv.subTotal = Math.round((inv.subTotal + total) * 100) / 100;
+                inv.discountAmount = Math.round((inv.discountAmount + discount) * 100) / 100 ;
                 inv.totalAfterDiscount =  inv.subTotal - inv.discountAmount;
                 inv.grandTotal = inv.totalAfterDiscount;
-
+               
                 // Future bug :
                 // TODO : กรณีมีส่วนลดในสินค้าที่มี VAT และ ไม่ VAT ทาง loyverse จะหารตามสัดส่วนเลย
                 // ซึ่งคำนวณผิดแน่นอน
                 if (flowProduct.vatRate === 7) {
-                    let totalAfterDiscount = loyData.total - loyData.discount;
+                    let totalAfterDiscount = total - discount;
                     inv.vatableAmount = Math.round((inv.vatableAmount + totalAfterDiscount) * 100) / 100;
                     // (price * 7)/107 = ถอด vat 7%
                     let vat = (totalAfterDiscount * flowProduct.vatRate ) / (100 + flowProduct.vatRate);
                     inv.vatAmount = Math.round((inv.vatAmount + vat) * 100) / 100;
                     // console.log(inv.vatAmount);
                 } else {
-                    let totalAfterDiscount = loyData.total - loyData.discount;
+                    let totalAfterDiscount = total - discount;
                     inv.exemptAmount = Math.round((inv.exemptAmount + totalAfterDiscount) * 100) / 100;
                 }
             }
@@ -194,37 +185,30 @@ class LoyverseToFlowAcc {
         }
     }
 
-    /**
-     * create tax invoice in flow account  from all tranction in filename
-     * @param {filename} fileName 
-     */
-    async createTaxInvoiceInlineByFile(fileName) {
+    async createTaxInvoiceInlineByFile(fileName, sheetName) {
         try {
             // Not initial
             if (!this._flowAcc) {
                 throw "!! Not initail";
             }
 
-            const trans = await csvtojson().fromFile(fileName);
-            let invList = await this.toTaxInvoiceInline(trans);
-
-            //invList = invList.slice(0, 1);
+            let invList = await this.toTaxInvoiceInline(fileName, sheetName);
+            // console.log(invList);
 
             // send to flow account
             for (let inv of invList) {
                 let res = await this._flowAcc.createTaxInvoiceInline(inv);
+                // console.log(res);
                 if (res.status) {
-                    console.log(`create invoice success :${inv.reference}, FLOW no : ${res.data.documentSerial}`);
+                    console.log(`create invoice success ${inv.reference},  FLOW no : ${res.data.documentSerial}`);
                 } else {
                     throw `!! Can't create invoice ${inv.reference}, error: ${res.message}`;
                 }
             }
-
         } catch (error) {
             throw error;
         }
     }
-
 }
 
-module.exports = LoyverseToFlowAcc;
+module.exports = FoodStoryToFlowAcc;

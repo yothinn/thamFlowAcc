@@ -14,6 +14,11 @@ exports.PAGE365_BANKACC_NO = {
     BBL_9919: "063-0-339919"
 };
 
+exports.page365User = {
+    username: process.env.PAGE365_USERNAME,
+    password: process.env.PAGE365_PASSWORD,
+};
+
 /**
  * Check order detail is rice in advance (สั่งซื้อข้าวล่วงหน้า)
  * @param {*} orderDetail 
@@ -25,7 +30,7 @@ exports.isOrderRiceInAdv = (orderDetail) => {
     }
 
     return orderDetail.bank ? orderDetail.bank.bank_no === this.PAGE365_BANKACC_NO.riceInAdv : false;
-}
+};
 
 
 /**
@@ -62,7 +67,10 @@ exports.getCustomerName = (orderDetail) => {
 
     return [firstName ? firstName.trim() : ""
             , lastName ? lastName.trim() : ""]; 
-}
+};
+
+
+
 
 
 

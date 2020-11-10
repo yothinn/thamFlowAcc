@@ -12,10 +12,12 @@ const XLSX = require('xlsx');
  *      1 : Service
  *      3 : non inventory
  *      5 : inventory
+ * vatType : flow account vat type
  * vatRate : product vat rate
  *      7 : vat 7%
  *      0 : vat 0%
  *      -1 : except vat (ยกเว้น)
+ * cyberaccSellChartId : cyberacc database social sell chart id
  */
 
 class ProductMap {

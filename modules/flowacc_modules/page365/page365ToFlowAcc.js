@@ -1,8 +1,8 @@
-const ProductMap = require("../product/productmap");
-const FlowAccount = require("../flowacc/flowacc");
-const flowBankAcc = require("../flowacc/flowbankaccount");
-const Page365 = require("./page365");
-const page365Tools = require("./page365Tools");
+const ProductMap = require("../../../libs/product/productmap");
+const FlowAccount = require("../../../libs/flowacc/flowacc");
+const flowBankAcc = require("../../../libs/flowacc/flowbankaccount");
+const Page365 = require("../../../libs/page365/page365");
+const page365Tools = require("../../../libs/page365/page365Utils");
 
 const SALESNAME = "page365";
 const PRODUCTNAME_DELIVERY = "ค่าขนส่ง";

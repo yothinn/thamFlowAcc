@@ -1,5 +1,5 @@
 const request = require("request");
-const accrevoInfo = require("./accrevoinfo");
+const accrevoInfo = require("./accrevoUtils");
 
 class AccRevo {
     _token = null;

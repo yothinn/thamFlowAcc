@@ -1,5 +1,5 @@
-const SeaFoodData = require("./seafoodData");
-const FlowAccount = require("../../flowacc/flowacc");
+const SeaFoodData = require("../../../libs/purchase/seafood/seafoodData");
+const FlowAccount = require("../../../libs/flowacc/flowacc");
 
 const SALESNAME = "Seafood";
 

@@ -1,3 +1,7 @@
+/**
+ * Thamturakit infomation for account program
+ */
+
 const dotenv = require("dotenv").config();
 
 exports.PRODUCTMAP = {
@@ -66,11 +70,11 @@ exports.FOODSTORY_BRANCHNAME = {
 
 
 exports.FILEINPUT_PATH = {
-    loyverseThamDelivery: "./fileInput/loyverse/thamdelivery",
-    loyverseThamDelivery1: "./fileInput/loyverse/thamdelivery1",
-    foodstoryChomphon: "./fileInput/foodstory/chomphon",
-    foodstoryThaphae: "./fileInput/foodstory/thaphae",
-    purchasesSeafood: "./fileInput/purchases/seafood"
+    loyverseThamDelivery: "./inputFile/loyverse/thamdelivery",
+    loyverseThamDelivery1: "./inputFile/loyverse/thamdelivery1",
+    foodstoryChomphon: "./inputFile/foodstory/chomphon",
+    foodstoryThaphae: "./inputFile/foodstory/thaphae",
+    purchasesSeafood: "./inputFile/purchases/seafood"
 };
 
 

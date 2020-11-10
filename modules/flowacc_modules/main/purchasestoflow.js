@@ -1,8 +1,8 @@
 const inquirer = require("inquirer");
 const glob = require("glob");
-const VegetableToFlowAcc = require("./libs/purchase/vegetable/vegetableToFlowAcc");
-const thamInfo = require("./libs/thamflowacc_Info");
-const SeaFoodToFlowAcc = require("./libs/purchase/seafood/seafoodToFlowAcc");
+const VegetableToFlowAcc = require("../purchases/vegetableToFlowAcc");
+const thamInfo = require("../../thaminfo");
+const SeaFoodToFlowAcc = require("../purchases/seafoodToFlowAcc");
 
 const LOADFROM = {
     seafood: "seafood",

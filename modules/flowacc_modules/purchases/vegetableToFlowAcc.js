@@ -1,6 +1,6 @@
-const VegetableData = require("./vegetableData");
-const ProductMap = require("../../product/productmap");
-const FlowAccount = require("../../flowacc/flowacc");
+const VegetableData = require("../../../libs/purchase/vegetable/vegetableData");
+const ProductMap = require("../../../libs/product/productmap");
+const FlowAccount = require("../../../libs/flowacc/flowacc");
 
 
 const PAYMENTTYPE_CASH = "เงินสด";

@@ -1,10 +1,9 @@
 // const dotenv = require("dotenv").config();
-const LoyverseToFlowAcc = require("./loyverseToFlowAcc");
-const LoyverseData = require("./loyverseData");
 const csvtojson = require('csvtojson');
-const ProductMap = require("../product/productmap");
-
-const thamInfo = require("../thaminfo");
+const LoyverseToFlowAcc = require("./loyverseToFlowAcc");
+const LoyverseData = require("../../../libs/loyverse/loyverseData");
+const ProductMap = require("../../../libs/product/productmap");
+const thamInfo = require("../../thaminfo");
 
 const productFile = {
     fileName: thamInfo.PRODUCTMAP.fileName,

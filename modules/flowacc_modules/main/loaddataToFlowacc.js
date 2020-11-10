@@ -1,10 +1,10 @@
 const inquirer = require("inquirer");
 const glob = require("glob");
-const p365 = require("./libs/page365/index_page365");
-const ocha = require("./libs/ocha/index_ocha");
-const loy = require("./libs/loyverse/index_loyverse");
-const thamInfo = require("./libs/thaminfo");
-const foodstory = require("./libs/foodstory/index_foodstory");
+const p365 = require("../page365/page365_main");
+const ocha = require("../ocha/ocha_main");
+const loy = require("../loyverse/loyverse_main");
+const thamInfo = require("../../thaminfo");
+const foodstory = require("../foodstory/foodstory_main");
 
 const PAGE365_NAME = "page365";
 const OCHA_NAME = "Ocha";

@@ -1,6 +1,6 @@
-const ProductMap = require("../product/productmap");
-const FlowAccount = require("../flowacc/flowacc");
-const Ocha = require("./ocha");
+const ProductMap = require("../../../libs/product/productmap");
+const FlowAccount = require("../../../libs/flowacc/flowacc");
+const Ocha = require("../../../libs/ocha/ocha");
 
 const SALESNAME = "ocha";
 const VATRATE = 7;

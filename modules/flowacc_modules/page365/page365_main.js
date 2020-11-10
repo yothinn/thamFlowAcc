@@ -1,5 +1,5 @@
 const Page365ToFlowAcc = require("./page365ToFlowAcc");
-const thamInfo = require("../thamflowacc_info");
+const thamInfo = require("../../thaminfo");
 
 const productFile = {
     fileName: thamInfo.PRODUCTMAP.fileName,

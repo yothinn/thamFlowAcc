@@ -116,5 +116,5 @@ dist
 .pnp.*
 
 fileinput/*
-./libs/thamturakit-data-center-credential.json
+thamturakit-data-center-credential.json
 example/*

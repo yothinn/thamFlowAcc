@@ -1,9 +1,9 @@
 const fs = require("fs");
-const AccRevo = require("../accrevo/accrevo");
-const CyberAccDatabase = require("./cyberacc_database");
-const cyberAccInfo = require("./cyberaccinfo");
-const accRevoInfo = require("../accrevo/accrevoinfo");
-const accountChart = require("./cyberacc_accountChart.json");
+const AccRevo = require("../../libs/accrevo/accrevo");
+const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
+const cyberAccInfo = require("../../libs/cyberacc/cyberaccUtils");
+const accRevoInfo = require("../../libs/accrevo/accrevoUtils");
+const accountChart = require("../../libs/cyberacc/cyberacc_accountChart.json");
 
 // const PREFIX_IMGFILE = "Test12";
 const IMG_MOCKUP_FILE = "./libs/cyberacc/mockup.jpg"
