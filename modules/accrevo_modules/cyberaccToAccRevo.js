@@ -191,6 +191,8 @@ class CyberAccToAccRevo {
                 }
 
                 docBody.grandtotal += itemGL.debit;
+                // TODO : Fix accountChart move to other for change many database in the futer
+                // ให้สามารถเปลี่ยนได้หลากหลายฐานข้อมูล แบบนี้ จะยึดที่ฐานข้อมูลเดียวเกินไป
                 if ((accountChart.inputTax.code === itemGL.accountcode) ||
                     (accountChart.salesTax.code === itemGL.accountcode)) {
                     docBody.vat = price;                    

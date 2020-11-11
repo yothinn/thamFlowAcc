@@ -1,0 +1,26 @@
+{
+    "customerDelivery": {
+        "code": 1150098,
+        "name": "ลูกค้าส่งถึงบ้าน"
+    },
+    "riceInAdv": {
+        "code": 115024,
+        "name": "ซื้อข้าวล่วงหน้า"
+    },
+    "thammachartMarket": {
+        "code": 1150123,
+        "name": "ตลาดนัดธรรมชาติ"
+    },
+    "withHoldingTax": {
+        "code": 2120001,
+        "name" : "ภาษีหัก ณ ที่จ่าย รอนำส่ง"
+    },
+    "inputTax": {
+        "code": 1170015,
+        "name": "ภาษีซื้อ" 
+    },
+    "salesTax": {
+        "code": 2120026,
+        "name": "ภาษีขาย"
+    }
+}

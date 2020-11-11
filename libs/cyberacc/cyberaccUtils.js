@@ -4,7 +4,7 @@ exports.ACCOUNTTYPE_ABBR = {
     RV: "RV",
     PV: "PV",
     JV: "JV",                       // รายการปรับปรุง
-    RP: "RP",                     // ตัดบัญชีขาย
+    RP: "RP",                       // ตัดบัญชีขาย
     SCE: "SCE",
     SEA: "SEA",
     APR: "APR",

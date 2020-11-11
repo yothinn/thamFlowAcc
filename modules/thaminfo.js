@@ -4,6 +4,7 @@
 
 const dotenv = require("dotenv").config();
 
+// TODO : Move to config
 exports.PRODUCTMAP = {
     fileName: "./libs/product/product.xlsx",
     sheetName: {

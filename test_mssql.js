@@ -1,54 +1,54 @@
 const sql = require("mssql");
 const Page365 = require("./libs/page365/page365");
 const dotenv = require("dotenv").config();
-const page365Tools = require("./libs/page365/page365Tools");
+const page365Tools = require("./libs/page365/page365Utils");
 
-const CyberAccDatabase = require("./libs/cyberacc/cyberacc_database");
-const cyberAccInfo = require("./libs/cyberacc/cyberaccinfo");
-
-// // Prefix that found in page365 customer name
-// const prefixReg = /(นาย|นางสาว|นส.|น.ส.|น.ส|นาง|ผู้บริจาค :|ของขวัญแด่...|คุณ|นาวาเอก|อาจารย์|อ.|รศ.ดร.|ร.อ.)/g;
-// const suffixReg = /[(].*[)]/g;
-
-
-// exports.getPage365CustomerName = function(str) {
-//     let firstName = "";
-//     let lastName = "";
-
-//     // Replace prefix
-//     let tmpStr = str.replace(prefixReg, "").trim();
-//     console.log(tmpStr);
-
-//     // Replace suffix
-//     tmpStr = tmpStr.replace(suffixReg, "").trim();
-//     console.log(tmpStr);
-
-//     strArr = tmpStr.split(" ");   
-
-//     [firstName, lastName] = strArr.filter(value => value !== "");
-
-//     return [firstName ? firstName.trim() : ""
-//             , lastName ? lastName.trim() : ""];
-// };
+const CyberAccDatabase = require("./libs/cyberacc/cyberaccDatabase");
+const cyberAccInfo = require("./libs/cyberacc/cyberaccUtils");
+const Page365ToCyberAcc = require("./modules/cyberacc_modules/page365ToCyberAcc");
+const { product } = require("puppeteer");
 
 var pool;
 
 (async() => {
-    var config = {
-        user: "sa",
-        password: "yothinn",
-        server: "DESKTOP-6LURV9I",
-        database: "CyberAccDataSocial",
-        stream: false,
-        options: {
-            encrypt: false,
-            instanceName: "SQLEXPRESS"
-        },
-//        port: 1433,
-    };
+//     var config = {
+//         user: "sa",
+//         password: "yothinn",
+//         server: "DESKTOP-6LURV9I",
+//         database: "CyberAccDataSocial",
+//         stream: false,
+//         options: {
+//             encrypt: false,
+//             instanceName: "SQLEXPRESS"
+//         },
+// //        port: 1433,
+//     };
 
 
     try {
+
+        const page365User = {
+            username: process.env.PAGE365_USERNAME,
+            password: process.env.PAGE365_PASSWORD,
+        }
+
+        const cyberaccConfig = {
+            username: process.env.CYBERACC_THAMENTERPRISE_USERNAME,
+            password: process.env.CYBERACC_THAMENTERPRISE_PASSWORD,
+            server: process.env.CYBERACC_THAMENTERPRISE_SERVER,
+            database: process.env.CYBERACC_THAMENTERPRISE_DB
+        }
+
+        // TODO : Change later
+        const productFile = {
+            fileName: "./libs/product/product.xlsx",
+            sheetName: "page365",
+        }
+
+        let p2c = new Page365ToCyberAcc(page365User, cyberaccConfig, productFile);
+        await p2c.init();
+
+        await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
 
         // let startDate = "2020-10-29";
         // let endDate = "2020-11-01";
@@ -58,12 +58,12 @@ var pool;
         // let endTime = new Date(endDate);
         // endTime.setHours(23, 59, 59, 0);
 
-        let cyberAccDb = new CyberAccDatabase();
+        // let cyberAccDb = new CyberAccDatabase();
 
-        await cyberAccDb.connect("sa", "yothinn", "DESKTOP-6LURV9I", "CyberAccDataSocial");
+        // await cyberAccDb.connect("sa", "yothinn", "DESKTOP-6LURV9I", "CyberAccDataSocial");
 
-        let res = await cyberAccDb.getGLTableAll('2020-10-01');
-        console.log(res[107]);
+        // let res = await cyberAccDb.getGLTableByDate('2020-10-01');
+        // console.log(res[107]);
 
         // const p365 = new Page365();
         // await p365.connect(process.env.PAGE365_USERNAME, process.env.PAGE365_PASSWORD);
@@ -113,7 +113,8 @@ var pool;
         //     //console.log(`Next Day start : ${startDay.getTime()}, end: ${endDay.getTime()}`);
         // }
   
-        cyberAccDb.close();
+
+        // cyberAccDb.close();
 
  
         // let accountCode = await cyberAccDb.getAccountIDByCustomerName("จอย", "ชายแสน");
@@ -128,41 +129,6 @@ var pool;
         // result = await cyberAccDb.insertToGLCredit(glMainId, idCredit, accountCode, "ทดสอบเขียน", 12.35);
         //console.log(result);
 
-        
-
-        
-
-
-
-        // let startTime = new Date("2020-10-01");
-        // startTime.setHours(0, 0, 0, 0);
-
-        // let endTime = new Date("2020-10-01");
-        // endTime.setHours(23, 59, 59, 0);
-
-        // startTime = startTime / 1000;
-        // endTime = endTime / 1000;
-
-        // let order = await p365.getOrderDetailByDate(startTime, endTime);
-        // console.log(order);
-
-        // let res = await sql.connect("mssql://sa:yothinn@DESKTOP-6LURV9I/SQLEXPRESS/CyberAccDataSocial");
-
-        // console.log(res);
-
-        // let orderDetail = await p365.getOrderDetailByBillNo(8884);
-        // // console.log(orderDetail);
-        // let [firstName, lastName] = page365Tools.getCustomerName(orderDetail);
-        // console.log(`firstName: ${firstName}, lastName: ${lastName}`);
-
-        // pool = new sql.ConnectionPool(config);
-
-  
-
-  
-
-    
-      
     } catch(error) {
         console.log(error);
     }

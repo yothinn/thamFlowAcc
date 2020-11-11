@@ -1,3 +1,5 @@
+const utils = require("../utils");
+
 exports.PAGE365_ORDER_STAGE = {
     DRAFT: "draft",
     UNPAID: "unpaid",
@@ -65,10 +67,9 @@ exports.getCustomerName = (orderDetail) => {
     // filter empty string
     [firstName, lastName] = strArr.filter(value => value !== "");
 
-    return [firstName ? firstName.trim() : ""
-            , lastName ? lastName.trim() : ""]; 
+    return [firstName ? utils.cleanString(firstName) : ""
+            , lastName ? utils.cleanString(lastName) : ""]; 
 };
-
 
 
 
