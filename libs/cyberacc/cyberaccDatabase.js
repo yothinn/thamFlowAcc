@@ -1,3 +1,11 @@
+/**
+ * CyberAccDatabase class : for connect to cyberacc mssql , query and insert data
+ * Company: THAMTURAKITE SOCIAL ENTERPRISE
+ * Author: Yothin Setthachatanan
+ * Created: 2 Nov 2020
+ * Updated: 12 Nov 2020
+ */
+
 const sql = require("mssql");
 
 class CyberAccDatabase {
@@ -48,6 +56,22 @@ class CyberAccDatabase {
         } catch(error) {
             throw error;
         }
+    }
+
+    async getAccountName(code) {
+        try {
+            let request = this._pool.request();
+            request.input("code", sql.Int, code);
+            let result = await request.query(
+                "SELECT AccountName as result from accountM                                   \
+                where accountID=@code"
+            );
+            // console.log(result);
+            // return null if can't find
+            return result.recordset[0].result;
+        } catch(error) {
+            throw error;
+        }    
     }
 
     async getGLTableByDate(dateStr) {
@@ -175,7 +199,7 @@ class CyberAccDatabase {
             request.input("desp", sql.NVarChar, desp);
             let result = await request.query("INSERT INTO GLMain values (@docNo, @dateStr, @desp)");
 
-            console.log(result);
+            // console.log(result);
         } catch(error) {
             throw error;
         }

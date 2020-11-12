@@ -20,6 +20,7 @@ const accountChart = require("./accoutChart.json");
 
 const PAGE365_NAME = "page365";
 const DESP_CUSTOMER_DELIVERY = "ค่าข้าวและสินค้าออนไลน์";
+const VATRATE = 7;
 
 class Page365ToCyberAcc {
     
@@ -107,7 +108,7 @@ class Page365ToCyberAcc {
 
             await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-            console.log(glMainId);
+            console.log(`GLMain : success created ${glMainId}`);
 
             return glMainId;
         } catch(error) {
@@ -122,39 +123,238 @@ class Page365ToCyberAcc {
      */
     async createCyberGLCredit(glMainId, orderList) {
         try {
-            let product;
-            // ควรจะมี creditList ไว้
-            // creditList ควรประกอบด้วย accountCode, desp, amount
-            // ?? vat กับ ไม่ VAT แยกยังไง โดยใช้ accountCode เดียวกัน
-            // let creditList = {}
-            //     accountCode : {
-            //            accountCode:
-            //            desp:
-            //            amount:
-            //     },
-            // };
-            for (let order of orderList) {
-                for (let item of order.items) {
-                    product = this._productMap.findProduct(item.name, item.variant.selected);
+            let accountCode;
+            let desp;
+            let amount;
+            let creditList = await this.calCreditList(orderList);
 
-                    // มี cyberaccSellChartId และ vatRate
-                    // ถ้า vatRat = 7  ต้องถอด VAT ก่อน
-                    
-                    // creditList[product.cyberaccSellChartId]
-                    // TODO : if find not ?
-                    console.log(product);
-
-                }
-
-                // หัก ส่วนลดจากทั้งหมด
-                // เพิ่มค่าขนส่งออนไลน์
-                // เพิ่มภาษีขาย
-            }
+            // console.log(creditList);
 
             // วนลูป creditList และ insert เข้า cyberacc
             // generate id ในแต่ละลูป
-            // await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
+            // Loop no vat
+            for (let item in creditList.novat) {
+                accountCode = creditList.novat[item].accountCode;
+                desp = creditList.novat[item].desp;
+                amount = creditList.novat[item].amount;
+               
+                let id = await this._cyberAccDb.getNewIdGLCredit();
+                await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
+
+                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+            }
+
+            // Loop vat
+
+            for (let item in creditList.vat) {
+                accountCode = creditList.vat[item].accountCode;
+                desp = creditList.vat[item].desp;
+                amount = creditList.vat[item].amount;
+               
+                let id = await this._cyberAccDb.getNewIdGLCredit();
+                await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
+
+                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+            }
+
+            // shipping cost
+            if (creditList.shippingCost) {
+                accountCode = creditList.shippingCost.accountCode;
+                desp = creditList.shippingCost.desp;
+                amount = creditList.shippingCost.amount;
+
+                let id = await this._cyberAccDb.getNewIdGLCredit();
+                await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
+
+                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+            }
+
+            // vat amount
+            if (creditList.vatAmount.amount > 0) {
+                accountCode = creditList.vatAmount.accountCode;
+                desp = creditList.vatAmount.desp;
+                amount = creditList.vatAmount.amount;
+
+                let id = await this._cyberAccDb.getNewIdGLCredit();
+                await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
+
+                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+            }
+
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    /**
+     * create credit list for insert to GLCredit
+     * @param {*} orderList : orderList from page365
+     * @returns creditList
+     * {
+     *  novat : {
+     *      'เลขCode' : {
+     *          accountCode:,
+     *          desp:,
+     *          amount:,
+     *      }
+     *  },
+     *  vat : {
+     *  },
+     *  shippingCost: {
+     *  },
+     *  vatAmount: {
+     *  }
+     * }
+     */
+    async calCreditList(orderList) {
+        try {
+            let product;
+            
+            // CreditList : summary amount in same credit
+            // in novat, vat include "accountCode" : {accountCode, amount, desp}
+            let creditList = {
+                novat: {},
+                vat: {},
+                // shippingCost: {},
+                vatAmount: {
+                    accountCode: accountChart.salesTax.code,
+                    desp: `${accountChart.salesTax.name}`,
+                    amount: 0,
+                }
+            };
+   
+            // Calculate credit table for insert to mssql
+            for (let order of orderList) {
+                let createDate = new Date(order.created_at);
+                let d = createDate.getDate();
+                let m = createDate.getMonth()+1;
+                let y = createDate.getFullYear()+543;
+              
+                let discountList = {
+                    vatAmount: 0,
+                    vatItem: [],
+                    novatAmount: 0,
+                    novatItem: []
+                };
+                // calculate each item
+                for (let item of order.items) {
+                    product = this._productMap.findProduct(item.name, item.variant.selected);
+                    
+                    // TODO : product == null หา product ไม่เจอ
+
+                    let ac = product.cyberaccSellChartId;
+                    let total = item.price * item.quantity;
+
+                    if (product.vatRate === VATRATE) {              // product include vat
+                    
+                        // Collect discount item for product vat
+                        discountList.vatAmount += total;
+                        let pos = await discountList.vatItem.indexOf((value) => {
+                            return value === ac;
+                        });
+                        // Add new code in discountList
+                        if (pos === -1) {
+                            discountList.vatItem.push(ac);
+                        }
+
+                        // Add account code item to list
+                        if (creditList.vat[ac]) {        // already in creditList
+                            // include vat,  exclude later  because check discount
+                            creditList.vat[ac].amount += total;
+                        } else {                        // Not have in creditList                           
+                            // Add new code in creditList
+                            let accountName = await this._cyberAccDb.getAccountName(ac);
+                            
+                            creditList.vat[ac] = {
+                                accountCode: ac,
+                                amount: total,
+                                desp: `${accountName} วันที่ ${d}/${m}/${y.toString().slice(-2)}`
+                            }     
+                        }   
+                    } else {                                        // product not vat
+                        // Collect discount item for product vat
+                        discountList.novatAmount += total;
+                        let pos = await discountList.novatItem.indexOf(ac);
+                        // Add new code in discountList
+                        if (pos === -1) {
+                            discountList.novatItem.push(ac);
+                        }
+
+                        // Add account code item to list
+                        if (creditList.novat[ac]) {     
+                            creditList.novat[ac].amount += total;
+                        } else {
+                            // Add new code in creditList
+                            let accountName = await this._cyberAccDb.getAccountName(ac);
+    
+                            creditList.novat[ac] = {
+                                accountCode: ac,
+                                amount: total,
+                                desp: `${accountName} วันที่ ${d}/${m}/${y.toString().slice(-2)}`
+                            }
+                        }
+                    }
+                }
+
+                // Add shipping cost
+                let ac = accountChart.shippingCost.code;
+                let shippingCost = order.shipping_cost ? order.shipping_cost : 0;
+                if (shippingCost > 0) {
+                    if (creditList.shippingCost) {
+                        creditList.shippingCost.amount += shippingCost;
+                    } else {
+                        creditList.shippingCost = {
+                            accountCode: ac,
+                            amount: shippingCost,
+                            desp: `${accountChart.shippingCost.name} วันที่ ${d}/${m}/${y.toString().slice(-2)}`
+                        }
+                    }
+                }
+
+                // console.log(creditList);
+
+                //  Calculate discount
+                // // !! MARK IMPORTANT :
+                // // กรณีมีส่วนลด ปัญหาจะเอาส่วนลดไปลดที่สินค้าประเภท VAT หรือ ไม่ VAT
+                // // ถ้ามีประเภทเดียว ก็เอาไปลดประเภทนั้น
+                // // แต่ถ้ามี 2 ประเภท ก็จะเอาไปลดประเภท ที่มีค่ามากกว่า
+                let discount = order.discount ? order.discount : 0; 
+                if (discount > 0) {
+                    if (discountList.novatAmount > discountList.vatAmount) {
+                        // ลดส่วนลดแต่ละ accountCode
+                        let len = discountList.novatItem.length;
+                        let discountEach = discount / len;
+                        
+                        for (let code of discountList.novatItem) {
+                            creditList.novat[code].amount -= discountEach;
+                        }
+                        // console.log(discountList);
+                    } else {
+                        let len = discountList.vatItem.length;
+                        let discountEach = discount / len;
+                        
+                        for (let code of discountList.vatItem) {
+                            creditList.vat[code].amount -= discountEach;
+                        }
+                    }
+                }      
+            }
+
+            // Calculate sales tax and adjust vat amount -> exclude vat
+            for (let item in creditList.vat) {
+                let amount = creditList.vat[item].amount;
+                // ถอด vat
+                let vat = ((amount * VATRATE) / (100 + VATRATE));
+                let exVat = amount - vat;
+
+                creditList.vat[item].amount = (Math.round(exVat * 100) / 100);
+                vat = (Math.round(vat * 100) / 100);
+                creditList.vatAmount.amount += vat;
+
+            }
+
+            return creditList;
         } catch(error) {
             throw error;
         }
@@ -198,7 +398,7 @@ class Page365ToCyberAcc {
                     desp = `${DESP_CUSTOMER_DELIVERY} ${firstName} ${lastName} (${pageBillNo})`;
                 }
 
-                console.log(`${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
 
                 await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
             }
@@ -208,6 +408,11 @@ class Page365ToCyberAcc {
         }
     }
 
+    /**
+     * Download page365 data and insert to cyberacc database(mssql) by date string
+     * @param {*} startDateStr 
+     * @param {*} endDateStr 
+     */
     async downloadToCyberAccByDate(startDateStr, endDateStr) {
         try {
             // TODO : check valid date
@@ -230,31 +435,36 @@ class Page365ToCyberAcc {
                 let s = start.getTime() / 1000;
                 let e = end.getTime() / 1000;
 
+                // TODO : check bills state
+
                 // download order from page365 in one day
                 let orderDetails = await this._page365.getOrderDetailByDate(s, e);
 
-                let glMainId;
-                // let glMainId = await this.createCyberAccGLMain(start);
-                // await this.createCyberGLDebit(glMainId, orderDetails);
+                let glMainId = await this.createCyberAccGLMain(start);
+                await this.createCyberGLDebit(glMainId, orderDetails);
                 await this.createCyberGLCredit(glMainId, orderDetails);
-                
 
-                console.log(orderDetails.length);
+                // console.log(`Success created GLMainId : ${glMainId}`);
+
+                // TODO: log insert to database ??
+                // console.log(orderDetails.length);
 
                 // Calculate Next Day
                 start.setDate(start.getDate() + 1);
                 end.setDate(end.getDate() + 1);
             }
 
-            // TODO : Remove later
-            this._cyberAccDb.close();
         } catch(error) {
             throw error;
         }
     }
 
-    async downloadToCyberAccByBill(billNo) {
+    async close() {
+        this._cyberAccDb.close();
+    }
 
+    async downloadToCyberAccByBill(billNo) {
+        // TODO : implement later
     }
 
     /**
@@ -266,7 +476,9 @@ class Page365ToCyberAcc {
     getDespRiceInAdv(orderDetail) {
         try {
             let desp = null;
+            // generate description format
             for (let item of orderDetail.items) {
+                // Find keyword : ข้าวกล้อง
                 let pos = item.name.indexOf("ข้าวกล้อง");
                 let name = (pos >=0) ? "ข้าวกล้อง" : "ข้าวหอม";
 

@@ -50,6 +50,8 @@ var pool;
 
         await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
 
+        await p2c.close();
+
         // let startDate = "2020-10-29";
         // let endDate = "2020-11-01";
         // let startTime = new Date(startDate)

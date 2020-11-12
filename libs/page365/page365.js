@@ -156,6 +156,7 @@ class Page365 {
             let orders = [];
             const bills = await this.getBills(startTime, endTime);
 
+            // console.log(bills);
             // Not bills in dateTime
             if (!bills || bills.length === 0)   return [];
 
