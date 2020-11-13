@@ -26,5 +26,21 @@
     "shippingCost": {
         "code": 4130018,
         "name": "รายได้ค่าส่งสินค้าลูกค้าออนไลน์"
+    },
+    "CUSTOMER_THAMMACHARTMARKET": {
+        "code": 1150123,
+        "name": "ตลาดนัดธรรมชาติ"
+    },
+    "CUSTOMER_THAMDELIVERY":{
+        "code": 1150158,
+        "name": "รถธรรมธุรกิจ"
+    },
+    "CUSTOMER_FRONTCHOMPHON": {
+        "code": 1150240,
+        "name": "ลูกค้าห้องพักชุมพรคาบาน่า"
+    },
+    "CUSTOMER_SANPATHONG": {
+        "code": 1150060,
+        "name": "ขาย (ร้านยักษ์กะโจน)"
     }
 }

@@ -56,7 +56,7 @@ class OchaToFlowAcc {
                 this._flowAccCredentail.scope
             );
 
-            // login page365
+            // login ocha
             this._ocha = new Ocha();
             await this._ocha.connect(
                 this._ochaUser.mobileNo,

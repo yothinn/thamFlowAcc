@@ -15,7 +15,7 @@ class CyberAccDatabase {
 
     }
 
-    async connect(username, password, server, database) {
+    async connect(username, password, server, database, instance) {
         let config = {
             user: username,
             password: password,
@@ -24,7 +24,7 @@ class CyberAccDatabase {
             stream: false,
             options: {
                 encrypt: false,
-                instanceName: "SQLEXPRESS"
+                instanceName: instance
             },
             // port: 1433,
         };

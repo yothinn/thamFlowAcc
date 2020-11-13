@@ -1,47 +1,34 @@
-/**
- * Page365ToCyberAcc : download data from page365 and write to cyber database (mssql)
- * Author   : Yothin Setthachatanan
- * Company  : Thamturakit Social Enterprise
- * Created  : 11 Nov 2020
- * Updated  : 13 Nov 2020
- * REMARK :
- * When change database and account chart code change
- * You must edit account chart code
- */
-
+const Ocha = require("../../libs/ocha/ocha");
 const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
-const Page365 = require("../../libs/page365/page365");
 const ProductMap = require("../../libs/product/productmap");
-const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
-const page365Utils = require("../../libs/page365/page365Utils");
-
-// REMARK : when change database must edit accoutChart code
 const accountChart = require("./accoutChart.json");
+const ochaShopName = require("../../libs/ocha/ochaShopName.json");
+const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 
-const PAGE365_NAME = "page365";
-const DESP_CUSTOMER_DELIVERY = "ค่าข้าวและสินค้าออนไลน์";
+const OCHANAME = "ocha";
 const VATRATE = 7;
 
-class Page365ToCyberAcc {
-    
-    // Info
-    _cyberaccConfig;
-    _page365User;
-    _productFile;
-
-    // class object
-    _cyberAccDb = null;
-    _page365 = null;
+class OchaToCyberAcc {
+    _ochaUser = null;
+    _cyberAccConfig = null;
+    _productFile = null;
     _productMap = null;
 
-      /**
+    _cyberAccDb = null;
+    _ocha = null;
+
+    _shopId = null;
+    _shopName = null;
+    
+    /**
      * 
-     * @param {*} page365User 
+     * @param {json} ochaUser
      * {
-     *  username:
-     *  password:
-     * }
-     * @param {*} cyberAccConfig 
+     *  mobileNo: mobile number
+     *  username: ocha username,
+     *  password: ocha password
+     * } 
+     * @param {json} cyberAccConfig
      * {
      *  username:
      *  password:
@@ -49,47 +36,64 @@ class Page365ToCyberAcc {
      *  database:
      *  instance
      * }
-     * @param {*} productFile 
-     * {
-     *  fileName:
-     *  sheetName
-     * }
      */
-    constructor(page365User, cyberAccConfig, productFile) {
-        this._page365User = page365User;
-        this._cyberaccConfig = cyberAccConfig;
-        this._productFile = productFile;
+    constructor(ochaUser, cyberAccConfig) {
+        this._ochaUser = ochaUser;
+        this._cyberAccConfig = cyberAccConfig;
     }
 
     async init() {
         try {
-            
-            this._page365 = new Page365();
-            await this._page365.connect(this._page365User.username, this._page365User.password);
-
-            this._cyberAccDb = new CyberAccDatabase();
-            await this._cyberAccDb.connect(
-                this._cyberaccConfig.username,
-                this._cyberaccConfig.password,
-                this._cyberaccConfig.server,
-                this._cyberaccConfig.database,
-                this._cyberaccConfig.instance
+            this._ocha = new Ocha();
+            await this._ocha.connect(
+                this._ochaUser.mobileNo,
+                this._ochaUser.username,
+                this._ochaUser.password
             );
 
-            // load product map
-            this._productMap = new ProductMap();
-            await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
+            console.log(this._cyberAccConfig);
+            this._cyberAccDb = new CyberAccDatabase();
+            await this._cyberAccDb.connect(
+                this._cyberAccConfig.username,
+                this._cyberAccConfig.password,
+                this._cyberAccConfig.server,
+                this._cyberAccConfig.database,
+                this._cyberAccConfig.instance
+            );
 
-        } catch (error) {
+        } catch(error) {
             throw error;
         }
 
     }
 
     /**
-     * create cyberacc GLMain
-     * @param {date} orderDate : Date object 
+     * Select shop before load data 
+     * @param {*} shopName 
+     * @param {*} productFile : product map from ocha to flow account
+     * {
+     *  fileName: product filename,
+     *  sheetName: product sheetname
+     * } 
      */
+    async selectShopByName(shopName, productFile) {
+        try {
+            // Find shop name
+            this._shopName = shopName;
+            let shop = await this._ocha.getOchaShopIdByName(shopName);
+            this._shopId = shop.shop_id;
+            // console.log(this._shopId);
+
+            // load product map
+            this._productFile = productFile;
+            this._productMap = new ProductMap();
+            await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
+
+        } catch(error) {
+            throw error;
+        }
+    }
+
     async createCyberAccGLMain(orderDate) {
         try {
             // TODO : check valid date
@@ -106,23 +110,56 @@ class Page365ToCyberAcc {
 
             // FORMAT (พ.ศ.) : day/month/year
             let dateStr = `${d}/${m}/${y}`;
-            let desp = PAGE365_NAME;
+            let desp = `${OCHANAME} ${this._shopName}`;
 
             await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
             console.log(`GLMain : success created ${glMainId}`);
 
             return glMainId;
+
         } catch(error) {
             throw error;
         }
     }
 
-    /**
-     * create cyberacc GLCredit
-     * @param {*} glMainId 
-     * @param {*} orderDetail 
-     */
+    async createCyberAccGLDebit(glMainId, orderList) {
+        try {
+            let amount = 0;
+
+            for (let order of orderList) {
+                // status = 1 is cancel order
+                if (order.order.status === 1) {
+                    continue;
+                }
+
+                // status = 4 is return money to customer
+                if (order.order.status === 4) {
+                    amount -= parseFloat(order.order.money_payable);
+                } else {
+                    amount += parseFloat(order.order.money_payable);
+                }
+            }
+
+            let orderDate = new Date(orderList[0].order.order_time * 1000);
+
+            // console.log(orderDate.toString());
+            
+            let id = await this._cyberAccDb.getNewIdGLDebit();
+
+            let accountCode = this.convertShopNameToAccoundCode();
+            let desp = this.convertShopNameToDesp(orderDate);
+
+            // console.log(desp);
+
+            await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
+
+            console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+        } catch(error) {
+            throw error;
+        }
+    }
+
     async createCyberAccGLCredit(glMainId, orderList) {
         try {
             let accountCode;
@@ -160,18 +197,6 @@ class Page365ToCyberAcc {
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
-            // shipping cost
-            if (creditList.shippingCost) {
-                accountCode = creditList.shippingCost.accountCode;
-                desp = creditList.shippingCost.desp;
-                amount = creditList.shippingCost.amount;
-
-                let id = await this._cyberAccDb.getNewIdGLCredit();
-                await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
-
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
-            }
-
             // vat amount
             if (creditList.vatAmount.amount > 0) {
                 accountCode = creditList.vatAmount.accountCode;
@@ -189,26 +214,6 @@ class Page365ToCyberAcc {
         }
     }
 
-    /**
-     * create credit list for insert to GLCredit
-     * @param {*} orderList : orderList from page365
-     * @returns creditList
-     * {
-     *  novat : {
-     *      'เลขCode' : {
-     *          accountCode:,
-     *          desp:,
-     *          amount:,
-     *      }
-     *  },
-     *  vat : {
-     *  },
-     *  shippingCost: {
-     *  },
-     *  vatAmount: {
-     *  }
-     * }
-     */
     async calCreditList(orderList) {
         try {
             let product;
@@ -222,7 +227,7 @@ class Page365ToCyberAcc {
                 vatAmount: {
                     accountCode: accountChart.salesTax.code,
                     desp: `${accountChart.salesTax.name}`,
-                    amount: 0,
+                    amount: 0.0,
                 }
             };
    
@@ -230,14 +235,14 @@ class Page365ToCyberAcc {
             for (let order of orderList) {
 
                 // VOIDED bill not calculate
-                if (order.stage === page365Utils.PAGE365_ORDER_STAGE.VOIDED)  {
+                if (order.order.status === 1)  {
                     continue;    
                 }
 
-                let createDate = new Date(order.created_at);
-                let d = createDate.getDate();
-                let m = createDate.getMonth()+1;
-                let y = createDate.getFullYear()+543;
+                let orderDate = new Date(order.order.order_time * 1000);
+                let d = orderDate.getDate();
+                let m = orderDate.getMonth()+1;
+                let y = orderDate.getFullYear()+543;
               
                 let discountList = {
                     vatAmount: 0,
@@ -245,14 +250,32 @@ class Page365ToCyberAcc {
                     novatAmount: 0,
                     novatItem: []
                 };
+
                 // calculate each item
                 for (let item of order.items) {
-                    product = this._productMap.findProduct(item.name, item.variant.selected);
+
+                    let itemName = item.item_name;
+                    let itemOpt = item.item_price.price_name;
+
+                    product = this._productMap.findProduct(itemName, itemOpt);
                     
                     // TODO : product == null หา product ไม่เจอ
 
+                    if (!product){
+                        console.log(itemName);
+                    }
+
                     let ac = product.cyberaccSellChartId;
-                    let total = item.price * item.quantity;
+
+                    let quantity = (item.item_type === 1) ? item.quantity : parseFloat(item.weight);
+                
+                    // ต้องใช้แบบนี้ แทนการใช้การ item.item_price.unit_price เพราะมีกรณีของเมนูย่อยเข้ามา
+                    // unit_price จะไม่ตรง
+                    let unitPrice = parseFloat(item.money_nominal) / quantity;
+
+                    let total = quantity * unitPrice;
+                    // status = 4 is คืนเงิน ทำให้ตัวเลขติดลบ เพื่อนำไปลบแทน
+                    total = (order.order.status === 4) ? total * -1 : total;
 
                     if (product.vatRate === VATRATE) {              // product include vat
                     
@@ -303,21 +326,6 @@ class Page365ToCyberAcc {
                     }
                 }
 
-                // Add shipping cost
-                let ac = accountChart.shippingCost.code;
-                let shippingCost = order.shipping_cost ? order.shipping_cost : 0;
-                if (shippingCost > 0) {
-                    if (creditList.shippingCost) {
-                        creditList.shippingCost.amount += shippingCost;
-                    } else {
-                        creditList.shippingCost = {
-                            accountCode: ac,
-                            amount: shippingCost,
-                            desp: `${accountChart.shippingCost.name} วันที่ ${d}/${m}/${y.toString().slice(-2)}`
-                        }
-                    }
-                }
-
                 // console.log(creditList);
 
                 //  Calculate discount
@@ -325,7 +333,8 @@ class Page365ToCyberAcc {
                 // // กรณีมีส่วนลด ปัญหาจะเอาส่วนลดไปลดที่สินค้าประเภท VAT หรือ ไม่ VAT
                 // // ถ้ามีประเภทเดียว ก็เอาไปลดประเภทนั้น
                 // // แต่ถ้ามี 2 ประเภท ก็จะเอาไปลดประเภท ที่มีค่ามากกว่า
-                let discount = order.discount ? order.discount : 0; 
+                let discount = order.discounts ? parseFloat(order.discounts[0].discounted_value) : 0; 
+                
                 if (discount > 0) {
                     if (discountList.novatAmount > discountList.vatAmount) {
                         // ลดส่วนลดแต่ละ accountCode
@@ -357,7 +366,6 @@ class Page365ToCyberAcc {
                 creditList.vat[item].amount = (Math.round(exVat * 100) / 100);
                 vat = (Math.round(vat * 100) / 100);
                 creditList.vatAmount.amount += vat;
-
             }
 
             return creditList;
@@ -366,68 +374,8 @@ class Page365ToCyberAcc {
         }
     }
 
-    /**
-     * create cyber GLDebit in one bill (glMainId)
-     * @param {*} glMainId 
-     * @param {*} orderDetail
-     * Table : GLMainid, id, AccountCode, Description, Amount,  
-     */
-    async createCyberAccGLDebit(glMainId, orderList) {
-        try {
-            let id;
-            let accountCode;
-            let desp;
-            let amount;
-            let pageBillNo;
-
-            // Loop in orderList , orderList must be in same day
-            for (let order of orderList) {
-
-                // VOIDED bill not calculate
-                if (order.stage === page365Utils.PAGE365_ORDER_STAGE.VOIDED)  {
-                    continue;    
-                }
-
-                pageBillNo = order.no;
-                amount = order.paid_amount;
-
-                id = await this._cyberAccDb.getNewIdGLDebit();
-                let [firstName, lastName] = page365Utils.getCustomerName(order);
-
-                if (page365Utils.isOrderRiceInAdv(order)) {
-                    // สังซื้อข้าวล่วงหน้า
-                    accountCode = await this._cyberAccDb.getAccountIDByCustomerName(firstName, lastName);
-                    desp = this.getDespRiceInAdv(order);
-
-                    // FORMAT desp : ชื่อผู้รับ: ประเภทข้าวxถุง * ราคา (เลขบิล)
-                    if (!accountCode) {
-                        accountCode = accountChart.riceInAdv.code;
-                        desp = `${firstName} ${lastName}: ${desp}`;
-                    }
-                } else {
-                    // ลูกค้าออนไลน์ทั่วไป
-                    accountCode = accountChart.customerDelivery.code;
-                    desp = `${DESP_CUSTOMER_DELIVERY} ${firstName} ${lastName} (${pageBillNo})`;
-                }
-
-                console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
-
-                await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
-            }
-
-        } catch(error) {
-            throw error;
-        }
-    }
-
-    /**
-     * Download page365 data and insert to cyberacc database(mssql) by date string
-     * @param {*} startDateStr 
-     * @param {*} endDateStr 
-     */
     async downloadToCyberAccByDate(startDateStr, endDateStr) {
         try {
-            // TODO : check valid date
 
             console.log(`${startDateStr} : ${endDateStr}`);
             let startDate = new Date(startDateStr);
@@ -447,8 +395,11 @@ class Page365ToCyberAcc {
                 let s = start.getTime() / 1000;
                 let e = end.getTime() / 1000;
 
-                // download order from page365 in one day
-                let orderDetails = await this._page365.getOrderDetailByDate(s, e);
+                // console.log(this._shopId);
+                // download order from ocha in one day
+                let orderDetails = await this._ocha.getDailyOrdersByShop(this._shopId, s, e);
+
+                // console.log(orderDetails);
 
                 let glMainId = await this.createCyberAccGLMain(start);
                 await this.createCyberAccGLDebit(glMainId, orderDetails);
@@ -469,38 +420,61 @@ class Page365ToCyberAcc {
         }
     }
 
-    async close() {
-        this._cyberAccDb.close();
-    }
-
-    async downloadToCyberAccByBill(billNo) {
-        // TODO : implement later
-    }
-
-    /**
-     * 
-     * @param {*} orderDetail 
-     * @returns despcrition for rice in advance
-     * FORMAT : ประเภทข้าว x จำนวนถุง * ราคา (บิล)
-     */
-    getDespRiceInAdv(orderDetail) {
+    convertShopNameToAccoundCode() {
         try {
-            let desp = null;
-            // generate description format
-            for (let item of orderDetail.items) {
-                // Find keyword : ข้าวกล้อง
-                let pos = item.name.indexOf("ข้าวกล้อง");
-                let name = (pos >=0) ? "ข้าวกล้อง" : "ข้าวหอม";
-
-                let productStr = `${name} ${item.quantity} ถุง*${item.price}`;
-                desp = desp ? `${desp}+${productStr}` : productStr;
+            switch (this._shopName) {
+                case ochaShopName.riceRama9:
+                    return accountChart.CUSTOMER_THAMMACHARTMARKET.code;
+                case ochaShopName.vegetableRama9:
+                    return accountChart.CUSTOMER_THAMMACHARTMARKET.code;
+                case ochaShopName.sanpatong:
+                    return accountChart.CUSTOMER_SANPATHONG.code;
+                case ochaShopName.frontChomphon:
+                    return accountChart.CUSTOMER_FRONTCHOMPHON.code;
+                case ochaShopName.restuarantChomphon:
+                default:
+                    throw `Can't find account code for : ${this._shopName}`;
             }
-            desp = `${desp} (${orderDetail.no})`;
-            return desp;
-        } catch(error) {
+        } catch (error) {
             throw error;
         }
     }
+
+    convertShopNameToDesp(orderDate) {
+        try {
+
+            let desp = ""
+            switch (this._shopName) {
+                case ochaShopName.riceRama9:
+                    desp = "รายได้ขายข้าวและสินค้าตลาดนัดธรรมชาติ";
+                    break;
+                case ochaShopName.vegetableRama9:
+                    desp = "รายได้ขายผักและผลผลิตทางการเกษตร";
+                    break;
+                case ochaShopName.sanpatong:
+                    desp = "รายได้ขายข้าวและสินค้าร้านยักษ์กะโจน(สันป่าตอง)";
+                    break;
+                case ochaShopName.restuarantChomphon:
+                    desp = "รายได้ห้องพักและสินค้าชุมพรคาบาน่า";
+                    break;
+                case ochaShopName.frontChomphon:
+                default:
+                    throw `Can't find description for : ${this._shopName}`;
+            }
+
+            let d = orderDate.getDate();
+            let m = orderDate.getMonth()+1;
+            let y = orderDate.getFullYear()+543;
+
+            return `${desp} วันที่ ${d}/${m}/${y.toString().slice(-2)}`;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    close() {
+        this._cyberAccDb.close();
+    }
 }
 
-module.exports = Page365ToCyberAcc;
+module.exports = OchaToCyberAcc;

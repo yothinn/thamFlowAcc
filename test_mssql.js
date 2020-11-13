@@ -6,7 +6,7 @@ const page365Tools = require("./libs/page365/page365Utils");
 const CyberAccDatabase = require("./libs/cyberacc/cyberaccDatabase");
 const cyberAccInfo = require("./libs/cyberacc/cyberaccUtils");
 const Page365ToCyberAcc = require("./modules/cyberacc_modules/page365ToCyberAcc");
-const { product } = require("puppeteer");
+const OchaToCyberAcc = require("./modules/cyberacc_modules/ochaToCyberAcc");
 
 var pool;
 
@@ -30,27 +30,45 @@ var pool;
         const page365User = {
             username: process.env.PAGE365_USERNAME,
             password: process.env.PAGE365_PASSWORD,
-        }
+        };
 
-        const cyberaccConfig = {
+        const ochaUser = {
+            mobileNo: process.env.OCHA_MOBILE,
+            username: process.env.OCHA_USERNAME,
+            password: process.env.OCHA_PASSWORD,
+        };
+
+        const cyberAccConfig = {
             username: process.env.CYBERACC_THAMENTERPRISE_USERNAME,
             password: process.env.CYBERACC_THAMENTERPRISE_PASSWORD,
             server: process.env.CYBERACC_THAMENTERPRISE_SERVER,
-            database: process.env.CYBERACC_THAMENTERPRISE_DB
-        }
+            database: process.env.CYBERACC_THAMENTERPRISE_DB,
+            instance: process.env.CYBERACC_THAMENTERPRISE_INSTANCE
+        };
 
+        // ------ TEST PAGE365
         // TODO : Change later
-        const productFile = {
+        let productFile = {
             fileName: "./libs/product/product.xlsx",
             sheetName: "page365",
-        }
+        };
 
-        let p2c = new Page365ToCyberAcc(page365User, cyberaccConfig, productFile);
-        await p2c.init();
+        // let p2c = new Page365ToCyberAcc(page365User, cyberAccConfig, productFile);
+        // await p2c.init();
 
-        await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
+        // await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
 
-        await p2c.close();
+        // await p2c.close();
+
+        let p2o = new OchaToCyberAcc(ochaUser, cyberAccConfig);
+        await p2o.init();
+
+        productFile.sheetName = "ocha_rice_rama9";
+
+        await p2o.selectShopByName("ข้าวแปรรูป พระราม๙", productFile);
+        await p2o.downloadToCyberAccByDate("2020-10-03", "2020-10-04");
+
+        await p2o.close();
 
         // let startDate = "2020-10-29";
         // let endDate = "2020-11-01";
@@ -117,19 +135,6 @@ var pool;
   
 
         // cyberAccDb.close();
-
- 
-        // let accountCode = await cyberAccDb.getAccountIDByCustomerName("จอย", "ชายแสน");
-        // console.log(accountCode);
-
-        // let idCredit = await cyberAccDb.getNewIdGLCredit();
-        // console.log(idCredit);
-        // let glMainId = await cyberAccDb.getNewGLMainId("AR", "7", "2563");
-        // console.log(glMainId);
-
-        // let result = await cyberAccDb.insertToGLMain(glMainId, "12/7/2563", "Page365:8653");
-        // result = await cyberAccDb.insertToGLCredit(glMainId, idCredit, accountCode, "ทดสอบเขียน", 12.35);
-        //console.log(result);
 
     } catch(error) {
         console.log(error);
