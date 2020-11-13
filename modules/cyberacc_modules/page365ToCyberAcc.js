@@ -92,7 +92,10 @@ class Page365ToCyberAcc {
      */
     async createCyberAccGLMain(orderDate) {
         try {
-            // TODO : check valid date
+            // check valid date
+            if (!(orderDate instanceof Date)) {
+                throw "orderDate require date object";
+            }
 
             let d = orderDate.getDate();
             let m = orderDate.getMonth()+1;
@@ -104,13 +107,15 @@ class Page365ToCyberAcc {
             // create GLMain
             let glMainId = await this._cyberAccDb.getNewGLMainId(cyberaccUtils.ACCOUNTTYPE_ABBR.AR, m.toString(), y.toString());
 
+            if (glMainId) {
             // FORMAT (พ.ศ.) : day/month/year
-            let dateStr = `${d}/${m}/${y}`;
-            let desp = PAGE365_NAME;
+                let dateStr = `${d}/${m}/${y}`;
+                let desp = PAGE365_NAME;
 
-            await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
+                await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-            console.log(`GLMain : success created ${glMainId}`);
+                console.log(`GLMain : success created ${glMainId}`);
+            }
 
             return glMainId;
         } catch(error) {
@@ -142,6 +147,9 @@ class Page365ToCyberAcc {
                 amount = creditList.novat[item].amount;
                
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -155,6 +163,9 @@ class Page365ToCyberAcc {
                 amount = creditList.vat[item].amount;
                
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -167,6 +178,9 @@ class Page365ToCyberAcc {
                 amount = creditList.shippingCost.amount;
 
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -179,6 +193,9 @@ class Page365ToCyberAcc {
                 amount = creditList.vatAmount.amount;
 
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -211,7 +228,7 @@ class Page365ToCyberAcc {
      */
     async calCreditList(orderList) {
         try {
-            let product;
+            let product = null;
             
             // CreditList : summary amount in same credit
             // in novat, vat include "accountCode" : {accountCode, amount, desp}
@@ -249,12 +266,21 @@ class Page365ToCyberAcc {
                 for (let item of order.items) {
                     product = this._productMap.findProduct(item.name, item.variant.selected);
                     
-                    // TODO : product == null หา product ไม่เจอ
+                    let ac;
+                    let vatRate;
+                    // product == null หา product ไม่เจอ
+                    if (!product) {
+                        // Default vat and account code when can't find product
+                        ac = accountChart.OTHERINCOME.code;
+                        vatRate = VATRATE;
+                    } else {
+                        ac = product.cyberaccSellChartId;
+                        vatRate = product.vatRate;
+                    }
 
-                    let ac = product.cyberaccSellChartId;
                     let total = item.price * item.quantity;
 
-                    if (product.vatRate === VATRATE) {              // product include vat
+                    if (vatRate === VATRATE) {              // product include vat
                     
                         // Collect discount item for product vat
                         discountList.vatAmount += total;
@@ -392,6 +418,10 @@ class Page365ToCyberAcc {
                 amount = order.paid_amount;
 
                 id = await this._cyberAccDb.getNewIdGLDebit();
+                if (!id) {
+                    throw "Can't generate id of GLDebit";
+                }
+
                 let [firstName, lastName] = page365Utils.getCustomerName(order);
 
                 if (page365Utils.isOrderRiceInAdv(order)) {
@@ -410,9 +440,8 @@ class Page365ToCyberAcc {
                     desp = `${DESP_CUSTOMER_DELIVERY} ${firstName} ${lastName} (${pageBillNo})`;
                 }
 
-                console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
-
                 await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
+                console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
         } catch(error) {
@@ -450,9 +479,17 @@ class Page365ToCyberAcc {
                 // download order from page365 in one day
                 let orderDetails = await this._page365.getOrderDetailByDate(s, e);
 
+                if (orderDetails.length === 0) {
+                    continue;
+                }
+
                 let glMainId = await this.createCyberAccGLMain(start);
-                await this.createCyberAccGLDebit(glMainId, orderDetails);
-                await this.createCyberAccGLCredit(glMainId, orderDetails);
+                if (glMainId) {
+                    await this.createCyberAccGLDebit(glMainId, orderDetails);
+                    await this.createCyberAccGLCredit(glMainId, orderDetails);
+                } else {
+                    throw "Can't generate glMainid in GLMain";
+                }
 
                 // console.log(`Success created GLMainId : ${glMainId}`);
 

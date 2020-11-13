@@ -96,7 +96,10 @@ class OchaToCyberAcc {
 
     async createCyberAccGLMain(orderDate) {
         try {
-            // TODO : check valid date
+            // check valid date
+            if (!(orderDate instanceof Date)) {
+                throw "orderDate require date object";
+            }
 
             let d = orderDate.getDate();
             let m = orderDate.getMonth()+1;
@@ -108,13 +111,15 @@ class OchaToCyberAcc {
             // create GLMain
             let glMainId = await this._cyberAccDb.getNewGLMainId(cyberaccUtils.ACCOUNTTYPE_ABBR.AR, m.toString(), y.toString());
 
-            // FORMAT (พ.ศ.) : day/month/year
-            let dateStr = `${d}/${m}/${y}`;
-            let desp = `${OCHANAME} ${this._shopName}`;
+            if (glMainId) {
+                // FORMAT (พ.ศ.) : day/month/year
+                let dateStr = `${d}/${m}/${y}`;
+                let desp = `${OCHANAME} ${this._shopName}`;
 
-            await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
+                await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-            console.log(`GLMain : success created ${glMainId}`);
+                console.log(`GLMain : success created ${glMainId}`);
+            }
 
             return glMainId;
 
@@ -146,14 +151,15 @@ class OchaToCyberAcc {
             // console.log(orderDate.toString());
             
             let id = await this._cyberAccDb.getNewIdGLDebit();
+            if (!id) {
+                throw "Can't generate id of GLDebit";
+            }
 
             let accountCode = this.convertShopNameToAccoundCode();
             let desp = this.convertShopNameToDesp(orderDate);
 
             // console.log(desp);
-
             await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
-
             console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
         } catch(error) {
             throw error;
@@ -179,6 +185,9 @@ class OchaToCyberAcc {
                 amount = creditList.novat[item].amount;
                
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -192,6 +201,9 @@ class OchaToCyberAcc {
                 amount = creditList.vat[item].amount;
                
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -204,6 +216,9 @@ class OchaToCyberAcc {
                 amount = creditList.vatAmount.amount;
 
                 let id = await this._cyberAccDb.getNewIdGLCredit();
+                if (!id) {
+                    throw "Can't generate id of GLCredit";
+                }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
                 console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
@@ -216,7 +231,7 @@ class OchaToCyberAcc {
 
     async calCreditList(orderList) {
         try {
-            let product;
+            let product = null;
             
             // CreditList : summary amount in same credit
             // in novat, vat include "accountCode" : {accountCode, amount, desp}
@@ -259,13 +274,17 @@ class OchaToCyberAcc {
 
                     product = this._productMap.findProduct(itemName, itemOpt);
                     
-                    // TODO : product == null หา product ไม่เจอ
-
+                    // product == null หา product ไม่เจอ
+                    let ac;
+                    let vatRate;
                     if (!product){
-                        console.log(itemName);
+                        // Default vat and account code when can't find product
+                        ac = accountChart.OTHERINCOME.code;
+                        vatRate = VATRATE;
+                    } else {
+                        ac = product.cyberaccSellChartId;
+                        vatRate = product.vatRate;
                     }
-
-                    let ac = product.cyberaccSellChartId;
 
                     let quantity = (item.item_type === 1) ? item.quantity : parseFloat(item.weight);
                 
@@ -277,7 +296,7 @@ class OchaToCyberAcc {
                     // status = 4 is คืนเงิน ทำให้ตัวเลขติดลบ เพื่อนำไปลบแทน
                     total = (order.order.status === 4) ? total * -1 : total;
 
-                    if (product.vatRate === VATRATE) {              // product include vat
+                    if (vatRate === VATRATE) {              // product include vat
                     
                         // Collect discount item for product vat
                         discountList.vatAmount += total;
@@ -399,11 +418,19 @@ class OchaToCyberAcc {
                 // download order from ocha in one day
                 let orderDetails = await this._ocha.getDailyOrdersByShop(this._shopId, s, e);
 
+                if (orderDetails.length === 0) {
+                    continue;
+                }
+
                 // console.log(orderDetails);
 
                 let glMainId = await this.createCyberAccGLMain(start);
-                await this.createCyberAccGLDebit(glMainId, orderDetails);
-                await this.createCyberAccGLCredit(glMainId, orderDetails);
+                if (glMainId) {
+                    await this.createCyberAccGLDebit(glMainId, orderDetails);
+                    await this.createCyberAccGLCredit(glMainId, orderDetails);
+                } else {
+                    throw "Can't generate glMainid in GLMain";
+                }
 
                 // console.log(`Success created GLMainId : ${glMainId}`);
 
