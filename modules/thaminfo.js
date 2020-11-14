@@ -3,6 +3,7 @@
  */
 
 const dotenv = require("dotenv").config();
+const ochaShopName = require("../libs/ocha/ochaShopName.json");
 
 // TODO : Move to config
 exports.PRODUCTMAP = {
@@ -41,28 +42,46 @@ exports.ochaUser = {
     password: process.env.OCHA_PASSWORD,
 };
 
-exports.ochaShop = [
-    {
-        shopName: "ข้าวแปรรูป พระราม๙",
-        productSheetName: this.PRODUCTMAP.sheetName.ochaRiceRama9,
-    },
-    {   
-        shopName: "ผัก พระราม๙",
-        productSheetName: this.PRODUCTMAP.sheetName.ochaVegetableRama9,
-    },
-    {
-        shopName: "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
-        productSheetName: this.PRODUCTMAP.sheetName.ochaSanpatong,
-    },
-    {
-        shopName: "ครัวชุมพรคาบาน่า",
-        productSheetName: this.PRODUCTMAP.sheetName.ochaRestChomphon,
-    },
-    {
-        shopName: "Front ชุมพรคาบาน่า",
-        productSheetName: this.PRODUCTMAP.sheetName.ochaFrontChomphon,
-    },
-];
+exports.getOchaProductSheetName = (shopName) => {
+    switch(shopName) {
+        case ochaShopName.riceRama9:
+            return this.PRODUCTMAP.sheetName.ochaRiceRama9;
+        case ochaShopName.vegetableRama9:
+            return this.PRODUCTMAP.sheetName.ochaVegetableRama9;
+        case ochaShopName.sanpatong:
+            return this.PRODUCTMAP.sheetName.ochaSanpatong;
+        case ochaShopName.restuarantChomphon:
+            return this.PRODUCTMAP.sheetName.ochaRestChomphon;
+        case ochaShopName.frontChomphon:
+            return this.PRODUCTMAP.sheetName.ochaFrontChomphon;
+        default:
+            return "";
+    }
+}
+
+// TODO : change to ochaProductSheetName
+// exports.ochaShop = [
+//     {
+//         shopName: "ข้าวแปรรูป พระราม๙",
+//         productSheetName: this.PRODUCTMAP.sheetName.ochaRiceRama9,
+//     },
+//     {   
+//         shopName: "ผัก พระราม๙",
+//         productSheetName: this.PRODUCTMAP.sheetName.ochaVegetableRama9,
+//     },
+//     {
+//         shopName: "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
+//         productSheetName: this.PRODUCTMAP.sheetName.ochaSanpatong,
+//     },
+//     {
+//         shopName: "ครัวชุมพรคาบาน่า",
+//         productSheetName: this.PRODUCTMAP.sheetName.ochaRestChomphon,
+//     },
+//     {
+//         shopName: "Front ชุมพรคาบาน่า",
+//         productSheetName: this.PRODUCTMAP.sheetName.ochaFrontChomphon,
+//     },
+// ];
 
 exports.FOODSTORY_BRANCHNAME = { 
     chomphon: "ยักษ์กะโจน@ชุมพร คาบาน่า",
@@ -76,6 +95,10 @@ exports.FILEINPUT_PATH = {
     foodstoryChomphon: "./inputFile/foodstory/chomphon",
     foodstoryThaphae: "./inputFile/foodstory/thaphae",
     purchasesSeafood: "./inputFile/purchases/seafood"
+};
+
+exports.OUTPUTFILE_PATH = {
+    xlsx : "./output/xlsx"
 };
 
 

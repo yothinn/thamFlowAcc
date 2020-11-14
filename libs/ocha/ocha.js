@@ -170,7 +170,7 @@ class Ocha {
 
         try {
             // Get cookie branch 
-            let posocha = await this.getCookieBranch(shopId)
+            let posocha = await this.getCookieBranch(shopId);
             if (posocha) {
                 const orders = await this.interfaceOchaByDate(posocha, startTime, endTime);
                 return orders;

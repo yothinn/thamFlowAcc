@@ -53,7 +53,7 @@ const questions = [
 
 module.exports = async () => {
     try {
-        console.log("******     THAMTURAKIT SOCIAL ENTERPRICE           *******");
+        // console.log("******     THAMTURAKIT SOCIAL ENTERPRICE           *******");
         console.log("******     Load purchases data from file           *******");
         console.log("******     and create purchases flow account       ******");
 

@@ -38,21 +38,21 @@ const SHOP = thamInfo.ochaShop;
 //     password: process.env.OCHA_PASSWORD,
 // }
 
-const productFile = {
-    fileName: thamInfo.PRODUCTMAP.fileName,
-    sheetName: "",
-}
+// const productFile = {
+//     fileName: thamInfo.PRODUCTMAP.fileName,
+//     sheetName: "",
+// }
 
 
-setProductFile = function (shopName) {
+// setProductFile = function (shopName) {
 
-    let shop = SHOP.find(value => {
-        return value.shopName === shopName;
-    });
+//     let shop = SHOP.find(value => {
+//         return value.shopName === shopName;
+//     });
 
-    productFile.sheetName = shop.productSheetName;
+//     productFile.sheetName = shop.productSheetName;
 
-}
+// }
 
 exports.loadOchaByDates = async(shopName, startDate, endDate) => {
     try {
@@ -64,10 +64,16 @@ exports.loadOchaByDates = async(shopName, startDate, endDate) => {
         let startTime = start / 1000;
         let endTime = end / 1000;
 
+        let sheetName = thamInfo.getOchaProductSheetName(shopName);
+        const productFile = {
+            fileName: thamInfo.PRODUCTMAP.fileName,
+            sheetName: sheetName,
+        };
+
         // console.log(startTime);
         // console.log(endTime);
         // return;
-        setProductFile(shopName);
+        //setProductFile(shopName);
         
         let o2fa = new OchaToFlowAcc(thamInfo.ochaUser, thamInfo.flowAccCredentail);
         await o2fa.init();

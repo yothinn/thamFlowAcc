@@ -34,7 +34,7 @@ const questions = [
 
 module.exports = async () => {
     try {
-        console.log("********** THAMTURAKIT SOCIAL ENTERPRICE **********");
+        // console.log("********** THAMTURAKIT SOCIAL ENTERPRICE **********");
         console.log("********** create product from file to flow account **********");
 
         let answers = await inquirer.prompt(questions);

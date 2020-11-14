@@ -5,6 +5,7 @@ const ocha = require("../ocha/ocha_main");
 const loy = require("../loyverse/loyverse_main");
 const thamInfo = require("../../thaminfo");
 const foodstory = require("../foodstory/foodstory_main");
+const ochaShopName = require("../../../libs/ocha/ochaShopName.json");
 
 const PAGE365_NAME = "page365";
 const OCHA_NAME = "Ocha";
@@ -12,16 +13,16 @@ const LOYVERSE_NAME = "Loyverse";
 const FOODSTORY_NAME = "FoodStory";
 
 const LOADFROM = {
-    page365: "page365",
-    ochaRice: "Ocha: ข้าวแปรรูป พระราม๙",
-    ochaVegetable: "Ocha: ผัก พระราม๙",
-    ochaSanpatong: "Ocha: ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
-    ochaRestChompon: "Ocha: ครัวชุมพรคาบาน่า",
-    ochaFrontChompon: "Ocha: Front ชุมพรคาบาน่า",
-    loyverseThamDelivery: "Loyverse: รถธรรมธุรกิจ",
-    loyverseThamDelivery1: "Loyverse: รถร่วมธรรมธุรกิจ1",
-    foodstoryChomphon: `FoodStory: ${thamInfo.FOODSTORY_BRANCHNAME.chomphon}`,
-    foodstoryThaphae: `FoodStory: ${thamInfo.FOODSTORY_BRANCHNAME.thaphae}`,
+    page365: PAGE365_NAME,
+    ochaRice: `${OCHA_NAME}: ${ochaShopName.riceRama9}`,
+    ochaVegetable: `${OCHA_NAME}: ${ochaShopName.vegetableRama9}`,
+    ochaSanpatong: `${OCHA_NAME}: ${ochaShopName.sanpatong}`,
+    ochaRestChompon: `${OCHA_NAME}: ${ochaShopName.restuarantChomphon}`,
+    ochaFrontChompon: `${OCHA_NAME}: ${ochaShopName.frontChomphon}`,
+    loyverseThamDelivery: `${LOYVERSE_NAME}: รถธรรมธุรกิจ`,
+    loyverseThamDelivery1: `${LOYVERSE_NAME}: รถร่วมธรรมธุรกิจ1`,
+    foodstoryChomphon: `${FOODSTORY_NAME}: ${thamInfo.FOODSTORY_BRANCHNAME.chomphon}`,
+    foodstoryThaphae: `${FOODSTORY_NAME}: ${thamInfo.FOODSTORY_BRANCHNAME.thaphae}`,
 }
 
 const LOADDATABY = {
@@ -135,7 +136,7 @@ const questions = [
 
 module.exports = async () => {
     try {
-        console.log("******     THAMTURAKIT SOCIAL ENTERPRICE           *******");
+        // console.log("******     THAMTURAKIT SOCIAL ENTERPRICE           *******");
         console.log("******     Load data from page365, ocha, loyverse  *******");
         console.log("******     and create tax invoice flow account     ******");
 

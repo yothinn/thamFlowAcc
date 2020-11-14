@@ -118,3 +118,4 @@ dist
 fileinput/*
 thamturakit-data-center-credential.json
 example/*
+output/*

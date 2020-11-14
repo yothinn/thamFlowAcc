@@ -25,3 +25,58 @@
 // } else {
 //     console.log("type:  node index --help , for command detail");
 // }
+
+const inquirer = require("inquirer");
+const download2XLSX = require("./modules/xlsx_modules/index");
+const download2Flow = require("./modules/flowacc_modules/index");
+const download2CyberAcc = require("./modules/cyberacc_modules/index");
+
+const LOADPROGRAMS = {
+    downloadDataToXLSX: "1. Download data to xlsx",
+    downloadDataToFlowAcc: "2. Download data to flow account",
+    downloadDataToCyberAcc: "3. Download data to cyberAcc",
+    uploadCyberAccToAccRevo: "4. Upload cyberAcc to AccRevo",
+    checkProduct: "5. check product mapping"
+};
+
+const questions = [
+    {
+        type: "list",
+        name: "program",
+        message: "What program do you want to run ?",
+        choices: function(answers) {
+            return Object.values(LOADPROGRAMS);
+        }
+    },
+];
+
+(async() => {
+
+    console.log("******     THAMTURAKIT SOCIAL ENTERPRICE           *******");
+    console.log("******     THAMTURAKIT DATA AND ACCOUNT TOOLS      *******");
+
+    try {
+        let answers = await inquirer.prompt(questions);
+        // console.log(answers);
+
+        switch(answers.program) {
+            case LOADPROGRAMS.downloadDataToXLSX:
+                download2XLSX();
+                break;
+            case LOADPROGRAMS.downloadDataToFlowAcc:
+                download2Flow();
+                break;
+            case LOADPROGRAMS.downloadDataToCyberAcc:
+                download2CyberAcc();
+                break;
+            case LOADPROGRAMS.uploadCyberAccToAccRevo:
+                console.log("accrevo");
+                break;
+            case LOADPROGRAMS.checkProduct:
+                console.log("check product");
+                break;
+        }
+    } catch (error) {
+        throw error;
+    }
+})();
