@@ -22,9 +22,17 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
             let d = new Date(order.order.order_time * 1000);
             let dateStr = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 
-            let discount = (order.discounts) ? parseFloat(order.discounts[0].discounted_value) : 0;
+
+            let discount = 0.0;
+            if (order.discounts) {
+                discount = order.discounts.reduce((total, value) => {
+                    return total + parseFloat(value.discounted_value);
+                }, 0.0);
+            }
 
             let total = parseFloat(order.order.money_payable);
+            let rounding = parseFloat(order.order.money_rounding);
+            let subtotal = total + discount - rounding;
 
             let payMethodStr = (order.payments[0].type === 1) ? "cash" : "โอนเงิน";
             
@@ -33,8 +41,9 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
                 no: order.payments[0].receipt_number_v2,
                 status: order.order.status,
                 cashier: order.order.cashier_name,
-                subtotal: total + discount,
+                subtotal: subtotal,
                 discount: discount,
+                rounding: rounding,
                 total: total,
                 payment_method: payMethodStr,
             });
