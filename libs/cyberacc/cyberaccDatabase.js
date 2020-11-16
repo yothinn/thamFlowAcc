@@ -29,9 +29,14 @@ class CyberAccDatabase {
             // port: 1433,
         };
 
-        this._pool = new sql.ConnectionPool(config);
+        try {
 
-        return this._pool.connect(); 
+            this._pool = new sql.ConnectionPool(config);
+
+            return this._pool.connect(); 
+        } catch(error) {
+            throw error;
+        }
     }
 
     /**
