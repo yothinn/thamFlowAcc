@@ -1,3 +1,10 @@
+/**
+ * !!! Start command line : THAMTURAKIT DATA AND ACCOUNT TOOLS
+ * Author: Yothin Seethachatanan
+ * Created: 16/10/2020
+ * Updated: 16/10/2020
+ */
+
 // const { program } = require("commander");
 // const createProduct = require("./createproduct");
 // const loadDataToFlowAcc = require("./loaddatatoflow");
@@ -30,13 +37,15 @@ const inquirer = require("inquirer");
 const download2XLSX = require("./modules/xlsx_modules/index");
 const download2Flow = require("./modules/flowacc_modules/index");
 const download2CyberAcc = require("./modules/cyberacc_modules/index");
+const testCyberAcc = require("./modules/cyberacc_modules/testconnection");
 
 const LOADPROGRAMS = {
     downloadDataToXLSX: "1. Download data to xlsx",
     downloadDataToFlowAcc: "2. Download data to flow account",
     downloadDataToCyberAcc: "3. Download data to cyberAcc",
     uploadCyberAccToAccRevo: "4. Upload cyberAcc to AccRevo",
-    checkProduct: "5. check product mapping"
+    checkProduct: "5. check product mapping",
+    testCyberAccConnect: "6. Test Cyberacc connect"
 };
 
 const questions = [
@@ -75,8 +84,11 @@ const questions = [
             case LOADPROGRAMS.checkProduct:
                 console.log("check product");
                 break;
+            case LOADPROGRAMS.testCyberAccConnect:
+                testCyberAcc();
+                break;
         }
     } catch (error) {
-        throw error;
+        console.log(error);
     }
 })();

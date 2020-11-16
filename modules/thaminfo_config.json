@@ -1,0 +1,54 @@
+{
+    "productMap": {
+        "fileName": "./libs/product/product.xlsx",
+        "sheetName": {
+            "allFlowProduct": "allFlowProduct",
+            "foodStoryChomphon": "foodstory_chomphon",
+            "foodStoryThaPhae": "foodstory_thaphae",
+            "loyverse": "loyverse",
+            "page365": "page365",
+            "ochaRiceRama9": "ocha_rice_rama9",
+            "ochaVegetableRama9": "ocha_vegetable_rama9",
+            "ochaFrontChomphon": "ocha_front_chomphon",
+            "ochaRestChomphon": "ocha_rest_chomphon",
+            "ochaSanpatong": "ocha_rice_sanpatong", 
+            "purchasesVegetable": "purchases_vegetable",
+            "purchasesSeafood": "purchases_seafood",
+        }
+    },
+    "ochaShopName": {
+        "riceRama9": "ข้าวแปรรูป พระราม๙",
+        "vegetableRama9": "ผัก พระราม๙",
+        "sanpatong": "ฐานธรรมฯสันป่าตอง (ร้านยักษ์กะโจน)",
+        "restuarantChomphon": "ครัวชุมพรคาบาน่า",
+        "frontChomphon": "Front ชุมพรคาบาน่า"
+    },
+    "foodstoryBranchName": {
+        "chomphon": "ยักษ์กะโจน@ชุมพร คาบาน่า",
+        "thaphae": "ยักษ์กะโจน@ท่าแพ"
+    },
+    "inputfile_path": {
+        "loyverseThamDelivery": "./inputFile/loyverse/thamdelivery",
+        "loyverseThamDelivery1": "./inputFile/loyverse/thamdelivery1",
+        "foodstoryChomphon": "./inputFile/foodstory/chomphon",
+        "foodstoryThaphae": "./inputFile/foodstory/thaphae",
+        "purchasesSeafood": "./inputFile/purchases/seafood"
+    },
+    "outputfile_path": {
+        "downloadXLSX" : "./output/xlsx"
+    },
+    "cyberacc_server": {
+        "socialEnterprise": {
+
+        },
+        "stickyRice": {
+
+        }
+    },
+    "ggSheet": {
+        "vegetable_ggSheet": {
+            "workbookId": "1qcraNqiQpqNa5SlTVvwYhOrflh9gRLzS-jj7d5zlwi4",
+            "worksheetId": 233438306
+        }
+    }
+}

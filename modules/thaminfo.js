@@ -2,6 +2,8 @@
  * Thamturakit infomation for account program
  */
 
+ // TODO : Move all to thaminfo_config
+
 const dotenv = require("dotenv").config();
 const ochaShopName = require("../libs/ocha/ochaShopName.json");
 
