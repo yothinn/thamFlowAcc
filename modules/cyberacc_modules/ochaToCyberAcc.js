@@ -2,7 +2,8 @@ const Ocha = require("../../libs/ocha/ocha");
 const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
 const ProductMap = require("../../libs/product/productmap");
 const accountChart = require("./accoutChart.json");
-const ochaShopName = require("../../libs/ocha/ochaShopName.json");
+// const ochaShopName = require("../../libs/ocha/ochaShopName.json");
+const { ochaShopName } = require("../thaminfo_config.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 
 const OCHANAME = "ocha";
@@ -143,6 +144,7 @@ class OchaToCyberAcc {
                     amount -= parseFloat(order.order.money_payable);
                 } else {
                     amount += parseFloat(order.order.money_payable);
+                    amount += parseFloat(order.order.money_rounding);
                 }
             }
 
@@ -352,7 +354,12 @@ class OchaToCyberAcc {
                 // // กรณีมีส่วนลด ปัญหาจะเอาส่วนลดไปลดที่สินค้าประเภท VAT หรือ ไม่ VAT
                 // // ถ้ามีประเภทเดียว ก็เอาไปลดประเภทนั้น
                 // // แต่ถ้ามี 2 ประเภท ก็จะเอาไปลดประเภท ที่มีค่ามากกว่า
-                let discount = order.discounts ? parseFloat(order.discounts[0].discounted_value) : 0; 
+                let discount = 0.0
+                if (order.discounts) {
+                    discount = order.discounts.reduce((total, value) => {
+                        return total + parseFloat(value.discounted_value);
+                    }, 0.0);
+                }
                 
                 if (discount > 0) {
                     if (discountList.novatAmount > discountList.vatAmount) {

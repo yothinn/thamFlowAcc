@@ -1,17 +1,19 @@
 const FoodStory = require("../../../libs/foodstory/foodstory");
 const ProductMap = require("../../../libs/product/productmap");
-const thamInfo = require("../../thaminfo");
+// const thamInfo = require("../../thaminfo");
+const { flowAccCredentail } = require("../../thaminfo_credential.json");
+const { productMap, foodstoryBranchName } = require("../../thaminfo_config.json");
 // const foodStoryData = require("./foodstoryData");
 const FoodStoryToFlowAcc = require("./foodstoryToFlowAcc");
 
 const productFile = {
     chomphon : {
-        fileName: thamInfo.PRODUCTMAP.fileName,
-        sheetName: thamInfo.PRODUCTMAP.sheetName.foodStoryChomphon,
+        fileName: productMap.fileName,
+        sheetName: productMap.sheetName.foodStoryChomphon,
     },
     thaphae : {
-        fileName: thamInfo.PRODUCTMAP.fileName,
-        sheetName: thamInfo.PRODUCTMAP.sheetName.foodStoryThaPhae,
+        fileName: productMap.fileName,
+        sheetName: productMap.sheetName.foodStoryThaPhae,
     }
 };
 
@@ -23,15 +25,15 @@ exports.FOODSTORY_DEFAULTSHEET = "Sheet1";
 exports.checkProduct = async function(branchName, fileName, sheetName) {
     try {
         const productmap = new ProductMap();
-        const productMapFile = thamInfo.PRODUCTMAP.fileName;
+        // const productMapFile = productMap.fileName;
         let productMapSheet;
-        if (branchName === thamInfo.FOODSTORY_BRANCHNAME.thaphae) {
-            productMapSheet = thamInfo.PRODUCTMAP.sheetName.foodStoryThaPhae;
+        if (branchName === foodstoryBranchName.thaphae) {
+            productMapSheet = productMap.sheetName.foodStoryThaPhae;
         } else {
-            productMapSheet = thamInfo.PRODUCTMAP.sheetName.foodStoryChomphon;
+            productMapSheet = productMap.sheetName.foodStoryChomphon;
         }
  
-        await productmap.readProduct(productMapFile, productMapSheet);    
+        await productmap.readProduct(productMap.fileName, productMapSheet);    
 
         const fd = new FoodStory();
         let totalRow = await fd.readFile(fileName, sheetName);
@@ -49,33 +51,12 @@ exports.checkProduct = async function(branchName, fileName, sheetName) {
     }
 };
 
-// (async() => {
-//     try {
-//         let branchName = foodStoryData.FOODSTORY_BRANCH.thaphae.name;
-//         let fileName = "./foodstory_input/รายงานยอดขายแยกตามรายละเอียดบิล.xlsx";
-//         let sheetName = "Sheet1";
-//         // const fd = new FoodStroy();
-//         // await fd.readFile("./foodstory_input/รายงานยอดขายแยกตามรายละเอียดบิล.xlsx", "Sheet1");
-//         // this.checkProduct(branchName, fileName, sheetName);
-
-//         let f2fa = new FoodStoryToFlowAcc(branchName, thamInfo.flowAccCredentail, productFile.thaphae);
-//         await f2fa.init();
-
-//         let invList = await f2fa.toTaxInvoiceInline(fileName, sheetName)
-//         console.log(invList);
-   
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-// })();
-
 exports.loadFoodStoryFromFile = async(branchName, fileName) => {
     try {
-        let pFile = (branchName === thamInfo.FOODSTORY_BRANCHNAME.chomphon) ? productFile.chomphon :
-                                                                                productFile.thaphae;
+        let pFile = (branchName === foodstoryBranchName.chomphon) ? productFile.chomphon :
+                                                                    productFile.thaphae;
 
-        let f2fa = new FoodStoryToFlowAcc(branchName, thamInfo.flowAccCredentail, pFile);
+        let f2fa = new FoodStoryToFlowAcc(branchName, flowAccCredentail, pFile);
         await f2fa.init();
 
         await f2fa.createTaxInvoiceInlineByFile(fileName, this.FOODSTORY_DEFAULTSHEET);

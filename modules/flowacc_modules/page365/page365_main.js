@@ -1,9 +1,11 @@
 const Page365ToFlowAcc = require("./page365ToFlowAcc");
-const thamInfo = require("../../thaminfo");
+// const thamInfo = require("../../thaminfo");
+const { page365User, flowAccCredentail} = require("../../thaminfo_credential.json");
+const { productMap } = require("../../thaminfo_config.json");
 
 const productFile = {
-    fileName: thamInfo.PRODUCTMAP.fileName,
-    sheetName: thamInfo.PRODUCTMAP.sheetName.page365,
+    fileName: productMap.fileName,
+    sheetName: productMap.sheetName.page365,
 }
 
 var loadPage365ByDates = exports.loadPage365ByDates = async (startDate, endDate) => {
@@ -16,7 +18,7 @@ var loadPage365ByDates = exports.loadPage365ByDates = async (startDate, endDate)
         let startTime = start / 1000;
         let endTime = end / 1000;
 
-        let p2fa = new Page365ToFlowAcc(thamInfo.page365User, thamInfo.flowAccCredentail, productFile);
+        let p2fa = new Page365ToFlowAcc(page365User, flowAccCredentail, productFile);
         await p2fa.init();
 
         await p2fa.createTaxInvoiceInlineByDate(startTime, endTime);
@@ -35,7 +37,7 @@ var loadPage365ByBills = exports.loadPage365ByBills = async (startNo, endNo) => 
             throw "end bill no less than start bill no";
         }
 
-        let p2fa = new Page365ToFlowAcc(thamInfo.page365User, thamInfo.flowAccCredentail, productFile);
+        let p2fa = new Page365ToFlowAcc(page365User, flowAccCredentail, productFile);
         await p2fa.init();
 
         for (let billno=start; billno<=end; billno++) {

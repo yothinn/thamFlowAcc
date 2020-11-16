@@ -2,7 +2,7 @@ const ProductMap = require("../../../libs/product/productmap");
 const FlowAccount = require("../../../libs/flowacc/flowacc");
 const flowBankAcc = require("../../../libs/flowacc/flowbankaccount");
 const Page365 = require("../../../libs/page365/page365");
-const page365Tools = require("../../../libs/page365/page365Utils");
+const page365Utils = require("../../../libs/page365/page365Utils");
 
 const SALESNAME = "page365";
 const PRODUCTNAME_DELIVERY = "ค่าขนส่ง";
@@ -99,7 +99,8 @@ class Page365ToFlowAcc {
             for (let order of orders) {
                 try {
                     // Check state if void not send to flowaccount
-                    if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
+                    if (page365Utils.isOrderVoided(order)) {
+                    // if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
                         // console.log(`Not Create Order :${ord.no} stage: ${ord.stage}`);
                         throw `!! No create order bill no :${order.no} stage: ${order.stage}`;
                     }
@@ -143,8 +144,13 @@ class Page365ToFlowAcc {
             let order = await this._page365.getOrderDetailByBillNo(billNo); 
             // console.log(order);
 
+            if (!order) {
+                throw `Can't load bill no : ${billNo}`;
+            }
+
              // Check state if void not send to flowaccount
-            if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
+            if (page365Utils.isOrderVoided(order)) {
+            // if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
                 // console.log(`Not Create Order :${ord.no} stage: ${ord.stage}`);
                 throw `!! No create order bill no :${order.no} stage: ${order.stage}`;
             }
@@ -176,10 +182,11 @@ class Page365ToFlowAcc {
         
             // load page365
             let order = await this._page365.getOrderDetailByBillNo(billNo); 
-            console.log(order);
+            // console.log(order);
 
              // Check state if void not send to flowaccount
-            if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
+            if (page365Utils.isOrderVoided(order)) {
+            // if (order.stage === page365Tools.PAGE365_ORDER_STAGE.VOIDED)  {
                 // console.log(`Not Create Order :${ord.no} stage: ${ord.stage}`);
                 throw `!! No create order bill no :${order.no} stage: ${order.stage}`;
             }
@@ -409,15 +416,15 @@ class Page365ToFlowAcc {
         let bankId;
         let bankAccountId;
         switch (pageNo) {
-            case page365Tools.PAGE365_BANKACC_NO.KBANK_2309:
+            case page365Utils.PAGE365_BANKACC_NO.KBANK_2309:
                 bankId = fBankAcc.accno_2309.bankId;
                 bankAccountId = fBankAcc.accno_2309.bankAccountId;
                 break;
-            case page365Tools.PAGE365_BANKACC_NO.BBL_9919:
-            case page365Tools.PAGE365_BANKACC_NO.promtpay:
+            case page365Utils.PAGE365_BANKACC_NO.BBL_9919:
+            case page365Utils.PAGE365_BANKACC_NO.promtpay:
                 bankId = fBankAcc.accno_9919.bankId,
                 bankAccountId = fBankAcc.accno_9919.bankAccountId;
-            case page365Tools.PAGE365_BANKACC_NO.riceInAdv:
+            case page365Utils.PAGE365_BANKACC_NO.riceInAdv:
                 bankId = fBankAcc.accno_riceInAdv.bankId;
                 bankAccountId = fBankAcc.accno_riceInAdv.bankAccountId;
                 break;

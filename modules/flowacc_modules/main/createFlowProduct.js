@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 const XLSX = require('xlsx');
 const FlowAccount = require("../../../libs/flowacc/flowacc");
 const thamInfo = require("../../thaminfo");
+const { productMap } = require("../../thaminfo_config.json");
 
 // const PRODUCT_FILE = "product.xlsx";
 // const PRODUCT_SHEETNAME  = "allFlowProduct";
@@ -43,8 +44,8 @@ module.exports = async () => {
         let list;
 
         // Read product from file
-        const wb = await XLSX.readFile(thamInfo.PRODUCTMAP.fileName);
-        const ws = await wb.Sheets[thamInfo.PRODUCTMAP.sheetName.allFlowProduct];
+        const wb = await XLSX.readFile(productMap.fileName);
+        const ws = await wb.Sheets[productMap.sheetName.allFlowProduct];
         const productList = await XLSX.utils.sheet_to_json(ws);
 
         // seperate product : create all 
@@ -103,6 +104,6 @@ module.exports = async () => {
         }
             
     } catch(error) {
-        console.log(error);
+        throw error;
     }
 };

@@ -1,9 +1,19 @@
+/**
+ * Main command line : Download data from ... to xlsx
+ * Author : Yothin Setthachatanan
+ * Created : 14/11/2020
+ * Updated : 16/11/2020
+ */
+
 const inquirer = require("inquirer");
 const XLSX = require("xlsx");
 const Ocha = require("../../libs/ocha/ocha");
 const ochaUtils = require("../../libs/ocha/ochaUtils");
-const ochaShopName = require("../../libs/ocha/ochaShopName.json");
-const thamInfo = require("../thaminfo");
+const { ochaShopName, productMap, outputfile_path } = require("../thaminfo_config.json");
+const { ochaUser } = require("../thaminfo_credential.json");
+const thamInfoUtils = require("../thaminfoUtils");
+// const ochaShopName = require("../../libs/ocha/ochaShopName.json");
+// const thamInfo = require("../thaminfo");
 
 const LOADFROM = {
     ochaRice: `Ocha: ${ochaShopName.riceRama9}`,
@@ -52,14 +62,14 @@ var loadXLSX = module.exports = async() => {
         let endTime = new Date(answers.endDate);
         endTime.setHours(23, 59, 59, 0);
 
-        let sheetName = thamInfo.getOchaProductSheetName(shopName);
+        let sheetName = thamInfoUtils.getOchaProductSheetName(shopName);
 
         if (!sheetName) {
             throw `Can't product sheet name for shop : ${shopName}`;
         }
 
         let productMapFile = {
-            fileName: thamInfo.PRODUCTMAP.fileName,
+            fileName: productMap.fileName,
             sheetName: sheetName
         }
 
@@ -67,9 +77,9 @@ var loadXLSX = module.exports = async() => {
         let ocha = new Ocha();
 
         await ocha.connect(
-            thamInfo.ochaUser.mobileNo,
-            thamInfo.ochaUser.username,
-            thamInfo.ochaUser.password,
+            ochaUser.mobileNo,
+            ochaUser.username,
+            ochaUser.password,
         );
 
         console.log("Downloading from ocha ...");
@@ -83,7 +93,7 @@ var loadXLSX = module.exports = async() => {
         let m = (startTime.getMonth()+1).toString().padStart(2, "0");
         let y = startTime.getFullYear();
 
-        let fileName = `${thamInfo.OUTPUTFILE_PATH.xlsx}/${shopName}_${y}${m}${d}.xlsx`;
+        let fileName = `${outputfile_path.downloadXLSX}/${shopName}_${y}${m}${d}.xlsx`;
 
         console.log("Writing to xlsx file ...");
 

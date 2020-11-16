@@ -65,6 +65,6 @@ module.exports = async() => {
                 break;
         }
     } catch(error) {
-        throw error;
+        console.log(error);
     }
 };

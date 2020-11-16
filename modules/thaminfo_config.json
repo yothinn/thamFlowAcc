@@ -13,7 +13,7 @@
             "ochaRestChomphon": "ocha_rest_chomphon",
             "ochaSanpatong": "ocha_rice_sanpatong", 
             "purchasesVegetable": "purchases_vegetable",
-            "purchasesSeafood": "purchases_seafood",
+            "purchasesSeafood": "purchases_seafood"
         }
     },
     "ochaShopName": {
@@ -23,7 +23,7 @@
         "restuarantChomphon": "ครัวชุมพรคาบาน่า",
         "frontChomphon": "Front ชุมพรคาบาน่า"
     },
-    "foodstoryBranchName": {
+    "foodStoryBranchName": {
         "chomphon": "ยักษ์กะโจน@ชุมพร คาบาน่า",
         "thaphae": "ยักษ์กะโจน@ท่าแพ"
     },

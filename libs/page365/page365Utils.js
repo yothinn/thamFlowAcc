@@ -35,6 +35,11 @@ exports.isOrderRiceInAdv = (orderDetail) => {
 };
 
 
+exports.isOrderVoided = (orderDetail) => {
+    return order.stage === this.PAGE365_ORDER_STAGE.VOIDED;
+}
+
+
 /**
  * Get firstname and lastname in page365 customer name
  * @param {*} orderDetail 

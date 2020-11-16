@@ -3,16 +3,18 @@ const csvtojson = require('csvtojson');
 const LoyverseToFlowAcc = require("./loyverseToFlowAcc");
 const LoyverseData = require("../../../libs/loyverse/loyverseData");
 const ProductMap = require("../../../libs/product/productmap");
-const thamInfo = require("../../thaminfo");
+// const thamInfo = require("../../thaminfo");
+const { flowAccCredentail } = require("../../thaminfo_credential.json");
+const { productMap } = require("../../thaminfo_config.json");
 
 const productFile = {
-    fileName: thamInfo.PRODUCTMAP.fileName,
-    sheetName: thamInfo.PRODUCTMAP.sheetName.loyverse,
+    fileName: productMap.fileName,
+    sheetName: productMap.sheetName.loyverse,
 };
 
 exports.loadLoyverseFromFile = async(shopName, fileName) => {
     try {
-        const l2fa = new LoyverseToFlowAcc(shopName, thamInfo.flowAccCredentail, productFile);
+        const l2fa = new LoyverseToFlowAcc(shopName, flowAccCredentail, productFile);
             
         await l2fa.init();
             
@@ -30,9 +32,9 @@ exports.checkProduct = async function(fileName) {
     try {
         const productmap = new ProductMap();
 
-        const productMapFile = thamInfo.PRODUCTMAP.fileName;
+        // const productMapFile = productMap.fileName;
 
-        await productmap.readProduct(productMapFile, thamInfo.PRODUCTMAP.sheetName.loyverse);    
+        await productmap.readProduct(productMap.fileName, productMap.sheetName.loyverse);    
 
         const trans = await csvtojson().fromFile(fileName);
 

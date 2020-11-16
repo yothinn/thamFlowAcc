@@ -3,9 +3,12 @@ const glob = require("glob");
 const p365 = require("../page365/page365_main");
 const ocha = require("../ocha/ocha_main");
 const loy = require("../loyverse/loyverse_main");
-const thamInfo = require("../../thaminfo");
+// const thamInfo = require("../../thaminfo");
 const foodstory = require("../foodstory/foodstory_main");
-const ochaShopName = require("../../../libs/ocha/ochaShopName.json");
+// const ochaShopName = require("../../../libs/ocha/ochaShopName.json");
+const { ochaShopName, 
+        foodStoryBranchName, 
+        inputfile_path } = require("../../thaminfo_config.json");
 
 const PAGE365_NAME = "page365";
 const OCHA_NAME = "Ocha";
@@ -21,8 +24,8 @@ const LOADFROM = {
     ochaFrontChompon: `${OCHA_NAME}: ${ochaShopName.frontChomphon}`,
     loyverseThamDelivery: `${LOYVERSE_NAME}: รถธรรมธุรกิจ`,
     loyverseThamDelivery1: `${LOYVERSE_NAME}: รถร่วมธรรมธุรกิจ1`,
-    foodstoryChomphon: `${FOODSTORY_NAME}: ${thamInfo.FOODSTORY_BRANCHNAME.chomphon}`,
-    foodstoryThaphae: `${FOODSTORY_NAME}: ${thamInfo.FOODSTORY_BRANCHNAME.thaphae}`,
+    foodstoryChomphon: `${FOODSTORY_NAME}: ${foodStoryBranchName.chomphon}`,
+    foodstoryThaphae: `${FOODSTORY_NAME}: ${foodStoryBranchName.thaphae}`,
 }
 
 const LOADDATABY = {
@@ -91,16 +94,16 @@ const questions = [
             let path = "";
             switch (answers.loadFrom) {
                 case LOADFROM.loyverseThamDelivery:  
-                    path = thamInfo.FILEINPUT_PATH.loyverseThamDelivery;
+                    path = inputfile_path.loyverseThamDelivery;
                     break;
                 case LOADFROM.loyverseThamDelivery1: 
-                    path = thamInfo.FILEINPUT_PATH.loyverseThamDelivery1;
+                    path = inputfile_path.loyverseThamDelivery1;
                     break;
                 case LOADFROM.foodstoryChomphon:
-                    path = thamInfo.FILEINPUT_PATH.foodstoryChomphon;
+                    path = inputfile_path.foodstoryChomphon;
                     break;
                 case LOADFROM.foodstoryThaphae:
-                    path = thamInfo.FILEINPUT_PATH.foodstoryThaphae;
+                    path = inputfile_path.foodstoryThaphae;
                     break;
                 default:
             }
@@ -111,16 +114,16 @@ const questions = [
             let path = "";
             switch (answers.loadFrom) {
                 case LOADFROM.loyverseThamDelivery: 
-                    path = `${thamInfo.FILEINPUT_PATH.loyverseThamDelivery}/*.csv`;
+                    path = `${inputfile_path.loyverseThamDelivery}/*.csv`;
                     break;
                 case LOADFROM.loyverseThamDelivery1: 
-                    path = `${thamInfo.FILEINPUT_PATH.loyverseThamDelivery1}/*.csv`;
+                    path = `${inputfile_path.loyverseThamDelivery1}/*.csv`;
                     break;
                 case LOADFROM.foodstoryChomphon:
-                    path = `${thamInfo.FILEINPUT_PATH.foodstoryChomphon}/*.xlsx`;
+                    path = `${inputfile_path.foodstoryChomphon}/*.xlsx`;
                     break;
                 case LOADFROM.foodstoryThaphae:
-                    path = `${thamInfo.FILEINPUT_PATH.foodstoryThaphae}/*.xlsx`;
+                    path = `${inputfile_path.foodstoryThaphae}/*.xlsx`;
                     break;
                 default:
             }
