@@ -222,6 +222,8 @@ class CyberAccDatabase {
         try {
             let request = this._pool.request();
 
+            amount = Math.round(amount * 100) / 100;
+
             request.input("glMainId", sql.NVarChar, glMainId);
             request.input("id", sql.Int, id);
             request.input("accountCode", sql.Int, accountCode);
@@ -250,6 +252,8 @@ class CyberAccDatabase {
     async insertToGLDebit(glMainId, id, accountCode, desp, amount) {
         try {
             let request = this._pool.request();
+
+            amount = Math.round(amount * 100) / 100;
 
             request.input("glMainId", sql.NVarChar, glMainId);
             request.input("id", sql.Int, id);

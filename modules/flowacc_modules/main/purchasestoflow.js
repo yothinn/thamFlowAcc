@@ -1,8 +1,10 @@
 const inquirer = require("inquirer");
 const glob = require("glob");
 const VegetableToFlowAcc = require("../purchases/vegetableToFlowAcc");
-const thamInfo = require("../../thaminfo");
+// const thamInfo = require("../../thaminfo");
 const SeaFoodToFlowAcc = require("../purchases/seafoodToFlowAcc");
+const { flowAccCredentail, ggsheet_credfile } = require("../../thaminfo_credential.json");
+const { productMap, inputfile_path, ggSheet } = require("../../thaminfo_config.json");
 
 const LOADFROM = {
     seafood: "seafood",
@@ -21,9 +23,9 @@ const questions = [
     {
         type: "list",
         name: "fileLoad",
-        message: `Select file that you want to read ?(path:${thamInfo.FILEINPUT_PATH.purchasesSeafood})`,
+        message: `Select file that you want to read ?(path:${inputfile_path.purchasesSeafood})`,
         choices: function(answers) {
-            let path = `${thamInfo.FILEINPUT_PATH.purchasesSeafood}/*.xlsx`;
+            let path = `${inputfile_path.purchasesSeafood}/*.xlsx`;
             return glob.sync(path);
         },
         when: function(answers) {
@@ -80,14 +82,14 @@ loadFromSeaFood = async(answers) => {
     console.log("!!!Oop: Not implement");
 
     const productFile = {
-        fileName: thamInfo.PRODUCTMAP.fileName,
-        sheetName: thamInfo.PRODUCTMAP.sheetName.purchasesSeafood,
+        fileName: productMap.fileName,
+        sheetName: productMap.sheetName.purchasesSeafood,
     };
 
     const CONTACTNAME = "ซื้ออาหารทะเล";
 
     try {
-        const s2fa= new SeaFoodToFlowAcc(CONTACTNAME, thamInfo.flowAccCredentail, productFile);
+        const s2fa= new SeaFoodToFlowAcc(CONTACTNAME, flowAccCredentail, productFile);
 
         await s2fa.init();
         s2fa.createPurchasesByIndex(answers.fileLoad, answers.sheetName, answers.startRow, answers.endRow);
@@ -103,17 +105,17 @@ loadFromVegetable = async(answers) => {
     console.log("SheetName : รายการรับเข้า");
     
     const productFile = {
-        fileName: thamInfo.PRODUCTMAP.fileName,
-        sheetName: thamInfo.PRODUCTMAP.sheetName.purchasesVegetable,
+        fileName: productMap.fileName,
+        sheetName: productMap.sheetName.purchasesVegetable,
     };
     
     try {
-        const v2fa = new VegetableToFlowAcc(thamInfo.flowAccCredentail, thamInfo.GGSHEET_CRED, productFile);
+        const v2fa = new VegetableToFlowAcc(flowAccCredentail, ggsheet_credfile, productFile);
     
         await v2fa.init();
     
-        let workbookId = thamInfo.VEGETABLE_GGSHEET_DATA.workbookId;
-        let worksheetId = thamInfo.VEGETABLE_GGSHEET_DATA.worksheetId;
+        let workbookId = ggSheet.vegetable_ggSheet.workbookId;
+        let worksheetId = ggSheet.vegetable_ggSheet.worksheetId;
         await v2fa.createPurchasesByIndex(workbookId, worksheetId, answers.startRow, answers.endRow);
     
     } catch(error) {

@@ -76,6 +76,8 @@ var loadXLSX = module.exports = async() => {
         
         let ocha = new Ocha();
 
+        console.log("Connecting to ocha ...");
+        
         await ocha.connect(
             ochaUser.mobileNo,
             ochaUser.username,

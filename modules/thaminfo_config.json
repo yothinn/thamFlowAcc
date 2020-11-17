@@ -37,14 +37,6 @@
     "outputfile_path": {
         "downloadXLSX" : "./output/xlsx"
     },
-    "cyberacc_server": {
-        "socialEnterprise": {
-
-        },
-        "stickyRice": {
-
-        }
-    },
     "ggSheet": {
         "vegetable_ggSheet": {
             "workbookId": "1qcraNqiQpqNa5SlTVvwYhOrflh9gRLzS-jj7d5zlwi4",

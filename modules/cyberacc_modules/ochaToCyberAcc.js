@@ -387,10 +387,11 @@ class OchaToCyberAcc {
                 let amount = creditList.vat[item].amount;
                 // ถอด vat
                 let vat = ((amount * VATRATE) / (100 + VATRATE));
-                let exVat = amount - vat;
+                // let exVat = amount - vat;
 
-                creditList.vat[item].amount = (Math.round(exVat * 100) / 100);
-                vat = (Math.round(vat * 100) / 100);
+                creditList.vat[item].amount = amount - vat;
+                // creditList.vat[item].amount = (Math.round(exVat * 100) / 100);
+                // vat = (Math.round(vat * 100) / 100);
                 creditList.vatAmount.amount += vat;
             }
 
