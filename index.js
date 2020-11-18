@@ -70,13 +70,13 @@ const questions = [
 
         switch(answers.program) {
             case LOADPROGRAMS.downloadDataToXLSX:
-                download2XLSX();
+                await download2XLSX();
                 break;
             case LOADPROGRAMS.downloadDataToFlowAcc:
-                download2Flow();
+                await download2Flow();
                 break;
             case LOADPROGRAMS.downloadDataToCyberAcc:
-                download2CyberAcc();
+                await download2CyberAcc();
                 break;
             case LOADPROGRAMS.uploadCyberAccToAccRevo:
                 console.log("accrevo");
@@ -85,7 +85,7 @@ const questions = [
                 console.log("check product");
                 break;
             case LOADPROGRAMS.testCyberAccConnect:
-                testCyberAcc();
+                await testCyberAcc();
                 break;
         }
     } catch (error) {

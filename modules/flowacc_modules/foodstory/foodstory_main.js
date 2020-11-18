@@ -1,9 +1,7 @@
-const FoodStory = require("../../../libs/foodstory/foodstory");
+const FoodStoryBillDetail = require("../../../libs/foodstory/foodstorybilldetail");
 const ProductMap = require("../../../libs/product/productmap");
-// const thamInfo = require("../../thaminfo");
 const { flowAccCredentail } = require("../../thaminfo_credential.json");
 const { productMap, foodstoryBranchName } = require("../../thaminfo_config.json");
-// const foodStoryData = require("./foodstoryData");
 const FoodStoryToFlowAcc = require("./foodstoryToFlowAcc");
 
 const productFile = {
@@ -35,7 +33,7 @@ exports.checkProduct = async function(branchName, fileName, sheetName) {
  
         await productmap.readProduct(productMap.fileName, productMapSheet);    
 
-        const fd = new FoodStory();
+        const fd = new FoodStoryBillDetail();
         let totalRow = await fd.readFile(fileName, sheetName);
 
         for (let i = 0; i< totalRow; i++) {

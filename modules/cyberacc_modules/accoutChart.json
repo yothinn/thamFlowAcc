@@ -35,6 +35,14 @@
         "code": 4120000,
         "name": "รายได้ขายสินค้าอื่นๆ"
     },
+    "RESTTHAPHAE_INCOME": {
+        "code": 4120015,
+        "name": "รายได้ขายอาหารและเครื่องดื่ม(ท่าแพ)"
+    },
+    "RESTCHOMPHON_INCOME": {
+        "code": 4120011,
+        "name": "รายได้ขายอาหารและเครื่องดื่ม(ชุมพรคาบาน่า)"
+    },
     "CUSTOMER_THAMMACHARTMARKET": {
         "code": 1150123,
         "name": "ตลาดนัดธรรมชาติ"
@@ -46,6 +54,14 @@
     "CUSTOMER_FRONTCHOMPHON": {
         "code": 1150240,
         "name": "ลูกค้าห้องพักชุมพรคาบาน่า"
+    },
+    "CUSTOMER_RESTCHOMPHON": {
+        "code": 1150239,
+        "name": "ลูกค้าร้านอาหารชุมพรคาบาน่า"
+    },
+    "CUSTOMER_RESTTHAPHAE": {
+        "code": 1150245,
+        "name": "ลูกค้าร้านอาหารยักษ์กะโจนท่าแพ"
     },
     "CUSTOMER_SANPATHONG": {
         "code": 1150060,

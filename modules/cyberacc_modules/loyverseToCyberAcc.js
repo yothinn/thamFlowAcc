@@ -12,9 +12,10 @@ const LoyverseData = require("../../libs/loyverse/loyverseData");
 const csvtojson = require('csvtojson');
 const accountChart = require("./accoutChart.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
+const {VATRATE, loadFrom } = require("../thaminfo_config.json");
 
-const LOYVERSE_NAME = "loyverse";
-const VATRATE = 7;
+// const LOYVERSE_NAME = "loyverse";
+// const VATRATE = 7;
 
 class LoyverseToCyberAcc {
     _shopName = null; 
@@ -89,7 +90,7 @@ class LoyverseToCyberAcc {
             if (glMainId) {
                 // FORMAT (พ.ศ.) : day/month/year
                 let dateStr = `${d}/${m}/${y}`;
-                let desp = LOYVERSE_NAME;
+                let desp = loadFrom.loyverseName;
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 

@@ -17,7 +17,7 @@ const FOODSTORY_INDEXNAME = {
 }
 
 // Read Food story (bill detail) from XLSX File
-class FoodStory {
+class FoodStoryBillDetail {
     _fileName;
     _sheetName;
     _wb;                    //  Workbook
@@ -139,4 +139,4 @@ class FoodStory {
     }
 }
 
-module.exports = FoodStory;
+module.exports = FoodStoryBillDetail;

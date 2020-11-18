@@ -42,7 +42,6 @@ module.exports = async() => {
             console.log("!!!! Error connection");
             db.close();
         });
-
     } catch(error) {
         console.log(error);
     }

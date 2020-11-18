@@ -3,11 +3,11 @@ const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
 const ProductMap = require("../../libs/product/productmap");
 const accountChart = require("./accoutChart.json");
 // const ochaShopName = require("../../libs/ocha/ochaShopName.json");
-const { ochaShopName } = require("../thaminfo_config.json");
+const { ochaShopName, VATRATE, loadFrom } = require("../thaminfo_config.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 
-const OCHANAME = "ocha";
-const VATRATE = 7;
+// const OCHANAME = "ocha";
+// const VATRATE = 7;
 
 class OchaToCyberAcc {
     _ochaUser = null;
@@ -115,7 +115,7 @@ class OchaToCyberAcc {
             if (glMainId) {
                 // FORMAT (พ.ศ.) : day/month/year
                 let dateStr = `${d}/${m}/${y}`;
-                let desp = `${OCHANAME} ${this._shopName}`;
+                let desp = `${loadFrom.ochaName} ${this._shopName}`;
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 

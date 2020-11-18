@@ -6,13 +6,18 @@ const thamInfo = require("../thaminfo_config.json");
 const Page365ToCyberAcc = require("./page365ToCyberAcc");
 const OchaToCyberAcc = require("./ochaToCyberAcc");
 const LoyverseToCyberAcc = require("./loyverseToCyberAcc");
+const FoodStorySalesByDay = require("./foodStorySalesByDayToCyberAcc")
 const thamInfoUtils = require("../thaminfoUtils");
+const cyberaccLogger = require("./cyberaccLogger");
 
 
-const PAGE365_NAME = "page365";
-const OCHA_NAME = "Ocha";
-const LOYVERSE_NAME = "Loyverse";
-const FOODSTORY_NAME = "FoodStory";
+const PAGE365_NAME = thamInfo.loadFrom.page365Name;
+const OCHA_NAME = thamInfo.loadFrom.ochaName;
+const LOYVERSE_NAME = thamInfo.loadFrom.loyverseName;
+const FOODSTORY_NAME = thamInfo.loadFrom.foodStoryName;
+
+const FOODSTORYSALESBYDAY_DEFAULTSHEET = "Sheet1";
+
 
 const LOADFROM = {
     page365: PAGE365_NAME,
@@ -60,23 +65,30 @@ const questions = [
         message: function(answers) {
             
             let path = "";
+            let fileType = "";
+            let salesByDayStr = "ยอดขายรวมตามวัน";
+            let paymentItemDetailStr = "ใบเสร็จรับเงินตามรายละเอียดสินค้า";
             switch (answers.loadFrom) {
                 case LOADFROM.loyverseThamDelivery:  
+                    fileType = paymentItemDetailStr
                     path = thamInfo.inputfile_path.loyverseThamDelivery;
                     break;
                 case LOADFROM.loyverseThamDelivery1: 
+                    fileType = paymentItemDetailStr
                     path = thamInfo.inputfile_path.loyverseThamDelivery1;
                     break;
                 case LOADFROM.foodstoryChomphon:
+                    fileType = salesByDayStr;
                     path = thamInfo.inputfile_path.foodstoryChomphon;
                     break;
                 case LOADFROM.foodstoryThaphae:
+                    fileType = salesByDayStr;
                     path = thamInfo.inputfile_path.foodstoryThaphae;
                     break;
                 default:
             }
 
-            return msg = `Select file that you want to read ?(path:${path})`;
+            return msg = `Select file that you want to read (${fileType}) ?(path:${path})`;
         },
         choices: function(answers) {
             let path = "";
@@ -148,10 +160,12 @@ loadFromPage365 = async(answers) => {
 
         let p2c = new Page365ToCyberAcc(page365User, cyberAccServer.socialEnterprise, productFile);
         
-        console.log("Connecting to page365 ...");
+        // console.log("Connecting to page365 ...");
+        cyberaccLogger.info("Test Connecting to page365 ...");
         await p2c.init();
 
-        console.log("Downloading and to cyberacc ...");
+        cyberaccLogger.info("Test Downloading and to cyberacc ... ");
+        // console.log("Downloading and to cyberacc ...");
         await p2c.downloadToCyberAccByDate(answers.startDate, answers.endDate);
 
         await p2c.close();
@@ -192,14 +206,14 @@ loadFromOcha = async(answers) => {
 loadFromLoyverse = async(answers) => {
     try {
         let from = answers.loadFrom.split(":");
-        from[1] = from[1].trim();
+        let shopName = from[1].trim();
 
         const productFile = {
             fileName:   thamInfo.productMap.fileName,
             sheetName:  thamInfo.productMap.sheetName.loyverse
         }
 
-        const l2c = new LoyverseToCyberAcc(from[1], cyberAccServer.socialEnterprise, productFile);
+        const l2c = new LoyverseToCyberAcc(shopName, cyberAccServer.socialEnterprise, productFile);
 
         await l2c.init();
 
@@ -215,7 +229,18 @@ loadFromLoyverse = async(answers) => {
 
 loadFromFoodStory = async (answers) => {
     try {
-        console.log("!!Oops : FoodStory is not implement yet");
+        let from = answers.loadFrom.split(":");
+        let shopName = from[1].trim();
+
+        const f2c = new FoodStorySalesByDay(shopName, cyberAccServer.socialEnterprise);
+
+        console.log()
+        await f2c.init();
+
+        console.log("Reading from file and send to cyberacc ...");
+        await f2c.downloadToCyberAccByFile(answers.fileLoad, FOODSTORYSALESBYDAY_DEFAULTSHEET);
+
+        await f2c.close();
     } catch(error) {
         throw error;
     }

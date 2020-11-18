@@ -14,13 +14,14 @@ const Page365 = require("../../libs/page365/page365");
 const ProductMap = require("../../libs/product/productmap");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 const page365Utils = require("../../libs/page365/page365Utils");
+const { VATRATE, loadFrom } = require("../thaminfo_config.json");
 
 // REMARK : when change database must edit accoutChart code
 const accountChart = require("./accoutChart.json");
 
-const PAGE365_NAME = "page365";
+// const PAGE365_NAME = "page365";
 const DESP_CUSTOMER_DELIVERY = "ค่าข้าวและสินค้าออนไลน์";
-const VATRATE = 7;
+// const VATRATE = 7;
 
 class Page365ToCyberAcc {
     
@@ -110,7 +111,7 @@ class Page365ToCyberAcc {
             if (glMainId) {
             // FORMAT (พ.ศ.) : day/month/year
                 let dateStr = `${d}/${m}/${y}`;
-                let desp = PAGE365_NAME;
+                let desp = loadFrom.page365Name;
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 

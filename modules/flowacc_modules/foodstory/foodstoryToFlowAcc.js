@@ -1,6 +1,6 @@
 const ProductMap = require("../../../libs/product/productmap");
 const FlowAccount = require("../../../libs/flowacc/flowacc");
-const FoodStory = require("../../../libs/foodstory/foodstory");
+const FoodStoryBillDetail = require("../../../libs/foodstory/foodstorybilldetail");
 
 const SALESNAME = "foodstory";
 class FoodStoryToFlowAcc {
@@ -63,7 +63,7 @@ class FoodStoryToFlowAcc {
             let invList = [];
             let inv = null;
 
-            let fd = new FoodStory();
+            let fd = new FoodStoryBillDetail();
             let totalRow = await fd.readFile(fileName, sheetName);
 
             // console.log(totalRow);

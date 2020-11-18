@@ -9,18 +9,18 @@ const inquirer = require("inquirer");
 const XLSX = require("xlsx");
 const Ocha = require("../../libs/ocha/ocha");
 const ochaUtils = require("../../libs/ocha/ochaUtils");
-const { ochaShopName, productMap, outputfile_path } = require("../thaminfo_config.json");
+const { ochaShopName, productMap, outputfile_path, loadFrom } = require("../thaminfo_config.json");
 const { ochaUser } = require("../thaminfo_credential.json");
 const thamInfoUtils = require("../thaminfoUtils");
 // const ochaShopName = require("../../libs/ocha/ochaShopName.json");
 // const thamInfo = require("../thaminfo");
 
 const LOADFROM = {
-    ochaRice: `Ocha: ${ochaShopName.riceRama9}`,
-    ochaVegetable: `Ocha: ${ochaShopName.vegetableRama9}`,
-    ochaSanpatong: `Ocha: ${ochaShopName.sanpatong}`,
-    ochaRestChompon: `Ocha: ${ochaShopName.restuarantChomphon}`,
-    ochaFrontChompon: `Ocha: ${ochaShopName.frontChomphon}`,
+    ochaRice: `${loadFrom.ochaName}: ${ochaShopName.riceRama9}`,
+    ochaVegetable: `${loadFrom.ochaName}: ${ochaShopName.vegetableRama9}`,
+    ochaSanpatong: `${loadFrom.ochaName}: ${ochaShopName.sanpatong}`,
+    ochaRestChompon: `${loadFrom.ochaName}: ${ochaShopName.restuarantChomphon}`,
+    ochaFrontChompon: `${loadFrom.ochaName}: ${ochaShopName.frontChomphon}`,
 }
 
 const questions = [

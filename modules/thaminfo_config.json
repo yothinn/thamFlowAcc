@@ -42,5 +42,12 @@
             "workbookId": "1qcraNqiQpqNa5SlTVvwYhOrflh9gRLzS-jj7d5zlwi4",
             "worksheetId": 233438306
         }
+    },
+    "VATRATE": 7,
+    "loadFrom": {
+        "foodStoryName": "FoodStory",
+        "ochaName": "Ocha",
+        "page365Name": "Page365",
+        "loyverseName": "Loyverse"
     }
 }
