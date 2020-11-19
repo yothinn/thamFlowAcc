@@ -4,9 +4,10 @@ const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
 const cyberAccInfo = require("../../libs/cyberacc/cyberaccUtils");
 const accRevoInfo = require("../../libs/accrevo/accrevoUtils");
 const accountChart = require("../../libs/cyberacc/cyberacc_accountChart.json");
-
+const accRevoLog = require("./accrevoLog")
+;
 // const PREFIX_IMGFILE = "Test12";
-const IMG_MOCKUP_FILE = "./libs/cyberacc/mockup.jpg"
+const IMG_MOCKUP_FILE = "./modules/accrevo_modules/mockup.jpg";
 
 class CyberAccToAccRevo {
     _cyberAccDb;
@@ -15,36 +16,37 @@ class CyberAccToAccRevo {
     _cyberAccConfig;
     _accRevoUser;
 
-    constructor() {
-
+    constructor(cyberAccDbConnect, accRevoConnect) {
+        this._cyberAccDb = cyberAccDbConnect;
+        this._accRevo = accRevoConnect;
     }
 
-    async authorize(cyberAccConfig, accRevoUser) {
-        try {
-            this._cyberAccConfig = cyberAccConfig;
-            this._accRevoUser = accRevoUser;
+    // async authorize(cyberAccConfig, accRevoUser) {
+    //     try {
+    //         this._cyberAccConfig = cyberAccConfig;
+    //         this._accRevoUser = accRevoUser;
 
-            // console.log(this._cyberAccConfig);
-            // console.log(this._accRevoUser);
+    //         // console.log(this._cyberAccConfig);
+    //         // console.log(this._accRevoUser);
 
-            // Connet mssql cyberacc database;
-            this._cyberAccDb = new CyberAccDatabase();
-            let res = await this._cyberAccDb.connect(this._cyberAccConfig.username,
-                                            this._cyberAccConfig.password,
-                                            this._cyberAccConfig.server,
-                                            this._cyberAccConfig.database);
-            // console.log(res);
+    //         // Connet mssql cyberacc database;
+    //         this._cyberAccDb = new CyberAccDatabase();
+    //         let res = await this._cyberAccDb.connect(this._cyberAccConfig.username,
+    //                                         this._cyberAccConfig.password,
+    //                                         this._cyberAccConfig.server,
+    //                                         this._cyberAccConfig.database);
+    //         // console.log(res);
 
-            this._accRevo = new AccRevo();
-            res = await this._accRevo.authorize(this._accRevoUser.username,
-                                            this._accRevoUser.password,
-                                            this._accRevoUser.apiKey);
-            // console.log(res);
+    //         this._accRevo = new AccRevo();
+    //         res = await this._accRevo.authorize(this._accRevoUser.username,
+    //                                         this._accRevoUser.password,
+    //                                         this._accRevoUser.apiKey);
+    //         // console.log(res);
 
-        } catch (error) {
-            throw error;
-        }
-    }
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 
     async uploadToAccRevoByDate(dateStr) {
         try {
@@ -64,6 +66,7 @@ class CyberAccToAccRevo {
 
                     let imgFileName = docBody.transaction_id.replace("/", "-");
 
+                    // TODO: change image mockup file , case if not mockup image how to
                     let imgBody = {
                         file: {
                             value: fs.createReadStream(IMG_MOCKUP_FILE),
@@ -135,6 +138,7 @@ class CyberAccToAccRevo {
                     console.log(res);
                 } catch(error) {
                     console.log(`ERROR ID ${docBody.transaction_id}`);
+                    console.log(error);
                     continue;
                 }
             }
@@ -280,11 +284,6 @@ class CyberAccToAccRevo {
             default:
                 return "ยังไม่ระบุลูกค้า";
         }
-    }
-
-
-    close() {
-        this._cyberAccDb.close();
     }
  }
 

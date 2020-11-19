@@ -38,6 +38,7 @@ const download2XLSX = require("./modules/xlsx_modules/index");
 const download2Flow = require("./modules/flowacc_modules/index");
 const download2CyberAcc = require("./modules/cyberacc_modules/index");
 const testCyberAcc = require("./modules/cyberacc_modules/testconnection");
+const uploadToAccRevo = require("./modules/accrevo_modules/index");
 
 const LOADPROGRAMS = {
     downloadDataToXLSX: "1. Download data to xlsx",
@@ -79,7 +80,7 @@ const questions = [
                 await download2CyberAcc();
                 break;
             case LOADPROGRAMS.uploadCyberAccToAccRevo:
-                console.log("accrevo");
+                await uploadToAccRevo()
                 break;
             case LOADPROGRAMS.checkProduct:
                 console.log("check product");

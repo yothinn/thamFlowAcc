@@ -1,7 +1,7 @@
 const CyberAccDatabase = require("../libs/cyberacc/cyberaccDatabase");
 const Ocha = require("../libs/ocha/ocha");
 const Page365 = require("../libs/page365/page365");
-
+const AccRevo = require("../libs/accrevo/accrevo");
 
 module.exports.ochaConnect = async(ochaUser) => {
     try {
@@ -40,6 +40,18 @@ module.exports.cyberAccDbConnect = async(cyberAccConfig) => {
             cyberAccConfig.instance);
 
         return cConnect;
+    } catch(error) {
+        throw error;
+    }
+}
+
+module.exports.accRevoConnect = async(accRevoUser) => {
+    try {
+        var aConnect = new AccRevo();
+
+        await aConnect.authorize(accRevoUser.username, accRevoUser.password, accRevoUser.apiKey);
+
+        return aConnect;
     } catch(error) {
         throw error;
     }
