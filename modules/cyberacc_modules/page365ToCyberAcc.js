@@ -516,26 +516,24 @@ class Page365ToCyberAcc {
                 let s = start.getTime() / 1000;
                 let e = end.getTime() / 1000;
 
-                console.log(`${s}:${e}`);
+                // console.log(`${s}:${e}`);
                 // download order from page365 in one day
                 cyberaccLog.info(`DOWNLOAD: Download page365 at date : ${start.toString()}`);
 
                 let orderDetails = await this._page365.getOrderDetailByDate(s, e);
 
-                if (orderDetails.length === 0) {
-                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
-                    continue;
-                }
+                if (orderDetails.length > 0) {
+                    let glMainId = await this.createCyberAccGLMain(start);
+                    if (glMainId) {
+                        await this.createCyberAccGLDebit(glMainId, orderDetails);
+                        await this.createCyberAccGLCredit(glMainId, orderDetails);
+                    } else {
+                        throw "Can't generate glMainid in GLMain";
+                    }
 
-                let glMainId = await this.createCyberAccGLMain(start);
-                if (glMainId) {
-                    await this.createCyberAccGLDebit(glMainId, orderDetails);
-                    await this.createCyberAccGLCredit(glMainId, orderDetails);
                 } else {
-                    throw "Can't generate glMainid in GLMain";
+                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
                 }
-
-                // console.log(`Success created GLMainId : ${glMainId}`);
 
                 // TODO: log insert to database ??
                 // console.log(orderDetails.length);

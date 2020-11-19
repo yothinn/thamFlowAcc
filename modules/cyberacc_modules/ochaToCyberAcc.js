@@ -440,22 +440,21 @@ class OchaToCyberAcc {
 
                 let orderDetails = await this._ocha.getDailyOrdersByShop(this._shopId, s, e);
 
-                if (orderDetails.length === 0) {
-                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
-                    continue;
-                }
+                if (orderDetails.length > 0) {
+                    
+                    // console.log(orderDetails);
 
-                // console.log(orderDetails);
+                    let glMainId = await this.createCyberAccGLMain(start);
+                    if (glMainId) {
+                        await this.createCyberAccGLDebit(glMainId, orderDetails);
+                        await this.createCyberAccGLCredit(glMainId, orderDetails);
+                    } else {
+                        throw "Can't generate glMainid in GLMain";
+                    }
 
-                let glMainId = await this.createCyberAccGLMain(start);
-                if (glMainId) {
-                    await this.createCyberAccGLDebit(glMainId, orderDetails);
-                    await this.createCyberAccGLCredit(glMainId, orderDetails);
                 } else {
-                    throw "Can't generate glMainid in GLMain";
+                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
                 }
-
-                // console.log(`Success created GLMainId : ${glMainId}`);
 
                 // TODO: log insert to database ??
                 // console.log(orderDetails.length);

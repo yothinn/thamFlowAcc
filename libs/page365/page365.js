@@ -13,6 +13,7 @@ class Page365 {
     }
 
     set session(value) {
+        // this._session = "_page365_session=VWgrbmllT0d6Uy9QUWU3MWVLc0JEcnBTb0Q4ODJrMzhUYm5uK1VobzlqSFhuWUtOc1VjeGRFZlpXbTRudDREeVJ0ajNiM0ZBR0IyZmNnYXo1Q3JVb1RSUmJ5UFA5bUJmTFF4VXZVRjdweGZjUWpaMHFaekVJK09ZcW5wWDIzckJxblZPcDVzT2s2R25mV2ZjOTlvdVNxd1EwUDVldE5pRVlxWFRLL2p6b0tEaXczM0l1SVJwbWpldFRRdjNLdlhSdGx6NDZxQzZwcGE0VS91TGp0R2lmc1Ewd2RXaXM3VkxEZ3NVWTVLR2NSVT0tLTZScVpkR2YxanNWcXhrZ2VkUE1pUnc9PQ%3D%3D--1624f718f4df9b74720d2594d493b3ccbd2f1b72";
         this._session = `_page365_session=${value}`;
     }
 
@@ -39,17 +40,22 @@ class Page365 {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         await page.goto('https://page365.net/session/new', { waitUntil: 'networkidle2' });
+        // await page.goto('https://www.facebook.com/login.php?skip_api_login=1&api_key=237031236431724&kid_directed_site=0&app_id=237031236431724&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fv2.6%2Fdialog%2Foauth%3Fclient_id%3D237031236431724%26redirect_uri%3Dhttps%253A%252F%252Fpage365.net%252Fauth%252Ffacebook%252Fcallback%26response_type%3Dcode%26scope%3Demail%26state%3D6c4a8b866477e6f91824de3da06df317dfd1980c6627c506%26ret%3Dlogin%26fbapp_pres%3D0%26logger_id%3Df3163025-335f-4e3b-897e-19a86abd2f13%26shared_id%3DTODO_SHARED_ID%26tp%3Dunspecified&cancel_url=https%3A%2F%2Fpage365.net%2Fauth%2Ffacebook%2Fcallback%3Ferror%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied%26state%3D6c4a8b866477e6f91824de3da06df317dfd1980c6627c506%23_%3D_&display=page&locale=th_TH&pl_dbl=0', { waitUntil: 'networkidle2' });
     
         await page.type('[name="email"]', username);
         await page.type('[name="pass"]', password);
-    
+
         const btnLogin = await page.$$('#loginbutton');
         await btnLogin[0].click();
-    
+
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+        await page.click("#platformDialogForm > div._5lnf.uiOverlayFooter._5a8u > table > tbody > tr > td._51m-.prs.uiOverlayFooterMessage > table > tbody > tr > td._51m-.uiOverlayFooterButtons._51mw > button._42ft._4jy0.layerConfirm._51_n.autofocus._4jy5._4jy1.selected._51sy");
+        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+        // await page.screenshot({ path: 'example.png'});
     
-        await page.waitFor(3000);
-        // await page.waitForTimeout(3000);
+        await page.waitFor(4000);
     
         //await page.screenshot({ path: 'example.png'});
         
@@ -101,7 +107,12 @@ class Page365 {
                 );
                 result = await response.json();
 
-                console.log(result);
+                // console.log(result);
+                // if it has filed status, that error
+                if (result.status) {
+                    throw `PAGE365 Error: ${result.status}`;
+                }
+
                 if (result.orders.length > 0) {
                     bills = bills.concat(result.orders);
                 }

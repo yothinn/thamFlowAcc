@@ -63,7 +63,8 @@ class CyberAccDatabase {
             );
             // console.log(result);
             // return null if can't find
-            return result.recordset[0].result;
+            return result.recordset[0] ? result.recordset[0].result : null;
+            // return result.recordset[0].result;
         } catch(error) {
             throw error;
         }
@@ -79,7 +80,7 @@ class CyberAccDatabase {
             );
             // console.log(result);
             // return null if can't find
-            return result.recordset[0].result;
+            return result.recordset[0] ? result.recordset[0].result : null;
         } catch(error) {
             throw error;
         }    
