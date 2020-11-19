@@ -3,7 +3,7 @@
  * Loyverse file : ใช้ใบเสร็จรับเงินตามรายการสินค้า
  * Author: Yothin Setthachatanan
  * Created: 17/11/2020
- * Updated: 17/11/2020
+ * Updated: 19/11/2020
  */
 
 const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
@@ -13,6 +13,7 @@ const csvtojson = require('csvtojson');
 const accountChart = require("./accoutChart.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 const {VATRATE, loadFrom } = require("../thaminfo_config.json");
+const cyberaccLog = require("./cyberaccLog");
 
 // const LOYVERSE_NAME = "loyverse";
 // const VATRATE = 7;
@@ -43,22 +44,48 @@ class LoyverseToCyberAcc {
      *  sheetName: product sheetname
      * } 
      */
-    constructor(shopName, cyberAccConfig, productFile) {
+    // constructor(shopName, cyberAccConfig, productFile) {
+    //     this._shopName = shopName;
+    //     this._cyberAccConfig = cyberAccConfig;
+    //     this._productFile = productFile;
+    // }
+
+    // async init() {
+    //     try {
+    //         this._cyberAccDb = new CyberAccDatabase();
+    //         await this._cyberAccDb.connect(
+    //             this._cyberAccConfig.username,
+    //             this._cyberAccConfig.password,
+    //             this._cyberAccConfig.server,
+    //             this._cyberAccConfig.database,
+    //             this._cyberAccConfig.instance
+    //         );
+
+    //         // load product map
+    //         this._productMap = new ProductMap();
+    //         await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
+            
+    //     } catch(error) {
+    //         throw error;
+    //     }
+    // }
+
+    constructor(shopName, cyberAccDbConnect, productFile) {
         this._shopName = shopName;
-        this._cyberAccConfig = cyberAccConfig;
+        this._cyberAccDb = cyberAccDbConnect;
         this._productFile = productFile;
     }
 
     async init() {
         try {
-            this._cyberAccDb = new CyberAccDatabase();
-            await this._cyberAccDb.connect(
-                this._cyberAccConfig.username,
-                this._cyberAccConfig.password,
-                this._cyberAccConfig.server,
-                this._cyberAccConfig.database,
-                this._cyberAccConfig.instance
-            );
+            // this._cyberAccDb = new CyberAccDatabase();
+            // await this._cyberAccDb.connect(
+            //     this._cyberAccConfig.username,
+            //     this._cyberAccConfig.password,
+            //     this._cyberAccConfig.server,
+            //     this._cyberAccConfig.database,
+            //     this._cyberAccConfig.instance
+            // );
 
             // load product map
             this._productMap = new ProductMap();
@@ -94,7 +121,8 @@ class LoyverseToCyberAcc {
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-                console.log(`GLMain : success created ${glMainId}`);
+                cyberaccLog.info(`GLMain: success created ${glMainId}`);
+                // console.log(`GLMain : success created ${glMainId}`);
             }
 
             return glMainId;
@@ -114,7 +142,8 @@ class LoyverseToCyberAcc {
 
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, credit.accountCode, credit.desp, credit.amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${credit.accountCode} ${credit.desp} ${credit.amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${credit.accountCode} ${credit.desp} ${credit.amount}`);
+                //console.log(`GLCredit : success create ${glMainId} ${id} ${credit.accountCode} ${credit.desp} ${credit.amount}`);
             }
 
         } catch(error) {
@@ -133,7 +162,8 @@ class LoyverseToCyberAcc {
 
                 await this._cyberAccDb.insertToGLDebit(glMainId, id, debit.accountCode, debit.desp, debit.amount);
 
-                console.log(`GLDebit : success create ${glMainId} ${id} ${debit.accountCode} ${debit.desp} ${debit.amount}`);
+                cyberaccLog.info(`GLDebit: success create ${glMainId} ${id} ${debit.accountCode} ${debit.desp} ${debit.amount}`);
+                // console.log(`GLDebit : success create ${glMainId} ${id} ${debit.accountCode} ${debit.desp} ${debit.amount}`);
             }
 
         } catch(error) {
@@ -158,7 +188,7 @@ class LoyverseToCyberAcc {
             // calculate glList from bill list
             let glList = await this.calGLList(billList);
 
-            console.log(JSON.stringify(glList, null, 3));
+            // console.log(JSON.stringify(glList, null, 3));
 
             for (let gl of glList) {
                 let glMainId = await this.createCyberAccGLMain(gl.date);
@@ -457,9 +487,6 @@ class LoyverseToCyberAcc {
         }
     }
 
-    close() {
-        this._cyberAccDb.close();
-    }
 }
 
 module.exports = LoyverseToCyberAcc;

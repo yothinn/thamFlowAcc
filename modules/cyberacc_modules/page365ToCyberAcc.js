@@ -3,7 +3,7 @@
  * Author   : Yothin Setthachatanan
  * Company  : Thamturakit Social Enterprise
  * Created  : 11 Nov 2020
- * Updated  : 13 Nov 2020
+ * Updated  : 19 Nov 2020
  * REMARK :
  * When change database and account chart code change
  * You must edit account chart code
@@ -15,6 +15,7 @@ const ProductMap = require("../../libs/product/productmap");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
 const page365Utils = require("../../libs/page365/page365Utils");
 const { VATRATE, loadFrom } = require("../thaminfo_config.json");
+const cyberaccLog = require("./cyberaccLog");
 
 // REMARK : when change database must edit accoutChart code
 const accountChart = require("./accoutChart.json");
@@ -56,26 +57,56 @@ class Page365ToCyberAcc {
      *  sheetName
      * }
      */
-    constructor(page365User, cyberAccConfig, productFile) {
-        this._page365User = page365User;
-        this._cyberaccConfig = cyberAccConfig;
+    // constructor(page365User, cyberAccConfig, productFile) {
+    //     this._page365User = page365User;
+    //     this._cyberaccConfig = cyberAccConfig;
+    //     this._productFile = productFile;
+    // }
+
+    // async init() {
+    //     try {
+            
+    //         this._page365 = new Page365();
+    //         await this._page365.connect(this._page365User.username, this._page365User.password);
+
+    //         this._cyberAccDb = new CyberAccDatabase();
+    //         await this._cyberAccDb.connect(
+    //             this._cyberaccConfig.username,
+    //             this._cyberaccConfig.password,
+    //             this._cyberaccConfig.server,
+    //             this._cyberaccConfig.database,
+    //             this._cyberaccConfig.instance
+    //         );
+
+    //         // load product map
+    //         this._productMap = new ProductMap();
+    //         await this._productMap.readProduct(this._productFile.fileName, this._productFile.sheetName);
+
+    //     } catch (error) {
+    //         throw error;
+    //     }
+
+    // }
+
+    constructor(page365Connect, cyberAccDbConnect, productFile) {
+        this._page365 = page365Connect;
+        this._cyberAccDb = cyberAccDbConnect;
         this._productFile = productFile;
     }
 
     async init() {
         try {
-            
-            this._page365 = new Page365();
-            await this._page365.connect(this._page365User.username, this._page365User.password);
+            // this._page365 = new Page365();
+            // await this._page365.connect(this._page365User.username, this._page365User.password);
 
-            this._cyberAccDb = new CyberAccDatabase();
-            await this._cyberAccDb.connect(
-                this._cyberaccConfig.username,
-                this._cyberaccConfig.password,
-                this._cyberaccConfig.server,
-                this._cyberaccConfig.database,
-                this._cyberaccConfig.instance
-            );
+            // this._cyberAccDb = new CyberAccDatabase();
+            // await this._cyberAccDb.connect(
+            //     this._cyberaccConfig.username,
+            //     this._cyberaccConfig.password,
+            //     this._cyberaccConfig.server,
+            //     this._cyberaccConfig.database,
+            //     this._cyberaccConfig.instance
+            // );
 
             // load product map
             this._productMap = new ProductMap();
@@ -115,7 +146,8 @@ class Page365ToCyberAcc {
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-                console.log(`GLMain : success created ${glMainId}`);
+                cyberaccLog.info(`GLMain: success created ${glMainId}`);
+                //console.log(`GLMain : success created ${glMainId}`);
             }
 
             return glMainId;
@@ -153,7 +185,8 @@ class Page365ToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
             // Loop vat
@@ -169,7 +202,8 @@ class Page365ToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
             // shipping cost
@@ -184,7 +218,8 @@ class Page365ToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
             // vat amount
@@ -199,7 +234,8 @@ class Page365ToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
         } catch(error) {
@@ -248,8 +284,8 @@ class Page365ToCyberAcc {
             for (let order of orderList) {
 
                 // VOIDED bill not calculate
-                if (order.stage === page365Utils.PAGE365_ORDER_STAGE.VOIDED)  {
-                    continue;    
+                if (page365Utils.isOrderVoided(order)) {
+                    continue;
                 }
 
                 let createDate = new Date(order.created_at);
@@ -412,8 +448,8 @@ class Page365ToCyberAcc {
             for (let order of orderList) {
 
                 // VOIDED bill not calculate
-                if (order.stage === page365Utils.PAGE365_ORDER_STAGE.VOIDED)  {
-                    continue;    
+                if (page365Utils.isOrderVoided(order)) {
+                    continue;
                 }
 
                 pageBillNo = order.no;
@@ -443,7 +479,9 @@ class Page365ToCyberAcc {
                 }
 
                 await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
-                console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+
+                cyberaccLog.info(`GLDebit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
         } catch(error) {
@@ -478,10 +516,14 @@ class Page365ToCyberAcc {
                 let s = start.getTime() / 1000;
                 let e = end.getTime() / 1000;
 
+                console.log(`${s}:${e}`);
                 // download order from page365 in one day
+                cyberaccLog.info(`DOWNLOAD: Download page365 at date : ${start.toString()}`);
+
                 let orderDetails = await this._page365.getOrderDetailByDate(s, e);
 
                 if (orderDetails.length === 0) {
+                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
                     continue;
                 }
 
@@ -508,15 +550,7 @@ class Page365ToCyberAcc {
         }
     }
 
-    async close() {
-        this._cyberAccDb.close();
-    }
-
-    async downloadToCyberAccByBill(billNo) {
-        // TODO : implement later
-    }
-
-    /**
+     /**
      * 
      * @param {*} orderDetail 
      * @returns despcrition for rice in advance

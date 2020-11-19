@@ -7,6 +7,7 @@ const CyberAccDatabase = require("./libs/cyberacc/cyberaccDatabase");
 const cyberAccInfo = require("./libs/cyberacc/cyberaccUtils");
 const Page365ToCyberAcc = require("./modules/cyberacc_modules/page365ToCyberAcc");
 const OchaToCyberAcc = require("./modules/cyberacc_modules/ochaToCyberAcc");
+const connectService = require("./modules/connect-service");
 
 var pool;
 
@@ -53,13 +54,19 @@ var pool;
             sheetName: "page365",
         };
 
+        // ----------------------------------------------------------------
+        let page365Connect = await connectService.page365Connect(page365User);
+        let cyberAccConnect = await connectService.cyberAccDbConnect(cyberAccConfig);
+
         // let p2c = new Page365ToCyberAcc(page365User, cyberAccConfig, productFile);
-        // await p2c.init();
+        let p2c = new Page365ToCyberAcc(page365Connect, cyberAccConnect, productFile);
+        await p2c.init();
 
-        // await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
+        await p2c.downloadToCyberAccByDate("2020-10-01", "2020-10-01");
 
-        // await p2c.close();
+        await p2c.close();
 
+        // ------------------------------------------------------------
         let p2o = new OchaToCyberAcc(ochaUser, cyberAccConfig);
         await p2o.init();
 
@@ -69,6 +76,7 @@ var pool;
         await p2o.downloadToCyberAccByDate("2020-10-03", "2020-10-04");
 
         await p2o.close();
+        // -----------------------------------------------------------
 
         // let startDate = "2020-10-29";
         // let endDate = "2020-11-01";

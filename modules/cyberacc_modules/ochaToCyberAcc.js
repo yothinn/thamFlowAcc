@@ -5,6 +5,7 @@ const accountChart = require("./accoutChart.json");
 // const ochaShopName = require("../../libs/ocha/ochaShopName.json");
 const { ochaShopName, VATRATE, loadFrom } = require("../thaminfo_config.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");
+const cyberaccLog = require("./cyberaccLog");
 
 // const OCHANAME = "ocha";
 // const VATRATE = 7;
@@ -38,34 +39,39 @@ class OchaToCyberAcc {
      *  instance
      * }
      */
-    constructor(ochaUser, cyberAccConfig) {
-        this._ochaUser = ochaUser;
-        this._cyberAccConfig = cyberAccConfig;
-    }
+    // constructor(ochaUser, cyberAccConfig) {
+    //     this._ochaUser = ochaUser;
+    //     this._cyberAccConfig = cyberAccConfig;
+    // }
 
-    async init() {
-        try {
-            this._ocha = new Ocha();
-            await this._ocha.connect(
-                this._ochaUser.mobileNo,
-                this._ochaUser.username,
-                this._ochaUser.password
-            );
+    // async init() {
+    //     try {
+    //         this._ocha = new Ocha();
+    //         await this._ocha.connect(
+    //             this._ochaUser.mobileNo,
+    //             this._ochaUser.username,
+    //             this._ochaUser.password
+    //         );
 
-            console.log(this._cyberAccConfig);
-            this._cyberAccDb = new CyberAccDatabase();
-            await this._cyberAccDb.connect(
-                this._cyberAccConfig.username,
-                this._cyberAccConfig.password,
-                this._cyberAccConfig.server,
-                this._cyberAccConfig.database,
-                this._cyberAccConfig.instance
-            );
+    //         console.log(this._cyberAccConfig);
+    //         this._cyberAccDb = new CyberAccDatabase();
+    //         await this._cyberAccDb.connect(
+    //             this._cyberAccConfig.username,
+    //             this._cyberAccConfig.password,
+    //             this._cyberAccConfig.server,
+    //             this._cyberAccConfig.database,
+    //             this._cyberAccConfig.instance
+    //         );
 
-        } catch(error) {
-            throw error;
-        }
+    //     } catch(error) {
+    //         throw error;
+    //     }
 
+    // }
+
+    constructor(ochaConnect, cyberAccDbConnect) {
+        this._ocha = ochaConnect;
+        this._cyberAccDb = cyberAccDbConnect;
     }
 
     /**
@@ -119,7 +125,8 @@ class OchaToCyberAcc {
 
                 await this._cyberAccDb.insertToGLMain(glMainId, dateStr, desp);
 
-                console.log(`GLMain : success created ${glMainId}`);
+                cyberaccLog.info(`GLMain: success created ${glMainId}`);
+                // console.log(`GLMain : success created ${glMainId}`);
             }
 
             return glMainId;
@@ -162,7 +169,9 @@ class OchaToCyberAcc {
 
             // console.log(desp);
             await this._cyberAccDb.insertToGLDebit(glMainId, id, accountCode, desp, amount);
-            console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+
+            cyberaccLog.info(`GLDebit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+            // console.log(`GLDebit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
         } catch(error) {
             throw error;
         }
@@ -192,7 +201,8 @@ class OchaToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
             // Loop vat
@@ -208,7 +218,8 @@ class OchaToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
             // vat amount
@@ -223,7 +234,8 @@ class OchaToCyberAcc {
                 }
                 await this._cyberAccDb.insertToGLCredit(glMainId, id, accountCode, desp, amount);
 
-                console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                cyberaccLog.info(`GLCredit: success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
+                // console.log(`GLCredit : success create ${glMainId} ${id} ${accountCode} ${desp} ${amount}`);
             }
 
         } catch(error) {
@@ -424,9 +436,12 @@ class OchaToCyberAcc {
 
                 // console.log(this._shopId);
                 // download order from ocha in one day
+                cyberaccLog.info(`DOWNLOAD: Download ocha at date : ${start.toString()}`);
+
                 let orderDetails = await this._ocha.getDailyOrdersByShop(this._shopId, s, e);
 
                 if (orderDetails.length === 0) {
+                    cyberaccLog.info(`DOWNLOAD: No data at date : ${start.toString()}`);
                     continue;
                 }
 
@@ -507,9 +522,6 @@ class OchaToCyberAcc {
         }
     }
 
-    close() {
-        this._cyberAccDb.close();
-    }
 }
 
 module.exports = OchaToCyberAcc;

@@ -36,7 +36,7 @@ exports.isOrderRiceInAdv = (orderDetail) => {
 
 
 exports.isOrderVoided = (orderDetail) => {
-    return order.stage === this.PAGE365_ORDER_STAGE.VOIDED;
+    return orderDetail.stage === this.PAGE365_ORDER_STAGE.VOIDED;
 }
 
 

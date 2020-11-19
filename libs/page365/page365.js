@@ -49,6 +49,7 @@ class Page365 {
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
     
         await page.waitFor(3000);
+        // await page.waitForTimeout(3000);
     
         //await page.screenshot({ path: 'example.png'});
         
@@ -84,7 +85,7 @@ class Page365 {
             }
         };
 
-        // console.log(this.hasSession());
+        // console.log(this.session);
         if (!this.hasSession())  throw 'it has not session for request';
 
         let response;
@@ -100,6 +101,7 @@ class Page365 {
                 );
                 result = await response.json();
 
+                console.log(result);
                 if (result.orders.length > 0) {
                     bills = bills.concat(result.orders);
                 }

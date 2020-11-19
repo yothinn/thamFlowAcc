@@ -10,6 +10,7 @@ const sql = require("mssql");
 
 class CyberAccDatabase {
     _pool;
+    _bConnected = false;
 
     constructor() {
 
@@ -32,11 +33,16 @@ class CyberAccDatabase {
         try {
 
             this._pool = new sql.ConnectionPool(config);
-
+            this._bConnected = true;
             return this._pool.connect(); 
         } catch(error) {
+            this._bConnected = false;
             throw error;
         }
+    }
+
+    isConnect() {
+        return this._bConnected;
     }
 
     /**
@@ -276,6 +282,7 @@ class CyberAccDatabase {
 
     async close() {
         this._pool.close();
+        this._bConnected = false;
     }
 };
 

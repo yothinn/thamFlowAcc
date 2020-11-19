@@ -8,16 +8,20 @@ const OchaToCyberAcc = require("./ochaToCyberAcc");
 const LoyverseToCyberAcc = require("./loyverseToCyberAcc");
 const FoodStorySalesByDay = require("./foodStorySalesByDayToCyberAcc")
 const thamInfoUtils = require("../thaminfoUtils");
-const cyberaccLogger = require("./cyberaccLogger");
+const cyberaccLog = require("./cyberaccLog");
+const connectService = require("../connect-service");
 
+var ochaConnect = null;
+var page365Connect = null;
+var cyberAccDbConnect = null;
 
 const PAGE365_NAME = thamInfo.loadFrom.page365Name;
 const OCHA_NAME = thamInfo.loadFrom.ochaName;
 const LOYVERSE_NAME = thamInfo.loadFrom.loyverseName;
 const FOODSTORY_NAME = thamInfo.loadFrom.foodStoryName;
+const EXIT_STR = "exit";
 
 const FOODSTORYSALESBYDAY_DEFAULTSHEET = "Sheet1";
-
 
 const LOADFROM = {
     page365: PAGE365_NAME,
@@ -30,6 +34,7 @@ const LOADFROM = {
     loyverseThamDelivery1: `${LOYVERSE_NAME}: รถร่วมธรรมธุรกิจ1`,
     foodstoryChomphon: `${FOODSTORY_NAME}: ${thamInfo.foodStoryBranchName.chomphon}`,
     foodstoryThaphae: `${FOODSTORY_NAME}: ${thamInfo.foodStoryBranchName.thaphae}`,
+    exit: `${EXIT_STR}`
 };
 
 const questions = [
@@ -47,7 +52,7 @@ const questions = [
         message: "start date(yyyy-mm-dd) : ",
         when: function(answers) {
             let from = answers.loadFrom.split(":");
-            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME);
+            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) && (from[0] !== EXIT_STR);
         }
     },
     {
@@ -56,7 +61,7 @@ const questions = [
         message: "end date(yyyy-mm-dd) :",
         when: function(answers) {
             let from = answers.loadFrom.split(":");
-            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME);
+            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) && (from[0] !== EXIT_STR);
         }
     },
     {
@@ -124,51 +129,85 @@ module.exports = async() => {
         console.log("******     and create tax invoice cyberacc                     ******");
 
 
-        // TODO : Report connection database
+        while(true) {
+            // TODO : Report connection database
+            // Must be resturcture connecting ocha, page365 only firsttime
+            let answers = await inquirer.prompt(questions);
+            console.log(answers);
+            let from = answers.loadFrom.split(":");
+            //console.log(from);
 
-        let answers = await inquirer.prompt(questions);
-        console.log(answers);
-        let from = answers.loadFrom.split(":");
-        //console.log(from);
+            if (from[0] === EXIT_STR) {
+                break;
+            }
 
-        console.log("************ Start loading ************");
-        if (from[0] === LOADFROM.page365) {
-            await loadFromPage365(answers);
-        } else if (from[0] === OCHA_NAME) {
-            await loadFromOcha(answers);
-        } else if (from[0] === LOYVERSE_NAME) {
-            // console.log(from[1].trim());
-            await loadFromLoyverse(answers);
-        } else if (from[0] === FOODSTORY_NAME) {
-            await loadFromFoodStory(answers);
+            if (!cyberAccDbConnect || !cyberAccDbConnect.isConnect()) {
+                cyberaccLog.info("CONNECT: Connecting to cyberacc database ...");
+                cyberAccDbConnect = await connectService.cyberAccDbConnect(cyberAccServer.socialEnterprise);
+            } else {
+                cyberaccLog.info("CONNECT: Already Connect to cyberacc database ...");
+            }
+
+            console.log("************ Start loading ************");
+            if (from[0] === LOADFROM.page365) {
+                if (!page365Connect || !page365Connect.hasSession()) {
+                    cyberaccLog.info("CONNECT: Connecting to page365 ...");
+                    page365Connect = await connectService.page365Connect(page365User);
+                } else {
+                    cyberaccLog.info("CONNECT: Already connect to page365 ...");
+                }
+
+                await loadFromPage365(answers);
+            } else if (from[0] === OCHA_NAME) {
+                if (!ochaConnect || !ochaConnect.isConnect()) {
+                    cyberaccLog.info("CONNECT: Connecting to ocha ...");
+                    ochaConnect = await connectService.ochaConnect(ochaUser);
+                } else {
+                    cyberaccLog.info("CONNECT: Already connect to ocha ...");
+                }
+
+                await loadFromOcha(answers);
+            } else if (from[0] === LOYVERSE_NAME) {
+                // console.log(from[1].trim());
+                await loadFromLoyverse(answers);
+            } else if (from[0] === FOODSTORY_NAME) {
+                await loadFromFoodStory(answers);
+            } 
+            console.log("************     END       ************");
         }
-        console.log("************     END       ************");
-
+        
+        if (cyberAccDbConnect) {
+            cyberAccDbConnect.close();
+        }
+ 
     } catch(error) {
+        if (cyberAccDbConnect) {
+            cyberAccDbConnect.close();
+        }
+        cyberaccLog.error(error);
         console.log(error);
     }
 };
 
 
 loadFromPage365 = async(answers) => {
+    let p2c;
+
     try {
-        
         const productFile = {
             fileName:   thamInfo.productMap.fileName,
             sheetName:  thamInfo.productMap.sheetName.page365
         };
-
-        let p2c = new Page365ToCyberAcc(page365User, cyberAccServer.socialEnterprise, productFile);
+    
+        // p2c = new Page365ToCyberAcc(page365User, cyberAccServer.socialEnterprise, productFile);
+        p2c = new Page365ToCyberAcc(page365Connect, cyberAccDbConnect, productFile);
         
-        // console.log("Connecting to page365 ...");
-        cyberaccLogger.info("Test Connecting to page365 ...");
+        cyberaccLog.info(JSON.stringify(answers, null, 3));
+        cyberaccLog.info("INIT: Initial page365 ...");
         await p2c.init();
 
-        cyberaccLogger.info("Test Downloading and to cyberacc ... ");
-        // console.log("Downloading and to cyberacc ...");
+        cyberaccLog.info("LOADPAGE365: Downloading page365 and to cyberacc ... ");
         await p2c.downloadToCyberAccByDate(answers.startDate, answers.endDate);
-
-        await p2c.close();
 
     } catch(error) {
         throw error;
@@ -176,27 +215,28 @@ loadFromPage365 = async(answers) => {
 };
 
 loadFromOcha = async(answers) => {
+    let p2o;
     try {
         let from = answers.loadFrom.split(":");
         let shopName = from[1].trim();
 
         let sheetName = thamInfoUtils.getOchaProductSheetName(shopName);
+       
         const productFile = {
             fileName:   thamInfo.productMap.fileName,
             sheetName:  sheetName
         };
+        
+        // console.log(ochaConnect);
+        //p2o = new OchaToCyberAcc(ochaUser, cyberAccServer.socialEnterprise);
+        p2o = new OchaToCyberAcc(ochaConnect, cyberAccDbConnect);
 
-        let p2o = new OchaToCyberAcc(ochaUser, cyberAccServer.socialEnterprise);
+        cyberaccLog.info(JSON.stringify(answers, null, 3));
+        // await p2o.init();
 
-        console.log("Connecting to ocha ...");
-        await p2o.init();
-
-        console.log("Downloading data ...");
-
+        cyberaccLog.info("LOADOCHA: Downloading ocha data ...");
         await p2o.selectShopByName(shopName, productFile);
         await p2o.downloadToCyberAccByDate(answers.startDate, answers.endDate);
-
-        await p2o.close();
 
     } catch(error) {
         throw error;
@@ -204,6 +244,8 @@ loadFromOcha = async(answers) => {
 };
 
 loadFromLoyverse = async(answers) => {
+    let l2c;
+
     try {
         let from = answers.loadFrom.split(":");
         let shopName = from[1].trim();
@@ -213,14 +255,14 @@ loadFromLoyverse = async(answers) => {
             sheetName:  thamInfo.productMap.sheetName.loyverse
         }
 
-        const l2c = new LoyverseToCyberAcc(shopName, cyberAccServer.socialEnterprise, productFile);
+        l2c = new LoyverseToCyberAcc(shopName, cyberAccDbConnect, productFile);
 
+        cyberaccLog.info(JSON.stringify(answers, null, 3));
+        cyberaccLog.info("INIT: Initial loyverse");
         await l2c.init();
 
-        console.log("Reading from file and to cyberacc ...");
+        cyberaccLog.info("LOADLOYVERSE: Reading from loyverse file and to cyberacc ...");
         await l2c.downloadToCyberAccByFile(answers.fileLoad);
-
-        l2c.close();
 
     } catch(error) {
         throw error;
@@ -228,19 +270,19 @@ loadFromLoyverse = async(answers) => {
 };
 
 loadFromFoodStory = async (answers) => {
+    let f2c;
     try {
         let from = answers.loadFrom.split(":");
         let shopName = from[1].trim();
 
-        const f2c = new FoodStorySalesByDay(shopName, cyberAccServer.socialEnterprise);
+        f2c = new FoodStorySalesByDay(shopName, cyberAccDbConnect);
 
-        console.log()
-        await f2c.init();
+        cyberaccLog.info(answers);
+        // await f2c.init();
 
-        console.log("Reading from file and send to cyberacc ...");
+        cyberaccLog.info("LOADFOODSTORY: Reading from file and send to cyberacc ...");
         await f2c.downloadToCyberAccByFile(answers.fileLoad, FOODSTORYSALESBYDAY_DEFAULTSHEET);
 
-        await f2c.close();
     } catch(error) {
         throw error;
     }
