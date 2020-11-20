@@ -340,40 +340,41 @@ class CyberAccToAccRevo {
     }
 
     convertToCustomerName(glMainId) {
-        let abbrType = cyberAccInfo.ACCOUNTTYPE_ABBR;
+        // let abbrType = cyberAccInfo.ACCOUNTTYPE_ABBR;
 
         // search first number in string
         let end = glMainId.search(/[0-9]/);
         let abbr = glMainId.substring(0, end);
-        switch (abbr) {
-            case abbrType.AR:
-                return "ลูกค้าหนึ้การค้า";
-            case abbrType.AP:
-                return "เจ้าหนี้การค้า";
-            case abbrType.RV:
-                return "รับเงินลูกหนี้การค้า";
-            case abbrType.PV:
-                return "จ่ายเงินเจ้าหนี้การค้า/ค่าใช้จ่าย";
-             case abbrType.JV:
-                return "รายการปรับปรุง";
-            case abbrType.RP:
-                return "RP";
-            case abbrType.SCE:
-                return "SCE";
-            case abbrType.SCA:
-                return "SCA";
-            case abbrType.SEA:
-                return "SEA"; 
-            case abbrType.APP:
-                return "APP";
-            case abbrType.APR:
-                return "APR";
-            case abbrType.APO:
-                return "APO";
-            default:
-                return "ยังไม่ระบุลูกค้า";
-        }
-    }
+        return abbr;
+    //     switch (abbr) {
+    //         case abbrType.AR:
+    //             return "ลูกค้าหนึ้การค้า";
+    //         case abbrType.AP:
+    //             return "เจ้าหนี้การค้า";
+    //         case abbrType.RV:
+    //             return "รับเงินลูกหนี้การค้า";
+    //         case abbrType.PV:
+    //             return "จ่ายเงินเจ้าหนี้การค้า/ค่าใช้จ่าย";
+    //          case abbrType.JV:
+    //             return "รายการปรับปรุง";
+    //         case abbrType.RP:
+    //             return "RP";
+    //         case abbrType.SCE:
+    //             return "SCE";
+    //         case abbrType.SCA:
+    //             return "SCA";
+    //         case abbrType.SEA:
+    //             return "SEA"; 
+    //         case abbrType.APP:
+    //             return "APP";
+    //         case abbrType.APR:
+    //             return "APR";
+    //         case abbrType.APO:
+    //             return "APO";
+    //         default:
+    //             return "ยังไม่ระบุลูกค้า";
+    //     }
+    // }
  }
 
 module.exports = CyberAccToAccRevo;
