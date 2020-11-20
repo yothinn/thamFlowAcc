@@ -1,17 +1,23 @@
 const fs = require("fs");
-const AccRevo = require("../../libs/accrevo/accrevo");
-const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
+const glob = require("glob");
+const path = require("path");
+// const AccRevo = require("../../libs/accrevo/accrevo");
+// const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
+// const accountChart = require("../../libs/cyberacc/cyberacc_accountChart.json");
 const cyberAccInfo = require("../../libs/cyberacc/cyberaccUtils");
 const accRevoInfo = require("../../libs/accrevo/accrevoUtils");
-const accountChart = require("../../libs/cyberacc/cyberacc_accountChart.json");
-const accRevoLog = require("./accrevoLog")
-;
+const accRevoLog = require("./accrevoLog");
 // const PREFIX_IMGFILE = "Test12";
 const IMG_MOCKUP_FILE = "./modules/accrevo_modules/mockup.jpg";
+
+const COUNT_TRANS = 25;
+const SLEEP_TIMEOUT = 60000;
 
 class CyberAccToAccRevo {
     _cyberAccDb;
     _accRevo;
+    _imgDir = "./";                     // Image Directory
+    _accountChart = {};
 
     _cyberAccConfig;
     _accRevoUser;
@@ -48,14 +54,29 @@ class CyberAccToAccRevo {
     //     }
     // }
 
+    setImageDir(imgDir) {
+        this._imgDir = imgDir;
+    }
+
+    getImageDir() {
+        return this._imgDir;
+    }
+
+    setAccountChart(chart) {
+        this._accountChart = chart;
+    }
+
+    getAccountChart() {
+        return this._accountChart;
+    }
+
     async uploadToAccRevoByDate(dateStr) {
         try {
             let cyberAccGL = await this._cyberAccDb.getGLTableByDate(dateStr);
             // console.log(cyberAccGL.length);
 
             let docList = await this.toAccRevoDoc(cyberAccGL);
-            console.log(docList.length);
-            // console.log(JSON.stringify(docList[0]));
+            accRevoLog.info(`UPLOAD: TOTAL TRANSACTION ${docList.length}`);
 
             let count = 0;
             for (let docBody of docList) {
@@ -64,41 +85,40 @@ class CyberAccToAccRevo {
                     let d = new Date(docBody.date);
                     let suffix = Date.now();
 
-                    let imgFileName = docBody.transaction_id.replace("/", "-");
+                    // let imgFileName = docBody.transaction_id.replace("/", "-");
+                    // console.log(docBody.transaction_id);
 
-                    // TODO: change image mockup file , case if not mockup image how to
-                    let imgBody = {
-                        file: {
-                            value: fs.createReadStream(IMG_MOCKUP_FILE),
-                            options: {
-                                filename: `${suffix}_${imgFileName}.jpg`
-                            }
-                        },
-                        month: d.getMonth()+1,
-                        type: docBody.type
-                    };
-                    // console.log(imgBody);
+                    let imgList = this.findImageFileByMainId(docBody.transaction_id);
+                    if (!imgList || imgList.length === 0) {
+                        imgList.push(IMG_MOCKUP_FILE);
+                    }
+
+                    accRevoLog.info(`IMAGE_FILE: ${JSON.stringify(imgList, null, 3)}`);
+                    let imgBodyList = this.createImageBodyList(imgList, d.getMonth()+1, docBody.type);
 
                     // console.log(docBody);
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
-                    console.log(docBody.transaction_id);
-                    let res = await this._accRevo.uploadDoc(imgBody, docBody);
-                    console.log(res);
+
+                    let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
+                    accRevoLog.info(`UPLOAD: count bill: ${count}, id ${docBody.transaction_id}`);
+                    // console.log(res);
 
                     // Delay send request;
-                    if (count === 25) {
-                        console.log("SLEEP 30000 ms");
-                        await new Promise(resolve => setTimeout(resolve, 30000));
+                    if (count === COUNT_TRANS) {
+                        accRevoLog.info(`MAXTRANS: SLEEP ${SLEEP_TIMEOUT} ms`);
+                        await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
                         count = 0;
-                        console.log("WAKE UP");
+                        accRevoLog.info("MAXTRANS: WAKE UP AFTER SLEEP");
                     }
 
                 } catch(error) {
-                    console.log(error);
-                    console.log(`ERROR ID ${docBody.transaction_id}`);
-                    console.log("SLEEP 30000 ms");
-                    await new Promise(resolve => setTimeout(resolve, 30000));
+                    accRevoLog.error(`ERROR: id ${docBody.transaction_id}`);
+                    accRevoLog.error(error);
+
+                    accRevoLog.info(`ERROR: SLEEP ${SLEEP_TIMEOUT} ms`);
+                    await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
                     count = 0;
+                    accRevoLog.info("ERROR: WAKE UP AFTER SLEEP");
                     continue;
                 }
             }
@@ -111,35 +131,52 @@ class CyberAccToAccRevo {
         try {
             let cyberAccGL = await this._cyberAccDb.getGLTableByMainId(glMainId);
 
-            let docList = await this.toAccRevoDoc(cyberAccGL);
-            // console.log(JSON.stringify(docList[0]));
+            if (!cyberAccGL) {
+                throw `Can't find ${glMainId}`;
+            }
 
+            let docList = await this.toAccRevoDoc(cyberAccGL);
+
+            accRevoLog.info(`UPLOAD: TOTAL TRANSACTION ${docList.length}`);
+
+            let count = 0;
             for (let docBody of docList) {
                 try {
                     let d = new Date(docBody.date);
                     let suffix = Date.now();
 
-                    let imgFileName = docBody.transaction_id.replace("/", "-");
+                    let imgList = this.findImageFileByMainId(docBody.transaction_id);
+                    if (!imgList || imgList.length === 0) {
+                        imgList.push(IMG_MOCKUP_FILE);
+                    }
 
-                    let imgBody = {
-                        file: {
-                            value: fs.createReadStream(IMG_MOCKUP_FILE),
-                            options: {
-                                filename: `${suffix}_${imgFileName}.jpg`
-                            }
-                        },
-                        month: d.getMonth()+1,
-                        type: docBody.type
-                    };
-                    // console.log(imgBody);
+                    accRevoLog.info(`IMAGE_FILE: ${JSON.stringify(imgList, null, 3)}`);
+                    let imgBodyList = this.createImageBodyList(imgList, d.getMonth()+1, docBody.type);
 
-                    // console.log(docBody);
+
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
-                    let res = await this._accRevo.uploadDoc(imgBody, docBody);
-                    console.log(res);
+                    let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
+                    // console.log(res);
+
+                    accRevoLog.info(`UPLOAD: count bill: ${count}, id ${docBody.transaction_id}`);
+
+                    // Delay send request;
+                    if (count === COUNT_TRANS) {
+                        accRevoLog.info(`MAXTRANS: SLEEP ${SLEEP_TIMEOUT} ms`);
+                        await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
+                        count = 0;
+                        accRevoLog.info("MAXTRANS: WAKE UP AFTER SLEEP");
+                    }
+                    
+                    // console.log(res);
                 } catch(error) {
-                    console.log(`ERROR ID ${docBody.transaction_id}`);
-                    console.log(error);
+                    accRevoLog.error(`ERROR: id ${docBody.transaction_id}}`);
+                    accRevoLog.error(error);
+
+                    accRevoLog.info(`ERROR: SLEEP ${SLEEP_TIMEOUT} ms`);
+                    await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
+                    count = 0;
+                    accRevoLog.info("ERROR: WAKE UP AFTER SLEEP");
                     continue;
                 }
             }
@@ -185,9 +222,10 @@ class CyberAccToAccRevo {
                     docList.push(docBody);
                 }
 
-                let price = itemGL.debit ? itemGL.debit : itemGL.credit
+                let price = itemGL.debit ? itemGL.debit : itemGL.credit;
 
-                if (accountChart.withHoldingTax.code !== itemGL.accountcode) {
+                // When withholdingtax , don't push to docBody
+                if (this._accountChart.withHoldingTax.code !== itemGL.accountcode) {
                     docBody.list.push({
                         item: itemGL.AccountName,
                         price: price,
@@ -195,20 +233,67 @@ class CyberAccToAccRevo {
                     });
                 }
 
+                // add only debit ( sum debit = sum credit)
                 docBody.grandtotal += itemGL.debit;
-                // TODO : Fix accountChart move to other for change many database in the futer
-                // ให้สามารถเปลี่ยนได้หลากหลายฐานข้อมูล แบบนี้ จะยึดที่ฐานข้อมูลเดียวเกินไป
-                if ((accountChart.inputTax.code === itemGL.accountcode) ||
-                    (accountChart.salesTax.code === itemGL.accountcode)) {
+
+                // // Calculate vat and withholding tax
+                if ((this._accountChart.inputTax.code === itemGL.accountcode) ||
+                    (this._accountChart.salesTax.code === itemGL.accountcode)) {
                     docBody.vat = price;                    
-                } else if (accountChart.withHoldingTax.code === itemGL.accountcode) {
+                } else if (this._accountChart.withHoldingTax.code === itemGL.accountcode) {
                     docBody.wht = price;
-                } 
+                }
+
                 docBody.total = docBody.grandtotal - docBody.vat;
             }
 
             return docList;
         }catch(error) {
+            throw error;
+        }
+    }
+
+    createImageBodyList(imgFileList, month, journalTypeId) {
+        let imgBodyList = [];
+        let suffix = Date.now();
+        try {
+            for (let filePath of imgFileList) { 
+
+                let imgFileName = path.basename(filePath);
+                // console.log(imgFileName);
+                imgBodyList.push({
+                    file: {
+                        value: fs.createReadStream(filePath),
+                        options: {          // Change file name when send to server
+                            filename: `${suffix}_${imgFileName}.jpg`
+                        }
+                    },
+                    month: month,
+                    type: journalTypeId
+                });
+            }
+            return imgBodyList;
+        } catch(error) {
+            throw error;
+        }    
+    }
+
+    /**
+     * Find image file(jpg) from image directory by glMainId
+     * @param {*} glMainId Format : AR0001/10-63
+     * Image File Format : AR0001-10-63-xxx.jpg
+     * @returns image file list
+     */
+    findImageFileByMainId(glMainId) {
+        try {
+            let imgFile = glMainId.replace("/", "-");
+            let tmpPath1 = `${this._imgDir}/${imgFile}*.jpg`
+            let tmpPath2 = `${this._imgDir}/*/${imgFile}*.jpg`
+            let imgList1 = glob.sync(tmpPath1);
+            let imgList2 = glob.sync(tmpPath2);
+
+            return [...imgList1, ...imgList2];
+        } catch(error) {
             throw error;
         }
     }
@@ -237,7 +322,8 @@ class CyberAccToAccRevo {
             case abbrType.AR:
             case abbrType.RP:
             case abbrType.SCE:
-            case abbrType.SEA: 
+            case abbrType.SEA:
+            case abbrType.SCA: 
                 return accRevoInfo.JOURNAL_ACCOUNTID.SALES;
             case abbrType.AP:
             case abbrType.APP:
@@ -274,6 +360,8 @@ class CyberAccToAccRevo {
                 return "RP";
             case abbrType.SCE:
                 return "SCE";
+            case abbrType.SCA:
+                return "SCA";
             case abbrType.SEA:
                 return "SEA"; 
             case abbrType.APP:

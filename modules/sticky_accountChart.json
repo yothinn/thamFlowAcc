@@ -1,12 +1,4 @@
 {
-    "customerDelivery": {
-        "code": 1150098,
-        "name": "ลูกค้าส่งถึงบ้าน"
-    },
-    "thammachartMarket": {
-        "code": 1150123,
-        "name": "ตลาดนัดธรรมชาติ"
-    },
     "withHoldingTax": {
         "code": 2120001,
         "name" : "ภาษีหัก ณ ที่จ่าย รอนำส่ง"

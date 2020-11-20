@@ -114,7 +114,7 @@ class AccRevo {
         ]
      * }
      */
-    async uploadDoc(imgBody, docBody) {
+    async uploadDocPerImage(imgBody, docBody) {
         try {
             let headers = {
                 "Content-Type": "multipart/form-data",
@@ -187,6 +187,90 @@ class AccRevo {
             throw error;
         }
 
+    }
+
+    async uploadDocNImage(imgBodyList, docBody) {
+        try {
+            let headers = {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${this._token}`,
+            };
+
+            let running_code;
+            for (let [i, imgBody] of imgBodyList.entries()) {
+                // Add another field
+                imgBody.code = this._componyInfo.company_code;
+                imgBody.year = this._componyInfo.company_year;
+
+                if (i === 0) {
+                    imgBody.img_type = 1;
+                } else {
+                    imgBody.img_type = 2;
+                    imgBody.running_code = running_code;
+                }
+
+                // console.log(imgBody);
+                // Send to accrevo
+                let docRes = await new Promise((resolve, reject) => {
+                    request.post(
+                        {
+                            url: accrevoInfo.ACCREVO_URL.UPLOADTASK_IMG,
+                            headers: headers,
+                            formData: imgBody,
+                        },
+                        (err, resp, body) => {
+                            if (err) reject(err);
+                            try {
+                                let b = JSON.parse(body);
+                                if (b.error) {
+                                    reject(b.error);
+                                } else {
+                                    resolve(b);
+                                }
+                            } catch(error) {
+                                reject(error);
+                            }
+                            
+                        });
+                })
+                // console.log(docRes);
+                running_code = docRes.running_code;
+            }
+
+            // Save document
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this._token}`,
+                "apiKey": this._apiKey,
+            };
+
+            docBody.running_code = running_code;
+
+            //console.log(docBody);
+            
+            return new Promise((resolve, reject) => {
+                request.post(
+                    {
+                        url: accrevoInfo.ACCREVO_URL.SEND_DOC,
+                        headers: headers,
+                        body: JSON.stringify(docBody),
+                    },
+                    (err, resp, body) => {
+                        if (err) reject(err);
+
+                        // console.log(body);
+                        resolve(body); 
+                        // let b = JSON.parse(body);
+                        // if (b.error) {
+                        //     reject(b.error);
+                        // } else {
+                        //     resolve(b);
+                        // }
+                    });
+            });
+        } catch(error) {
+            throw error;
+        }
     }
 }
 

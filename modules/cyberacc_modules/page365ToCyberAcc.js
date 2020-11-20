@@ -18,7 +18,7 @@ const { VATRATE, loadFrom } = require("../thaminfo_config.json");
 const cyberaccLog = require("./cyberaccLog");
 
 // REMARK : when change database must edit accoutChart code
-const accountChart = require("./accoutChart.json");
+const accountChart = require("../social_accountChart.json");
 
 // const PAGE365_NAME = "page365";
 const DESP_CUSTOMER_DELIVERY = "ค่าข้าวและสินค้าออนไลน์";
@@ -279,7 +279,7 @@ class Page365ToCyberAcc {
                     amount: 0,
                 }
             };
-   
+
             // Calculate credit table for insert to mssql
             for (let order of orderList) {
 

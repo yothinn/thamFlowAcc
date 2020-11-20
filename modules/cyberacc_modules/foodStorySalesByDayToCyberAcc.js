@@ -8,7 +8,7 @@
 const FoodStorySalesByDay = require("../../libs/foodstory/foodstorySalesByDay");
 const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
 const cyberaccUtils  = require("../../libs/cyberacc/cyberaccUtils");
-const accountChart = require("./accoutChart.json");
+const accountChart = require("../social_accountChart.json");
 const { VATRATE , loadFrom, foodStoryBranchName } = require("../thaminfo_config.json");
 const cyberaccLog = require("./cyberaccLog");
 const { cyberAccDbConnect } = require("../connect-service");

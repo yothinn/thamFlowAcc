@@ -37,6 +37,7 @@
     "outputfile_path": {
         "downloadXLSX" : "./output/xlsx"
     },
+    "accRevoImage_path": "./accrevo_image",
     "ggSheet": {
         "vegetable_ggSheet": {
             "workbookId": "1qcraNqiQpqNa5SlTVvwYhOrflh9gRLzS-jj7d5zlwi4",

@@ -1,14 +1,16 @@
-const request = require("request");
-const fs = require("fs");
-const AccRevo = require("../../libs/accrevo/accrevo");
-const accrevoInfo = require("../../libs/accrevo/accrevoUtils");
-const dotenv = require("dotenv").config();
-const CyberAccToAccRevo = require("./cyberaccToAccRevo");
+// const request = require("request");
+// const fs = require("fs");
+// const AccRevo = require("../../libs/accrevo/accrevo");
+// const accrevoInfo = require("../../libs/accrevo/accrevoUtils");
+// const dotenv = require("dotenv").config();
+
 
 const inquirer = require("inquirer");
 const connectService = require("../connect-service");
+const CyberAccToAccRevo = require("./cyberaccToAccRevo");
 const accRevoLog = require("./accrevoLog");
 const { accRevoUser, cyberAccServer } = require("../thaminfo_credential.json");
+const { accRevoImage_path } = require("../thaminfo_config.json");
 
 const EXIT_STR = "exit";
 var accRevoConnect = null;
@@ -126,6 +128,12 @@ module.exports = async() => {
 uploadAccRevoByDate = async(answers) => {
     try {
         let c2r = new CyberAccToAccRevo(cyberAccDbConnect, accRevoConnect);
+        c2r.setImageDir(accRevoImage_path);
+
+        let accountChart = require(cyberAccServer[answers.loadFrom].accountChart);
+        c2r.setAccountChart(accountChart);
+
+        // console.log(accountChart);
 
         // For upload by date
         let endDate = new Date(answers.endDate);
@@ -182,9 +190,9 @@ uploadAccRevoByBill = async(answers) => {
         let endNo = parseInt(endBill.slice(endAbbrIndex + 1, endNoIndex + 1));
         let endSuffix = endBill.slice(endNoIndex);
 
-        console.log(`start bill ${startNo}: ${endNo}`);
-        console.log(startSuffix);
-        console.log(endSuffix);
+        // console.log(`start bill ${startNo}: ${endNo}`);
+        // console.log(startSuffix);
+        // console.log(endSuffix);
 
         if (startAbbr !== endAbbr) {
             throw "Start bill and end bill isn't same abbr";
@@ -195,11 +203,15 @@ uploadAccRevoByBill = async(answers) => {
         }
 
         let c2r = new CyberAccToAccRevo(cyberAccDbConnect, accRevoConnect);
+        c2r.setImageDir(accRevoImage_path);
+
+        let accountChart = require(cyberAccServer[answers.loadFrom].accountChart);
+        c2r.setAccountChart(accountChart);
 
         for (let i=startNo; i<=endNo; i++) {
             try {
                 let glMainId = `${startAbbr}${i.toString().padStart(4, "0")}${startSuffix}`;
-                console.log(glMainId);
+                // console.log(glMainId);
                 await c2r.updloadToAccRevoByMainId(glMainId);
             } catch(error) {
                 continue;

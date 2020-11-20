@@ -1,7 +1,7 @@
 const Ocha = require("../../libs/ocha/ocha");
 const CyberAccDatabase = require("../../libs/cyberacc/cyberaccDatabase");
 const ProductMap = require("../../libs/product/productmap");
-const accountChart = require("./accoutChart.json");
+const accountChart = require("../social_accountChart.json");
 // const ochaShopName = require("../../libs/ocha/ochaShopName.json");
 const { ochaShopName, VATRATE, loadFrom } = require("../thaminfo_config.json");
 const cyberaccUtils = require("../../libs/cyberacc/cyberaccUtils");

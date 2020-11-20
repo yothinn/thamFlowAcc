@@ -6,6 +6,7 @@ exports.ACCOUNTTYPE_ABBR = {
     JV: "JV",                       // รายการปรับปรุง
     RP: "RP",                       // ตัดบัญชีขาย
     SCE: "SCE",
+    SCA: "SCA",
     SEA: "SEA",
     APR: "APR",
     APP: "APP",                     // ซื้อข้าวเปลือก
