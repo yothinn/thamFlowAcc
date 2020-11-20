@@ -96,6 +96,8 @@ module.exports = async() => {
 
                 accRevoLog.info("CONNECT: Connecting cyberacc server ...");
                 cyberAccDbConnect = await connectService.cyberAccDbConnect(cyberAccServer[loadFrom]);
+            } else {
+                accRevoLog.info("CONNECT: Already connect ...");
             }
 
             switch (answers.loadType) {
@@ -152,7 +154,7 @@ uploadAccRevoByDate = async(answers) => {
                 day.setDate(day.getDate() + 1);
                 // console.log(day);
             } catch(error) {
-                accRevoLog.log(`ERROR: ${error}`);
+                accRevoLog.error(`ERROR: ${error}`);
                 day.setDate(day.getDate() + 1);
                 continue;
             }

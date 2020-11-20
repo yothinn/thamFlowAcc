@@ -83,7 +83,7 @@ class CyberAccToAccRevo {
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
                     console.log(docBody.transaction_id);
                     let res = await this._accRevo.uploadDoc(imgBody, docBody);
-                    // console.log(res);
+                    console.log(res);
 
                     // Delay send request;
                     if (count === 25) {
@@ -94,6 +94,7 @@ class CyberAccToAccRevo {
                     }
 
                 } catch(error) {
+                    console.log(error);
                     console.log(`ERROR ID ${docBody.transaction_id}`);
                     console.log("SLEEP 30000 ms");
                     await new Promise(resolve => setTimeout(resolve, 30000));

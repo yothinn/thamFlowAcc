@@ -6,7 +6,7 @@
  */
 
 const inquirer = require("inquirer");
-const XLSX = require("xlsx");
+const fs = require("fs");
 const Ocha = require("../../libs/ocha/ocha");
 const ochaUtils = require("../../libs/ocha/ochaUtils");
 const { ochaShopName, productMap, outputfile_path, loadFrom } = require("../thaminfo_config.json");
@@ -117,6 +117,10 @@ var loadXLSX = module.exports = async() => {
             let d = startTime.getDate().toString().padStart(2, "0");
             let m = (startTime.getMonth()+1).toString().padStart(2, "0");
             let y = startTime.getFullYear();
+
+            if (!fs.existsSync(outputfile_path.downloadXLSX)) {
+                fs.mkdirSync(outputfile_path.downloadXLSX);
+            }
 
             let fileName = `${outputfile_path.downloadXLSX}/${shopName}_${y}${m}${d}.xlsx`;
 
