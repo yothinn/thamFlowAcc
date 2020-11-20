@@ -119,7 +119,7 @@ var loadXLSX = module.exports = async() => {
             let y = startTime.getFullYear();
 
             if (!fs.existsSync(outputfile_path.downloadXLSX)) {
-                fs.mkdirSync(outputfile_path.downloadXLSX);
+                fs.mkdirSync(outputfile_path.downloadXLSX, { recursive: true});
             }
 
             let fileName = `${outputfile_path.downloadXLSX}/${shopName}_${y}${m}${d}.xlsx`;
