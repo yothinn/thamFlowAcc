@@ -301,7 +301,8 @@ class Page365ToCyberAcc {
                 };
                 // calculate each item
                 for (let item of order.items) {
-                    product = this._productMap.findProduct(item.name, item.variant.selected);
+                    let optItem = item.variant ? item.variant.selected : "";
+                    product = this._productMap.findProduct(item.name, optItem);
                     
                     let ac;
                     let vatRate;
