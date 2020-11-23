@@ -454,7 +454,7 @@ class Page365ToCyberAcc {
                 }
 
                 pageBillNo = order.no;
-                amount = order.paid_amount;
+                amount = (order.paid_amount) ? order.paid_amount : 0.0;
 
                 id = await this._cyberAccDb.getNewIdGLDebit();
                 if (!id) {
