@@ -189,7 +189,7 @@ class CyberAccToAccRevo {
                     // console.log(res);
 
                     accRevoLog.info(`UPLOAD: count bill: ${this._countRequest}, id ${docBody.transaction_id}`);
-                    accRevoReportLog.info(`SUCCESS: ${docBody.transaction_id}`)''
+                    accRevoReportLog.info(`SUCCESS: ${docBody.transaction_id}`);
 
                     // Delay send request;
                     if (this._countRequest === MAX_REQUEST) {

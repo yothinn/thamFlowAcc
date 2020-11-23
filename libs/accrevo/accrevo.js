@@ -1,5 +1,6 @@
 const request = require("request");
 const accrevoInfo = require("./accrevoUtils");
+const accRevoRunningCodeLog = require("./accrevoRunningcode");
 
 class AccRevo {
     _token = null;
@@ -160,6 +161,7 @@ class AccRevo {
             };
 
             docBody.running_code = docRes.running_code;
+            accRevoRunningCodeLog.info(`transaction_id: ${docBody.transction_id}, running_code: ${running_code}`);
 
             //console.log(docBody);
             
@@ -198,13 +200,13 @@ class AccRevo {
 
             let running_code;
             for (let [i, imgBody] of imgBodyList.entries()) {
-                // Add another field
+                // Add another field to upload image
                 imgBody.code = this._componyInfo.company_code;
                 imgBody.year = this._componyInfo.company_year;
 
-                if (i === 0) {
+                if (i === 0) {          // เอกสารหลัก
                     imgBody.img_type = 1;
-                } else {
+                } else {                // เอกสารแนบ
                     imgBody.img_type = 2;
                     imgBody.running_code = running_code;
                 }
@@ -245,6 +247,7 @@ class AccRevo {
             };
 
             docBody.running_code = running_code;
+            accRevoRunningCodeLog.info(`transaction_id: ${docBody.transction_id}, running_code: ${running_code}`);
 
             //console.log(docBody);
             
