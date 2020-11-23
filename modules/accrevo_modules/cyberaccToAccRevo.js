@@ -1,3 +1,14 @@
+
+/**
+ * Read cyberacc database and upload image and data to accrevo
+ * Company: Thamturakit Socail Enterprise
+ * Author: Yothin Setthachatanan
+ * Creadted: 19/11/2020
+ * Updated: 23/11/2020
+ */
+
+
+
 const fs = require("fs");
 const glob = require("glob");
 const path = require("path");
@@ -6,11 +17,11 @@ const path = require("path");
 // const accountChart = require("../../libs/cyberacc/cyberacc_accountChart.json");
 const cyberAccInfo = require("../../libs/cyberacc/cyberaccUtils");
 const accRevoInfo = require("../../libs/accrevo/accrevoUtils");
-const accRevoLog = require("./accrevoLog");
+const { accRevoLog, accRevoReportLog } = require("./accrevoLog");
 // const PREFIX_IMGFILE = "Test12";
 const IMG_MOCKUP_FILE = "./modules/accrevo_modules/mockup.jpg";
 
-const COUNT_TRANS = 25;
+const MAX_REQUEST = 25;
 const SLEEP_TIMEOUT = 60000;
 
 class CyberAccToAccRevo {
@@ -18,6 +29,7 @@ class CyberAccToAccRevo {
     _accRevo;
     _imgDir = "./";                     // Image Directory
     _accountChart = {};
+    _countRequest;
 
     _cyberAccConfig;
     _accRevoUser;
@@ -25,6 +37,7 @@ class CyberAccToAccRevo {
     constructor(cyberAccDbConnect, accRevoConnect) {
         this._cyberAccDb = cyberAccDbConnect;
         this._accRevo = accRevoConnect;
+        this._countRequest = 0;
     }
 
     // async authorize(cyberAccConfig, accRevoUser) {
@@ -54,6 +67,10 @@ class CyberAccToAccRevo {
     //     }
     // }
 
+    /**
+     * Set image directory for upload image to accrevo
+     * @param {*} imgDir 
+     */
     setImageDir(imgDir) {
         this._imgDir = imgDir;
     }
@@ -62,6 +79,10 @@ class CyberAccToAccRevo {
         return this._imgDir;
     }
 
+    /**
+     * Set account chart of cyberacc for check salestax, inputtax, withholdingtax
+     * @param {*} chart 
+     */
     setAccountChart(chart) {
         this._accountChart = chart;
     }
@@ -70,6 +91,11 @@ class CyberAccToAccRevo {
         return this._accountChart;
     }
 
+    /**
+     * Read cyberacc data from date string and
+     * Upload image from image directory and doc to accrevo 
+     * @param {*} dateStr : Format : YYYY-mm-dd
+     */
     async uploadToAccRevoByDate(dateStr) {
         try {
             let cyberAccGL = await this._cyberAccDb.getGLTableByDate(dateStr);
@@ -78,10 +104,11 @@ class CyberAccToAccRevo {
             let docList = await this.toAccRevoDoc(cyberAccGL);
             accRevoLog.info(`UPLOAD: TOTAL TRANSACTION ${docList.length}`);
 
-            let count = 0;
+            // let count = 0;
             for (let docBody of docList) {
                 try {
-                    count++;
+                    this._countRequest++;
+                    //count++;
                     let d = new Date(docBody.date);
                     let suffix = Date.now();
 
@@ -100,24 +127,26 @@ class CyberAccToAccRevo {
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
 
                     let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
-                    accRevoLog.info(`UPLOAD: count bill: ${count}, id ${docBody.transaction_id}`);
+                    accRevoLog.info(`UPLOAD: count bill: ${this._countRequest}, id ${docBody.transaction_id}`);
+                    accRevoReportLog.info(`SUCESS: ${docBody.transaction_id}`);
                     // console.log(res);
 
                     // Delay send request;
-                    if (count === COUNT_TRANS) {
+                    if (this._countRequest === MAX_REQUEST) {
                         accRevoLog.info(`MAXTRANS: SLEEP ${SLEEP_TIMEOUT} ms`);
                         await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
-                        count = 0;
+                        this._countRequest = 0;
                         accRevoLog.info("MAXTRANS: WAKE UP AFTER SLEEP");
                     }
 
                 } catch(error) {
                     accRevoLog.error(`ERROR: id ${docBody.transaction_id}`);
+                    accRevoReportLog.info(`ERROR: ${docBody.transaction_id}`);
                     accRevoLog.error(error);
 
                     accRevoLog.info(`ERROR: SLEEP ${SLEEP_TIMEOUT} ms`);
                     await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
-                    count = 0;
+                    this._countRequest = 0;
                     accRevoLog.info("ERROR: WAKE UP AFTER SLEEP");
                     continue;
                 }
@@ -139,11 +168,12 @@ class CyberAccToAccRevo {
 
             accRevoLog.info(`UPLOAD: TOTAL TRANSACTION ${docList.length}`);
 
-            let count = 0;
+            // let count = 0;
             for (let docBody of docList) {
                 try {
                     let d = new Date(docBody.date);
                     let suffix = Date.now();
+                    this._countRequest++;
 
                     let imgList = this.findImageFileByMainId(docBody.transaction_id);
                     if (!imgList || imgList.length === 0) {
@@ -158,24 +188,26 @@ class CyberAccToAccRevo {
                     let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
                     // console.log(res);
 
-                    accRevoLog.info(`UPLOAD: count bill: ${count}, id ${docBody.transaction_id}`);
+                    accRevoLog.info(`UPLOAD: count bill: ${this._countRequest}, id ${docBody.transaction_id}`);
+                    accRevoReportLog.info(`SUCCESS: ${docBody.transaction_id}`)''
 
                     // Delay send request;
-                    if (count === COUNT_TRANS) {
+                    if (this._countRequest === MAX_REQUEST) {
                         accRevoLog.info(`MAXTRANS: SLEEP ${SLEEP_TIMEOUT} ms`);
                         await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
-                        count = 0;
+                        this._countRequest = 0;
                         accRevoLog.info("MAXTRANS: WAKE UP AFTER SLEEP");
                     }
                     
                     // console.log(res);
                 } catch(error) {
                     accRevoLog.error(`ERROR: id ${docBody.transaction_id}}`);
+                    accRevoReportLog.info(`ERROR: ${docBody.transaction_id}`);
                     accRevoLog.error(error);
 
                     accRevoLog.info(`ERROR: SLEEP ${SLEEP_TIMEOUT} ms`);
                     await new Promise(resolve => setTimeout(resolve, SLEEP_TIMEOUT));
-                    count = 0;
+                    this._countRequest = 0;
                     accRevoLog.info("ERROR: WAKE UP AFTER SLEEP");
                     continue;
                 }
@@ -185,6 +217,10 @@ class CyberAccToAccRevo {
         }
     }
 
+    /**
+     * Convert cyberacc gl data to accrevo document for send request to accrevo
+     * @param {*} cyberAccGL 
+     */
     async toAccRevoDoc(cyberAccGL) {
         let docList = [];
         let docBody = null;
@@ -253,6 +289,12 @@ class CyberAccToAccRevo {
         }
     }
 
+    /**
+     * Cread image body list for send reqeust to accrevo
+     * @param {*} imgFileList : image list
+     * @param {*} month : journal mount
+     * @param {*} journalTypeId : journal id , use accrevUtils
+     */
     createImageBodyList(imgFileList, month, journalTypeId) {
         let imgBodyList = [];
         let suffix = Date.now();
@@ -298,6 +340,9 @@ class CyberAccToAccRevo {
         }
     }
 
+    /**
+     * Convert cyberacc gl date to date string
+     */
     convertToDateStr(glDate) {
         try {
             let d = new Date(glDate);
@@ -311,6 +356,10 @@ class CyberAccToAccRevo {
         }
     }
 
+    /**
+     * แปลงตัวย่อจาก cyberacc เป็นid ของทสมุดรายวัน
+     * @param {*} glMainId 
+     */
     convertToJournalId(glMainId) {
         // console.log(glMainId);
         let abbrType = cyberAccInfo.ACCOUNTTYPE_ABBR;
@@ -339,6 +388,10 @@ class CyberAccToAccRevo {
         }
     }
 
+    /**
+     * ใช้ชื่อตัวย่อ ของ cyberacc เป็นชื่อลูกค้า
+     * @param {*} glMainId 
+     */
     convertToCustomerName(glMainId) {
         // let abbrType = cyberAccInfo.ACCOUNTTYPE_ABBR;
 
