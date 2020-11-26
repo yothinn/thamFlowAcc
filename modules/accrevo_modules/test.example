@@ -1,0 +1,550 @@
+? What do you want to load data from ? stickyRice    
+? What do you want to load data by ? date
+? start date(yyyy-mm-dd) :  2020-01-03
+? end date(yyyy-mm-dd) : 2020-01-03
+2020-11-26T05:18:17.890Z info: {
+   "loadFrom": "stickyRice",
+   "loadType": "date",
+   "startDate": "2020-01-03",
+   "endDate": "2020-01-03"
+}
+2020-11-26T05:18:17.891Z info: CONNECT: Already connect ...
+2020-11-26T05:18:17.891Z info: Day start : Fri Jan 03 2020 00:00:00 GMT+0700 (Indochina Time), end: Fri Jan 03 2020 00:00:00 GMT+0700 (Indochina Time)
+2020-11-26T05:18:19.172Z info: UPLOAD: TOTAL TRANSACTION 12
+2020-11-26T05:18:19.177Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'PV0001/01-63_1606367899172',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '3',
+  customer_name: 'PV',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 5220,
+  grandtotal: 5220,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    { item: 'นิมาลี ค่าบรรทุก', price: 5000, quantity: 1 },
+    { item: 'นิมาลี ค่าบรรทุก', price: 220, quantity: 1 },
+    { item: 'เงินสดในมือ', price: 5170, quantity: 1 },
+    { item: 'ภาษีหัก ณ ที่จ่าย (รอนำส่ง)', price: 50, quantity: 1 }
+  ],
+  running_code: 53
+}
+2020-11-26T05:18:19.809Z info: UPLOAD: count bill: 1, id PV0001/01-63_1606367899172
+2020-11-26T05:18:19.812Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'PV0002/01-63_1606367899810',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '3',
+  customer_name: 'PV',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 13000,
+  grandtotal: 13000,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    { item: 'เงินสดพี่เก๋', price: 13000, quantity: 1 },
+    { item: 'เงินสดในมือ', price: 13000, quantity: 1 }
+  ],
+  running_code: 54
+}
+2020-11-26T05:18:20.369Z info: UPLOAD: count bill: 2, id PV0002/01-63_1606367899810
+2020-11-26T05:18:20.372Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCA0001/01-63_1606367900370',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCA',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 2250,
+  grandtotal: 2250,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    { item: 'เงินสดในมือ', price: 2250, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 2250, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 }
+  ],
+  running_code: 55
+}
+2020-11-26T05:18:21.009Z info: UPLOAD: count bill: 3, id SCA0001/01-63_1606367900370
+2020-11-26T05:18:21.012Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0001/01-63_1606367901010',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 72000,
+  grandtotal: 72000,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 72000,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 72000, quantity: 1 }
+  ],
+  running_code: 56
+}
+2020-11-26T05:18:21.561Z info: UPLOAD: count bill: 4, id SCE0001/01-63_1606367901010
+2020-11-26T05:18:21.562Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0002/01-63_1606367901561',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 6280,
+  grandtotal: 6280,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 4680,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 1600,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 4680, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 1600, quantity: 1 }
+  ],
+  running_code: 57
+}
+2020-11-26T05:18:22.158Z info: UPLOAD: count bill: 5, id SCE0002/01-63_1606367901561
+2020-11-26T05:18:22.160Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0003/01-63_1606367902159',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 53735,
+  grandtotal: 53735,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 24000,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 4800,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 12800,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 135,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 12000,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 24000, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 4800, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 12800, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 135, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 12000, quantity: 1 }
+  ],
+  running_code: 58
+}
+2020-11-26T05:18:22.777Z info: UPLOAD: count bill: 6, id SCE0003/01-63_1606367902159
+2020-11-26T05:18:22.780Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0004/01-63_1606367902778',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 15030,
+  grandtotal: 15030,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 5400,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 2080,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 800,
+      quantity: 1
+    },
+    {
+      item: 'ธรรมธุรกิจ วิสาหกิจเพื่อสังคม บจก.(ซื้อข้าว)',
+      price: 6750,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 5400, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 2080, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 800, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 6750, quantity: 1 }
+  ],
+  running_code: 59
+}
+2020-11-26T05:18:23.376Z info: UPLOAD: count bill: 7, id SCE0004/01-63_1606367902778
+2020-11-26T05:18:23.378Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0006/01-63_1606367903377',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 19392,
+  grandtotal: 19392,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'เฮียรัตน์(นายไพรัตน์ เอื้อสุวรรณา)',
+      price: 19392,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 19392, quantity: 1 }
+  ],
+  running_code: 60
+}
+2020-11-26T05:18:23.925Z info: UPLOAD: count bill: 8, id SCE0006/01-63_1606367903377
+2020-11-26T05:18:23.927Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0007/01-63_1606367903926',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 530465,
+  grandtotal: 530465,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    { item: 'ข้าวสินไทย', price: 78300, quantity: 1 },
+    { item: 'ข้าวสินไทย', price: 18300, quantity: 1 },
+    { item: 'ข้าวสินไทย', price: 430034, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'รายได้ส่วนลดการค้า', price: 6, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 78300, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 18300, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 430040, quantity: 1 },
+    { item: 'รถบรรทุกประวิทย์ พุกโพธิ์', price: 3825, quantity: 1 },
+    { item: 'ค่าบรรทุก', price: 3825, quantity: 1 }
+  ],
+  running_code: 61
+}
+2020-11-26T05:18:24.475Z info: UPLOAD: count bill: 9, id SCE0007/01-63_1606367903926
+2020-11-26T05:18:24.477Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0008/01-63_1606367904476',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 23456,
+  grandtotal: 23456,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'เฮียรัตน์(นายไพรัตน์ เอื้อสุวรรณา)',
+      price: 23456,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 23456, quantity: 1 }
+  ],
+  running_code: 62
+}
+2020-11-26T05:18:25.068Z info: UPLOAD: count bill: 10, id SCE0008/01-63_1606367904476
+2020-11-26T05:18:25.071Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'SCE0005/01-63_1606367905069',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '1',
+  customer_name: 'SCE',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 21744,
+  grandtotal: 21744,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'เฮียรัตน์(นายไพรัตน์ เอื้อสุวรรณา)',
+      price: 21744,
+      quantity: 1
+    },
+    { item: 'รายได้ส่วนลดการค้า', price: 0, quantity: 1 },
+    { item: 'ส่วนลดจ่าย-กรรมกร', price: 0, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    },
+    { item: 'ค่าส่งเสริมการขาย', price: 0, quantity: 1 },
+    { item: 'รายได้ขายข้าว', price: 21744, quantity: 1 }
+  ],
+  running_code: 63
+}
+2020-11-26T05:18:25.527Z info: UPLOAD: count bill: 11, id SCE0005/01-63_1606367905069
+2020-11-26T05:18:25.529Z info: IMAGE_FILE: [
+   "./modules/accrevo_modules/mockup.jpg"
+]
+{
+  transaction_id: 'APO0017/01-63_1606367905527',
+  reference: '',
+  date: '2020-01-03',
+  duedate: '2020-01-03',
+  type: '4',
+  customer_name: 'APO',
+  customer_address: '-',
+  customer_taxid: '-',
+  customer_branch: 'สำนักงานใหญ่',
+  total: 795,
+  grandtotal: 795,
+  vat: 0,
+  wht: 0,
+  discount: 0,
+  list: [
+    {
+      item: 'ลูกหนี้ค่าน้ำมันรถเบอร์ 23 (ศิริภิญโญ)',
+      price: 795,
+      quantity: 1
+    },
+    { item: 'รายได้ขายสินค้าอื่นๆ', price: 795, quantity: 1 },
+    {
+      item: 'กรมสรรพากร (ภาษีหัก ณ ที่จ่าย ถูกหัก)',
+      price: 0,
+      quantity: 1
+    }
+  ],
+  running_code: 64
+}

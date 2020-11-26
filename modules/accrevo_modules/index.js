@@ -8,7 +8,7 @@
 const inquirer = require("inquirer");
 const connectService = require("../connect-service");
 const CyberAccToAccRevo = require("./cyberaccToAccRevo");
-const accRevoLog = require("./accrevoLog");
+const { accRevoLog } = require("./accrevoLog");
 const { accRevoUser, cyberAccServer } = require("../thaminfo_credential.json");
 const { accRevoImage_path } = require("../thaminfo_config.json");
 

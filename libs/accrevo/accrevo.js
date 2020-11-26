@@ -176,13 +176,13 @@ class AccRevo {
                         if (err) reject(err);
 
                         // console.log(body);
-                        resolve(body); 
-                        // let b = JSON.parse(body);
-                        // if (b.error) {
-                        //     reject(b.error);
-                        // } else {
-                        //     resolve(b);
-                        // }
+                        // resolve(body); 
+                        let b = JSON.parse(body);
+                        if (b.error) {
+                            reject(b.error.message);
+                        } else {
+                            resolve(b);
+                        }
                     });
             });
         } catch(error) {
@@ -262,13 +262,13 @@ class AccRevo {
                         if (err) reject(err);
 
                         // console.log(body);
-                        resolve(body); 
-                        // let b = JSON.parse(body);
-                        // if (b.error) {
-                        //     reject(b.error);
-                        // } else {
-                        //     resolve(b);
-                        // }
+                        // resolve(body); 
+                        let b = JSON.parse(body);
+                        if (b.error) {
+                            reject(b.error.message);
+                        } else {
+                            resolve(b);
+                        }
                     });
             });
         } catch(error) {

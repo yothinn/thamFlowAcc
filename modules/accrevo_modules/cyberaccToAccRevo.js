@@ -127,9 +127,15 @@ class CyberAccToAccRevo {
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
 
                     let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
+                    
+                    console.log(docBody);
+
+                    // console.log(res);
+
                     accRevoLog.info(`UPLOAD: count bill: ${this._countRequest}, id ${docBody.transaction_id}`);
                     accRevoReportLog.info(`SUCESS: ${docBody.transaction_id}`);
-                    // console.log(res);
+                    
+                    
 
                     // Delay send request;
                     if (this._countRequest === MAX_REQUEST) {
@@ -186,7 +192,9 @@ class CyberAccToAccRevo {
 
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
                     let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
-                    // console.log(res);
+
+                    console.log(docBody);
+                    console.log(res);
 
                     accRevoLog.info(`UPLOAD: count bill: ${this._countRequest}, id ${docBody.transaction_id}`);
                     accRevoReportLog.info(`SUCCESS: ${docBody.transaction_id}`);
@@ -261,7 +269,7 @@ class CyberAccToAccRevo {
                 let price = itemGL.debit ? itemGL.debit : itemGL.credit;
 
                 // When withholdingtax , don't push to docBody
-                if (this._accountChart.withHoldingTax.code !== itemGL.accountcode) {
+                if ((this._accountChart.withHoldingTax.code !== itemGL.accountcode) && (price > 0)) {
                     docBody.list.push({
                         item: itemGL.AccountName,
                         price: price,
