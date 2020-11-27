@@ -121,14 +121,14 @@ class CyberAccToAccRevo {
                     }
 
                     accRevoLog.info(`IMAGE_FILE: ${JSON.stringify(imgList, null, 3)}`);
-                    let imgBodyList = this.createImageBodyList(imgList, d.getMonth()+1, docBody.type);
+                    let imgBodyList = this.createImageBodyList(imgList, d, docBody.type);
 
                     // console.log(docBody);
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
 
                     let res = await this._accRevo.uploadDocNImage(imgBodyList, docBody);
                     
-                    console.log(docBody);
+                    // console.log(docBody);
 
                     // console.log(res);
 
@@ -187,7 +187,7 @@ class CyberAccToAccRevo {
                     }
 
                     accRevoLog.info(`IMAGE_FILE: ${JSON.stringify(imgList, null, 3)}`);
-                    let imgBodyList = this.createImageBodyList(imgList, d.getMonth()+1, docBody.type);
+                    let imgBodyList = this.createImageBodyList(imgList, d, docBody.type);
 
 
                     docBody.transaction_id = `${docBody.transaction_id}_${suffix}`;
@@ -300,10 +300,10 @@ class CyberAccToAccRevo {
     /**
      * Cread image body list for send reqeust to accrevo
      * @param {*} imgFileList : image list
-     * @param {*} month : journal mount
+     * @param {Date} billDate : bill date
      * @param {*} journalTypeId : journal id , use accrevUtils
      */
-    createImageBodyList(imgFileList, month, journalTypeId) {
+    createImageBodyList(imgFileList, billDate, journalTypeId) {
         let imgBodyList = [];
         let suffix = Date.now();
         try {
@@ -315,10 +315,11 @@ class CyberAccToAccRevo {
                     file: {
                         value: fs.createReadStream(filePath),
                         options: {          // Change file name when send to server
-                            filename: `${suffix}_${imgFileName}.jpg`
+                            filename: `${suffix}_${imgFileName}`
                         }
                     },
-                    month: month,
+                    year: billDate.getFullYear()+543,
+                    month: billDate.getMonth()+1,
                     type: journalTypeId
                 });
             }

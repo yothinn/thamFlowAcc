@@ -163,7 +163,7 @@ class AccRevo {
             docBody.running_code = docRes.running_code;
             accRevoRunningCodeLog.info(`transaction_id: ${docBody.transction_id}, running_code: ${running_code}`);
 
-            //console.log(docBody);
+            // console.log(docBody);
             
             return new Promise((resolve, reject) => {
                 request.post(
@@ -202,7 +202,7 @@ class AccRevo {
             for (let [i, imgBody] of imgBodyList.entries()) {
                 // Add another field to upload image
                 imgBody.code = this._componyInfo.company_code;
-                imgBody.year = this._componyInfo.company_year;
+                // imgBody.year = this._componyInfo.company_year;
 
                 if (i === 0) {          // เอกสารหลัก
                     imgBody.img_type = 1;
@@ -225,6 +225,8 @@ class AccRevo {
                             try {
                                 let b = JSON.parse(body);
                                 if (b.error) {
+                                    console.log(b);
+                                    console.log("image body error");
                                     reject(b.error);
                                 } else {
                                     resolve(b);
@@ -249,7 +251,7 @@ class AccRevo {
             docBody.running_code = running_code;
             accRevoRunningCodeLog.info(`transaction_id: ${docBody.transction_id}, running_code: ${running_code}`);
 
-            //console.log(docBody);
+            // console.log(docBody);
             
             return new Promise((resolve, reject) => {
                 request.post(
@@ -265,6 +267,7 @@ class AccRevo {
                         // resolve(body); 
                         let b = JSON.parse(body);
                         if (b.error) {
+                            // console.log("save doc errro");
                             reject(b.error.message);
                         } else {
                             resolve(b);
