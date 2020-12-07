@@ -6,7 +6,7 @@ const thamInfo = require("../thaminfo_config.json");
 const Page365ToCyberAcc = require("./page365ToCyberAcc");
 const OchaToCyberAcc = require("./ochaToCyberAcc");
 const LoyverseToCyberAcc = require("./loyverseToCyberAcc");
-const FoodStorySalesByDay = require("./foodStorySalesByDayToCyberAcc")
+const FoodStorySalesByDayToCyberAcc = require("./foodStorySalesByDayToCyberAcc")
 const thamInfoUtils = require("../thaminfoUtils");
 const cyberaccLog = require("./cyberaccLog");
 const connectService = require("../connect-service");
@@ -275,9 +275,9 @@ loadFromFoodStory = async (answers) => {
         let from = answers.loadFrom.split(":");
         let shopName = from[1].trim();
 
-        f2c = new FoodStorySalesByDay(shopName, cyberAccDbConnect);
+        f2c = new FoodStorySalesByDayToCyberAcc(shopName, cyberAccDbConnect);
 
-        cyberaccLog.info(answers);
+        cyberaccLog.info(JSON.stringify(answers, null, 3));
         // await f2c.init();
 
         cyberaccLog.info("LOADFOODSTORY: Reading from file and send to cyberacc ...");

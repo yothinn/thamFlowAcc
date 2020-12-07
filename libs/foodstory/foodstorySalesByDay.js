@@ -1,3 +1,6 @@
+/**
+ * อ่านไฟล์ FoodStory ยอดขายรวมตามวัน
+ */
 const XLSX = require("XLSX");
 
 const FOODSTORY_INDEXNAME = {
@@ -6,7 +9,7 @@ const FOODSTORY_INDEXNAME = {
     discountInItem: "ส่วนลด",
     discountEndBill: "ลดท้ายบิล",
     rounding: "ยอดปัดเศษ",
-    total: "รวมสุทธิ (ยอดก่อนภาษี + ภาษี +  ยอดปัดเศษ) -  ยอดขายสินค้าไม่มีภาษี",
+    total: "รวมสุทธิ (ยอดก่อนภาษี + ภาษี + ยอดปัดเศษ) - ยอดขายสินค้าไม่มีภาษี",
     refund: "คืนเงิน",
     branchName: "สาขา"
 }

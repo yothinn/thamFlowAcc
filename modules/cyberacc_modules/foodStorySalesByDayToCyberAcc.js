@@ -164,6 +164,7 @@ class FoodStorySalesByDayToCyberAcc {
 
             for (let i=0; i<=totalRow; i++) {
                 let dateStr = fs.getDate(i);
+                
                 if (!dateStr) {
                     continue;
                 }
@@ -173,6 +174,7 @@ class FoodStorySalesByDayToCyberAcc {
                 let m = billDate.getMonth()+1;
                 let y = billDate.getFullYear()+543;
 
+                
                 let glMainId = await this.createCyberAccGLMain(billDate);
                 
                 // let totalBeforeDiscount = fs.getTotalBeforeDiscount(i);
