@@ -6,7 +6,8 @@ const thamInfo = require("../thaminfo_config.json");
 const Page365ToCyberAcc = require("./page365ToCyberAcc");
 const OchaToCyberAcc = require("./ochaToCyberAcc");
 const LoyverseToCyberAcc = require("./loyverseToCyberAcc");
-const FoodStorySalesByDayToCyberAcc = require("./foodStorySalesByDayToCyberAcc")
+const FoodStorySalesByDayToCyberAcc = require("./foodStorySalesByDayToCyberAcc");
+const PettyCashToCyberAcc = require("./pettyCashToCyberAcc");
 const thamInfoUtils = require("../thaminfoUtils");
 const cyberaccLog = require("./cyberaccLog");
 const connectService = require("../connect-service");
@@ -19,6 +20,7 @@ const PAGE365_NAME = thamInfo.loadFrom.page365Name;
 const OCHA_NAME = thamInfo.loadFrom.ochaName;
 const LOYVERSE_NAME = thamInfo.loadFrom.loyverseName;
 const FOODSTORY_NAME = thamInfo.loadFrom.foodStoryName;
+const PETTYCASH_NAME = thamInfo.loadFrom.pettyCash;
 const EXIT_STR = "exit";
 
 const FOODSTORYSALESBYDAY_DEFAULTSHEET = "Sheet1";
@@ -34,6 +36,7 @@ const LOADFROM = {
     loyverseThamDelivery1: `${LOYVERSE_NAME}: รถร่วมธรรมธุรกิจ1`,
     foodstoryChomphon: `${FOODSTORY_NAME}: ${thamInfo.foodStoryBranchName.chomphon}`,
     foodstoryThaphae: `${FOODSTORY_NAME}: ${thamInfo.foodStoryBranchName.thaphae}`,
+    pettyCash: `${PETTYCASH_NAME}`,
     exit: `${EXIT_STR}`
 };
 
@@ -52,7 +55,8 @@ const questions = [
         message: "start date(yyyy-mm-dd) : ",
         when: function(answers) {
             let from = answers.loadFrom.split(":");
-            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) && (from[0] !== EXIT_STR);
+            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) &&
+                    (from[0] !== PETTYCASH_NAME) && (from[0] !== EXIT_STR);
         }
     },
     {
@@ -61,7 +65,8 @@ const questions = [
         message: "end date(yyyy-mm-dd) :",
         when: function(answers) {
             let from = answers.loadFrom.split(":");
-            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) && (from[0] !== EXIT_STR);
+            return (from[0] !== LOYVERSE_NAME) && (from[0] !== FOODSTORY_NAME) && 
+                    (from[0] !== PETTYCASH_NAME) && (from[0] !== EXIT_STR);
         }
     },
     {
@@ -90,6 +95,10 @@ const questions = [
                     fileType = salesByDayStr;
                     path = thamInfo.inputfile_path.foodstoryThaphae;
                     break;
+                case LOADFROM.pettyCash:
+                    fileType = "";
+                    path = thamInfo.inputfile_path.pettyCash;
+                    break;
                 default:
             }
 
@@ -110,6 +119,9 @@ const questions = [
                 case LOADFROM.foodstoryThaphae:
                     path = `${thamInfo.inputfile_path.foodstoryThaphae}/*.xlsx`;
                     break;
+                case LOADFROM.pettyCash:
+                    path = `${thamInfo.inputfile_path.pettyCash}/*.xlsx`;
+                    break;
                 default:
             }
 
@@ -117,7 +129,8 @@ const questions = [
         },
         when: function(answers) {
             let from = answers.loadFrom.split(":");
-            return (from[0] === LOYVERSE_NAME) || (from[0] === FOODSTORY_NAME);
+            return (from[0] === LOYVERSE_NAME) || (from[0] === FOODSTORY_NAME) ||
+                    (from[0] === PETTYCASH_NAME);
         }
     },
 ];
@@ -172,7 +185,9 @@ module.exports = async() => {
                 await loadFromLoyverse(answers);
             } else if (from[0] === FOODSTORY_NAME) {
                 await loadFromFoodStory(answers);
-            } 
+            } else if (from[0] === PETTYCASH_NAME) {
+                await loadFromPettyCash(answers);
+            }
             console.log("************     END       ************");
         }
         
@@ -287,4 +302,23 @@ loadFromFoodStory = async (answers) => {
         throw error;
     }
 };
+
+loadFromPettyCash = async(answers) => {
+    let p2c;
+    try {
+
+        console.log(answers);
+
+        p2c = new PettyCashToCyberAcc(cyberAccDbConnect);
+
+        cyberaccLog.info(JSON.stringify(answers, null, 3));
+
+
+        cyberaccLog.info("Pettycash: Reading from file and send to cyberacc ...");
+        await p2c.downloadToCyberAccByFile(answers.fileLoad, thamInfo.pettCash.sheetName);
+
+    } catch(error) {
+        throw error;
+    }
+}
 

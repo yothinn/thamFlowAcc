@@ -32,7 +32,8 @@
         "loyverseThamDelivery1": "./inputFile/loyverse/thamdelivery1",
         "foodstoryChomphon": "./inputFile/foodstory/chomphon",
         "foodstoryThaphae": "./inputFile/foodstory/thaphae",
-        "purchasesSeafood": "./inputFile/purchases/seafood"
+        "purchasesSeafood": "./inputFile/purchases/seafood",
+        "pettyCash": "./inputFile/pettyCash"
     },
     "outputfile_path": {
         "downloadXLSX" : "./output/xlsx"
@@ -49,6 +50,10 @@
         "foodStoryName": "FoodStory",
         "ochaName": "Ocha",
         "page365Name": "Page365",
-        "loyverseName": "Loyverse"
+        "loyverseName": "Loyverse",
+        "pettyCash": "เงินสดย่อย"
+    },
+    "pettCash": {
+        "sheetName": "rawData"
     }
 }
