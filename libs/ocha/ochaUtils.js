@@ -26,12 +26,10 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
             // 
             let discount = 0.0;
             if (order.discounts) {
-                // discount = order.discounts.reduce((total, value) => {
-                //     return total + parseFloat(value.discounted_value);
-                // }, 0.0);
                 for (value of order.discounts) {
                     // Discount type : 1 is value
                     // discount type : 2 is %  refer to value field (discount 40%, value filed is 40)
+                    let tmpDiscount = parseFloat(value.discounted_value);
                     discountList.push({
                         date: dateStr,
                         no: order.payments[0].receipt_number_v2,
@@ -40,11 +38,18 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
                         discount_type: value.discount_type,
                         discount_name: value.name,
                         discount_quantity: value.quantity,
-                        discount: value.discounted_value,
+                        discount: tmpDiscount
                     });
-                    discount += value.discounted_value;
+                    discount += tmpDiscount;
                 }
             }
+
+            //if (order.discounts) {
+                // discount = order.discounts.reduce((total, value) => {
+                //     return total + parseFloat(value.discounted_value);
+                // }, 0.0);
+                
+            //}
 
             let total = parseFloat(order.order.money_payable);
             let rounding = parseFloat(order.order.money_rounding);
