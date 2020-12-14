@@ -9,6 +9,7 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
 
         let bills = [];
         let itemList = [];
+        let discountList = [];
         let order;
 
         let orderLen = orderList.length;
@@ -22,12 +23,27 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
             let d = new Date(order.order.order_time * 1000);
             let dateStr = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 
-
+            // 
             let discount = 0.0;
             if (order.discounts) {
-                discount = order.discounts.reduce((total, value) => {
-                    return total + parseFloat(value.discounted_value);
-                }, 0.0);
+                // discount = order.discounts.reduce((total, value) => {
+                //     return total + parseFloat(value.discounted_value);
+                // }, 0.0);
+                for (value of order.discounts) {
+                    // Discount type : 1 is value
+                    // discount type : 2 is %  refer to value field (discount 40%, value filed is 40)
+                    discountList.push({
+                        date: dateStr,
+                        no: order.payments[0].receipt_number_v2,
+                        status: order.order.status,
+                        discount_status: value.status,
+                        discount_type: value.discount_type,
+                        discount_name: value.name,
+                        discount_quantity: value.quantity,
+                        discount: value.discounted_value,
+                    });
+                    discount += value.discounted_value;
+                }
             }
 
             let total = parseFloat(order.order.money_payable);
@@ -89,9 +105,11 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
         // Seperate bill list and item list
         let ws_bills = XLSX.utils.json_to_sheet(bills);
         let ws_itemList = XLSX.utils.json_to_sheet(itemList);
+        let ws_discountList = XLSX.utils.json_to_sheet(discountList);
 
         XLSX.utils.book_append_sheet(wb, ws_bills, "bills");
         XLSX.utils.book_append_sheet(wb, ws_itemList, "items");
+        XLSX.utils.book_append_sheet(wb, ws_discountList, "discount");
 
         await XLSX.writeFile(wb, toFileName);
     } catch(error) {
