@@ -133,6 +133,24 @@ const questions = [
                     (from[0] === PETTYCASH_NAME);
         }
     },
+    {
+        type: "input",
+        name: "startRow",
+        message: "start excel row index (0:all): ",
+        when: function(answers) {
+            let from = answers.loadFrom.split(":");
+            return (from[0] === PETTYCASH_NAME);
+        },
+    },
+    {
+        type: "input",
+        name: "endRow",
+        message: "end excel row index (0:all): ",
+        when: function(answers) {
+            let from = answers.loadFrom.split(":");
+            return (from[0] === PETTYCASH_NAME);
+        },
+    },
 ];
 
 
@@ -313,9 +331,16 @@ loadFromPettyCash = async(answers) => {
 
         cyberaccLog.info(JSON.stringify(answers, null, 3));
 
+        let startRow;
+        let endRow;
+
+        if ((answers.startRow === "") || (answers.endRow === "")) {
+            throw 'Row not specified'; 
+        }
 
         cyberaccLog.info("Pettycash: Reading from file and send to cyberacc ...");
-        await p2c.downloadToCyberAccByFile(answers.fileLoad, thamInfo.pettCash.sheetName);
+        await p2c.downloadToCyberAccByFile(answers.fileLoad, thamInfo.pettCash.sheetName, 
+                                            answers.startRow, answers.endRow);
 
     } catch(error) {
         throw error;

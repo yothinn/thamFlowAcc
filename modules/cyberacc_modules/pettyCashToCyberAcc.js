@@ -190,14 +190,21 @@ class PettyCashToCyberAcc {
      * @param {*} fileName 
      * @param {*} sheetName 
      */
-    async downloadToCyberAccByFile(fileName, sheetName) {
+    async downloadToCyberAccByFile(fileName, sheetName, startRow=0, endRow=0) {
         try {
 
             this._workbook = await XLSX.readFile(fileName);
             this._worksheet = this._workbook.Sheets[sheetName];
             this._trans = XLSX.utils.sheet_to_json(this._worksheet);
 
-            let glList = await this.calGLList(this._trans);
+            let glList;
+            if ((startRow > 0) && (endRow > 0)) {
+                // Read start to end row transaction
+                glList = await this.calGLList(this._trans.slice(startRow-2, endRow-1));
+            } else {
+                // Read all transaction
+                glList = await this.calGLList(this._trans);
+            }
 
             // console.log(JSON.stringify(glList, null, 3));
 
