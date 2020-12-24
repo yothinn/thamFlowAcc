@@ -37,6 +37,7 @@ const inquirer = require("inquirer");
 const download2XLSX = require("./modules/xlsx_modules/index");
 const download2Flow = require("./modules/flowacc_modules/index");
 const download2CyberAcc = require("./modules/cyberacc_modules/index");
+const download2Image = require("./modules/image_modules/index");
 const testCyberAcc = require("./modules/cyberacc_modules/testconnection");
 const uploadToAccRevo = require("./modules/accrevo_modules/index");
 
@@ -44,9 +45,10 @@ const LOADPROGRAMS = {
     downloadDataToXLSX: "1. Download data to xlsx",
     downloadDataToFlowAcc: "2. Download data to flow account",
     downloadDataToCyberAcc: "3. Download data to cyberAcc",
-    uploadCyberAccToAccRevo: "4. Upload cyberAcc to AccRevo",
-    checkProduct: "5. check product mapping",
-    testCyberAccConnect: "6. Test Cyberacc connect"
+    downloadDataToImage: "4. Download data to image",
+    uploadCyberAccToAccRevo: "5. Upload cyberAcc to AccRevo",
+    checkProduct: "6. check product mapping",
+    testCyberAccConnect: "7. Test Cyberacc connect"
 };
 
 const questions = [
@@ -78,6 +80,9 @@ const questions = [
                 break;
             case LOADPROGRAMS.downloadDataToCyberAcc:
                 await download2CyberAcc();
+                break;
+            case LOADPROGRAMS.downloadDataToImage:
+                await download2Image();
                 break;
             case LOADPROGRAMS.uploadCyberAccToAccRevo:
                 await uploadToAccRevo()

@@ -36,7 +36,8 @@
         "pettyCash": "./inputFile/pettyCash"
     },
     "outputfile_path": {
-        "downloadXLSX" : "./output/xlsx"
+        "downloadXLSX" : "./output/xlsx",
+        "downloadImage": "./output/img"
     },
     "accRevoImage_path": "./accrevo_image",
     "ggSheet": {

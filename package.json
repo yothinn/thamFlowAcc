@@ -27,6 +27,7 @@
     "inquirer": "^7.3.3",
     "mssql": "^6.2.3",
     "node-fetch": "^2.6.1",
+    "node-html-to-image": "^3.1.0",
     "puppeteer": "^5.2.1",
     "request": "^2.88.2",
     "winston": "^3.3.3",

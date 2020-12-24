@@ -49,11 +49,16 @@ class Page365 {
         await btnLogin[0].click();
 
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
-
-        await page.click("#platformDialogForm > div._5lnf.uiOverlayFooter._5a8u > table > tbody > tr > td._51m-.prs.uiOverlayFooterMessage > table > tbody > tr > td._51m-.uiOverlayFooterButtons._51mw > button._42ft._4jy0.layerConfirm._51_n.autofocus._4jy5._4jy1.selected._51sy");
-        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+        await page.waitFor(4000);
 
         // await page.screenshot({ path: 'example.png'});
+
+        //await page.click("#platformDialogForm > div._5lnf.uiOverlayFooter._5a8u > table > tbody > tr > td._51m-.prs.uiOverlayFooterMessage > table > tbody > tr > td._51m-.uiOverlayFooterButtons._51mw > button._42ft._4jy0.layerConfirm._51_n.autofocus._4jy5._4jy1.selected._51sy");
+        // Select thamturakit shop
+        await page.click("div.box > ul.account > li.page-list");
+        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+        //await page.screenshot({ path: 'example.png'});
     
         await page.waitFor(4000);
     
