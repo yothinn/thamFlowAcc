@@ -1,3 +1,7 @@
+/**
+ * manage connection for page365, ocha, cyberacc, accrevo
+ */
+
 const CyberAccDatabase = require("../libs/cyberacc/cyberaccDatabase");
 const Ocha = require("../libs/ocha/ocha");
 const Page365 = require("../libs/page365/page365");

@@ -1,3 +1,8 @@
+/**
+ * Main module of create bill image
+ * Author : Yothin Setthachatanan
+ */
+
 const inquirer = require("inquirer");
 const thamInfo = require("../thaminfo_config.json");
 const thamCred = require("../thaminfo_credential.json");
@@ -90,8 +95,8 @@ module.exports = async() => {
 
             // Connect to page365
             if (!page365Connect || !page365Connect.hasSession()) {
-                page365Connect = await connectService.page365Connect(thamCred.page365User);
                 console.log("CONNECT: Connecting to page365 ...");
+                page365Connect = await connectService.page365Connect(thamCred.page365User);
             } else {
                 console.log("CONNECT: Already connect to page365 ...");
             }
@@ -125,8 +130,11 @@ loadPage365ToImageByDate = async(answer) => {
         let endDate = new Date(answer.endDate);
         endDate.setHours(23, 59, 59, 0);
 
+        // Download order by date
+        console.log("Downloading data from page365 ...");
         let orderList = await page365Connect.getOrderDetailByDate(startDate.getTime()/1000, endDate.getTime()/1000);
 
+        // create image
         for (let orderDetail of orderList) {
             try {
                 let fileName = `${thamInfo.outputfile_path.downloadImage}/${orderDetail.no}.jpg`;
@@ -164,6 +172,7 @@ loadPage365ToImageByBill = async(answers) => {
 
         for (let billno=startBill; billno<=endBill; billno++) {
             try {
+                // Download order
                 let orderDetail = await page365Connect.getOrderDetailByBillNo(billno);
                 let fileName = `${thamInfo.outputfile_path.downloadImage}/${billno}.jpg`;
 
@@ -171,6 +180,7 @@ loadPage365ToImageByBill = async(answers) => {
                     fs.mkdirSync(thamInfo.outputfile_path.downloadImage, { recursive: true});
                 }
 
+                // create image
                 await pageUtils.createOrderImage(fileName, orderDetail);
                 console.log(`create image: ${fileName}`);
 

@@ -1,3 +1,8 @@
+/**
+ * Page365 Utility function
+ * Author: Yothin Setthachatanan
+ */
+
 const utils = require("../utils");
 const nodeHtmlToImage = require('node-html-to-image');
 
@@ -77,6 +82,11 @@ exports.getCustomerName = (orderDetail) => {
             , lastName ? utils.cleanString(lastName) : ""]; 
 };
 
+/**
+ * create bill image from page365 data
+ * @param {*} fileName : image file name
+ * @param {*} orderDetail : page365 data in detail
+ */
 exports.createOrderImage = async(fileName, orderDetail) => {
     try {
         let htmlTemp = this.createBillHtmlFromPage365(orderDetail);
@@ -91,7 +101,12 @@ exports.createOrderImage = async(fileName, orderDetail) => {
     }
 }
 
-
+/**
+ * Create html template format from order detail of page365
+ * for use in nodeHtmlToImage function
+ * @param {*} orderDetail 
+ * @return html template
+ */
 exports.createBillHtmlFromPage365 = (orderDetail) => {
 
     let tableStr = "";

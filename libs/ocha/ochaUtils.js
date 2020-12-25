@@ -105,6 +105,7 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
             }
         }
 
+        // XLSX part
         let wb = XLSX.utils.book_new();
 
         // Seperate bill list and item list
