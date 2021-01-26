@@ -79,7 +79,7 @@ exports.writeOchaToXlsx = async (productMapFile, orderList, toFileName) => {
                     productName = product.flowProductName;
                     vatRate =  product.vatRate;
                 } else {
-                    productName = item.item_name;
+                    productName = item.item_name + " " + item.item_price.price_name;
                     vatRate = 7;
                 }
 

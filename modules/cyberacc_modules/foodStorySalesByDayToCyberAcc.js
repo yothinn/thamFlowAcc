@@ -182,7 +182,8 @@ class FoodStorySalesByDayToCyberAcc {
                 // let discountEndBill = fs.getDiscountEndBill(i);
                 // let rounding = fs.getRounding(i);
                 // let branchName = fs.getBranchName(i);
-                let total = fs.getTotal(i) - fs.getRefund(i);
+                // let total = fs.getTotal(i) - fs.getRefund(i);
+                let total= fs.getTotal(i);
                 
                 let debitAccountCode, creditAccountCode;
                 let desp;

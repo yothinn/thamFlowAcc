@@ -4,6 +4,7 @@ const XLSX = require('xlsx');
 const FlowAccount = require("../../../libs/flowacc/flowacc");
 const thamInfo = require("../../thaminfo");
 const { productMap } = require("../../thaminfo_config.json");
+const thamCred = require("../../thaminfo_credential.json");
 
 // const PRODUCT_FILE = "product.xlsx";
 // const PRODUCT_SHEETNAME  = "allFlowProduct";
@@ -59,11 +60,12 @@ module.exports = async () => {
         // Authorize flow account
         const flowAcc = new FlowAccount();
 
+        
         await flowAcc.authorize(
-            process.env.FA_CLIENT_ID,
-            process.env.FA_CLIENT_SECRET,
-            process.env.FA_GRANT_TYPE,
-            process.env.FA_SCOPE
+            thamCred.flowAccCredentail.client_id,
+            thamCred.flowAccCredentail.client_secret,
+            thamCred.flowAccCredentail.grant_type,
+            thamCred.flowAccCredentail.scope
         );    
 
         // console.log(list);
